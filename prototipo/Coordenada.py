@@ -25,3 +25,10 @@ class Coordenada:
 
     def calculaDistancia(self, coord) -> float:
         return ((self.__x - coord.x)**2 + (self.__y - coord.y)**2)**0.5
+
+    @classmethod
+    def versorEntreCoordenadas(coordA, coordB):
+        x = coordB.x - coordA.x
+        y = coordB.y - coordA.y
+        modulo = (x**2 + y**2)**0.5
+        return Coordenada(x/modulo, y/modulo)
