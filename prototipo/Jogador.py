@@ -40,4 +40,4 @@ class Jogador(Movel):
         if(direita): horizontal += 1
         if(esquerda): horizontal -= 1
 
-        self.__direcao_deslocamento(horizontal, vertical)
+        self.__direcao_deslocamento = Coordenada.versorEntreCoordenadas(Coordenada(0,0), Coordenada(horizontal, vertical))
