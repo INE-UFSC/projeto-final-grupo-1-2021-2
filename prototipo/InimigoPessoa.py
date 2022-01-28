@@ -1,6 +1,6 @@
 from Movel import Movel
-from Coordenada import *
-from Tamanho import *
+from Coordenada import Coordenada
+from Tamanho import Tamanho
 
 class InimigoPessoa(Movel):
     def __init__(self, spawn:Coordenada, tamanho:Tamanho, velocidade:float, raio_deslocamento:float, raio_deteccao:float):

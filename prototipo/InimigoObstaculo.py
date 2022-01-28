@@ -1,6 +1,6 @@
 from Movel import Movel
-from Coordenada import *
-from Tamanho import *
+from Coordenada import Coordenada
+from Tamanho import Tamanho
 from copy import deepcopy
 
 class InimigoObstaculo(Movel):
