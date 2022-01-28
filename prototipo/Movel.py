@@ -3,10 +3,10 @@ from Tamanho import Tamanho
 from abc import ABC, abstractmethod
 
 class Movel(ABC):
-    def __init__(self, tamanho: Tamanho, velocidade: float):
+    def __init__(self, coord:Coordenada, tamanho:Tamanho, velocidade:float):
+        self.__coord = coord
         self.__tamanho = tamanho
         self.__velocidade = velocidade
-        self.__coord = Coordenada(0,0)
         self.__direcao_deslocamento = Coordenada(0,0)
     
     @abstractmethod
