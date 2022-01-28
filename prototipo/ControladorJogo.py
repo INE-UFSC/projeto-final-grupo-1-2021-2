@@ -1,11 +1,32 @@
 import pygame
 from pygame.locals import *
+import Fase
 
 class ControladorJogo:
-    def __init__(self):
+    def __init__(self, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
         self.__rodando = True
         self.__display = None
         self.tamanho_display = self.largura, self.altura = 640, 400
+        self.__fase = fase
+        self.__tempo_restante = tempo_restante
+        self.__nivel_atual = nivel_atual
+        self.__dificuldade = dificuldade
+
+    #GETTERS
+    @property
+    def fase(self):
+        return self.__fase
+    @property
+    def tempo_restante(self):
+        return self.__tempo_restante
+    @property
+    def nivel_atual(self):
+        return self.__nivel_atual
+    @property
+    def dificuldade(self):
+        return self.__dificuldade
+
+    #LOOP
 
     def inicializar(self):
         pygame.init()
@@ -25,7 +46,7 @@ class ControladorJogo:
     def limpar(self):
         pygame.quit()
 
-    def executar(self):
+    def executar(self): #def que substitui a execucaoFase
         if self.inicializar() == False:
             self.__rodando = False
 
@@ -35,3 +56,10 @@ class ControladorJogo:
             self.loop()
             self.renderizar()
         self.limpar()
+    
+    #CONTROLADOR
+    def novaFase(nivel_atual, dificuldade) -> Fase:
+        pass
+    #VITORIA E DERROTA  
+
+
