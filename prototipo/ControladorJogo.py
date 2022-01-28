@@ -13,6 +13,7 @@ class ControladorJogo:
         self.__dificuldade = dificuldade
 
     #GETTERS
+    
     @property
     def fase(self):
         return self.__fase
