@@ -1,0 +1,25 @@
+from Movel import Movel
+from Coordenada import *
+from Tamanho import *
+from copy import deepcopy
+
+class InimigoObstaculo(Movel):
+    def __init__(self, caminho:list, tamanho:Tamanho, velocidade:float):
+        if(len(caminho) < 2):
+            raise ValueError(f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
+        super().__init__(caminho[0], tamanho, velocidade)
+        self.__caminho = deepcopy(caminho)
+        self.__proximo_ponto_caminho = caminho[1] #adicionar isso no diagrama UML
+
+    def decideDirecao(self): #mudar no UML
+        if(self.__coord.calculaDistancia(self.__caminho[self.__proximo_ponto_caminho]) <= 0.05):
+            self.__proximo_ponto_caminho = (self.__proximo_ponto_caminho + 1) % len(self.__caminho)
+        else:
+            direcao = Coordenada.versorEntreCoordenadas(self.__coord, self.__caminho[self.__proximo_ponto_caminho])
+            intensidade_velocidade = (self.__coord.calculaDistancia(self.__caminho[self.__proximo_ponto_caminho]) / self.velocidade)
+            if(intensidade_velocidade >= 1):
+                intensidade_velocidade = 1
+            self.__direcao_deslocamento = Coordenada(direcao.x*intensidade_velocidade, direcao.y*intensidade_velocidade)
+
+    def colidiu(coord: Coordenada): #a principio nao faz nada, talvez implementar algo depois
+        pass
