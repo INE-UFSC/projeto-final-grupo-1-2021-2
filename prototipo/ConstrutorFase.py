@@ -1,7 +1,7 @@
-import Biblioteca
-import Item
-import Mapa
-import Fase
+from Biblioteca import Biblioteca
+from Item import Item
+from Mapa import Mapa
+from Fase import Fase
 
 
 class ConstrutorFase:

@@ -1,12 +1,12 @@
 import pygame
 from pygame.locals import *
-import Fase
+from Fase import Fase
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
         self.__rodando = True
         self.__display = None
-        self.tamanho_display = self.largura, self.altura = 640, 400
+        self.tamanho_display = self.largura, self.altura = 640, 640
         self.r = 0
         '''
         self.__fase = fase

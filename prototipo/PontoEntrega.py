@@ -1,12 +1,10 @@
-import re
 from Coordenada import Coordenada
-from Tamanho import Tamanho
 
 
 class PontoEntrega:
-    def __init__(self, coord: Coordenada, area_interacao: Tamanho):
+    def __init__(self, coord: Coordenada, raio_interacao: float):
         self.__coordenada = coord
-        self.__area_interacao = area_interacao
+        self.__area_interacao = raio_interacao
 
     # getters
 

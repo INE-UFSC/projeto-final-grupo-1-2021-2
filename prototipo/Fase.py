@@ -1,13 +1,13 @@
 
 
-import Jogador
-import Item
-import InimigoObstaculo
-import InimigoPessoa
-import PontoEntrega
-import Movel
-import ObstaculoMapa
-import Mapa
+from Jogador import Jogador
+from Item import Item
+from InimigoObstaculo import InimigoObstaculo
+from InimigoPessoa import InimigoPessoa
+from PontoEntrega import PontoEntrega
+from Movel import Movel
+from ObstaculoMapa import ObstaculoMapa
+from Mapa import Mapa
 
 class Fase:
 
