@@ -26,7 +26,7 @@ class Coordenada:
     def calculaDistancia(self, coord) -> float:
         return ((self.__x - coord.x)**2 + (self.__y - coord.y)**2)**0.5
 
-    @classmethod
+    @staticmethod
     def versorEntreCoordenadas(coordA, coordB):
         x = coordB.x - coordA.x
         y = coordB.y - coordA.y

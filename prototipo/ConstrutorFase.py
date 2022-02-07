@@ -34,5 +34,5 @@ class ConstrutorFase:
         return self.__nivel
 
     #METODO
-    def constroiFase(biblioteca : Biblioteca) -> Fase:
-        pass
+    def constroiFase() -> Fase:
+        mapa = Biblioteca()
