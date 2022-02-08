@@ -1,26 +1,26 @@
-
-
-import Jogador
-import Item
-import InimigoObstaculo
-import InimigoPessoa
-import PontoEntrega
-import Movel
-import ObstaculoMapa
-import Mapa
+from Jogador import Jogador
+from Item import Item
+from InimigoObstaculo import InimigoObstaculo
+from InimigoPessoa import InimigoPessoa
+from PontoEntrega import PontoEntrega
+from Movel import Movel
+from ObstaculoMapa import ObstaculoMapa
+from Mapa import Mapa
 
 class Fase:
 
-    def __init__(self, jogador : Jogador, inimigos_obstaculo : list, ponto_entrega : PontoEntrega, item : Item, inimigos_pessoa : list,  mapa : Mapa, lista_itens : list, num_itens : int, num_inimigos : int):
+    def __init__(self, jogador:Jogador, inimigos_pessoa:list, inimigos_obstaculo:list, mapa:Mapa, pontos_entrega:list, lista_itens:list):
         self.__jogador = jogador
-        self.__inimigos_obstaculo = inimigos_obstaculo
-        self.__item = item
         self.__inimigos_pessoa = inimigos_pessoa
+        self.__inimigos_obstaculo = inimigos_obstaculo
+
         self.__mapa = mapa
         self.__lista_itens = lista_itens
-        self.__num_itens = num_itens
-        self.__num_inimigos = num_inimigos
-        self.__ponto_entrega = ponto_entrega
+        self.__pontos_entrega = pontos_entrega
+        
+        self.__item_ativo = None
+        #self.__num_itens = num_itens
+        #self.__num_inimigos = num_inimigos
 
     #GETTERS    
     @property
@@ -30,8 +30,8 @@ class Fase:
     def inimigos_obstaculo(self):
         return self.__inimigos_obstaculo
     @property
-    def item(self):
-        return self.__item
+    def item_ativo(self):
+        return self.__item_ativo
     @property
     def inimigos_pessoa(self):
         return self.__inimigos_pessoa
@@ -41,12 +41,6 @@ class Fase:
     @property
     def lista_itens(self):
         return self.__lista_itens
-    @property
-    def num_itens(self):
-        return self.__num_itens
-    @property
-    def num_inimigos(self):
-        return self.__num_inimigos
     @property
     def ponto_entrega(self):
         return self.__ponto_entrega
