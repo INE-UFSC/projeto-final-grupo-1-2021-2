@@ -1,5 +1,6 @@
 from Coordenada import Coordenada
 from Tamanho import Tamanho
+import pygame
 
 
 class ObstaculoMapa:
@@ -21,3 +22,8 @@ class ObstaculoMapa:
 
     def criarDuasCoordenadas(a, b):
         pass
+
+    def desenhar(self, display):
+        cor = (119, 136, 153)  # cinza
+        pygame.draw.rect(display, cor, (self.coordenada.x, self.coordenada.y, int(
+            self.tamanho.altura), int(self.tamanho.largura)))
