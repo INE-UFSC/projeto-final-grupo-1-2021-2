@@ -4,7 +4,7 @@ from Tamanho import Tamanho
 from copy import deepcopy
 
 class InimigoObstaculo(Movel):
-    def __init__(self, caminho:list, tamanho:Tamanho, velocidade:float):
+    def __init__(self, caminho:list, tamanho:Tamanho=Tamanho(30,30), velocidade:float=1.5):
         if(len(caminho) < 2):
             raise ValueError(f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
         super().__init__(caminho[0], tamanho, velocidade)

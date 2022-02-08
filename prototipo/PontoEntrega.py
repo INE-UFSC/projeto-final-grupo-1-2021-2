@@ -2,9 +2,9 @@ from Coordenada import Coordenada
 
 
 class PontoEntrega:
-    def __init__(self, coord: Coordenada, raio_interacao: float):
+    def __init__(self, coord: Coordenada, raio_interacao: float=50):
         self.__coordenada = coord
-        self.__area_interacao = raio_interacao
+        self.__raio_interacao = raio_interacao
 
     # getters
 
@@ -13,5 +13,5 @@ class PontoEntrega:
         return self.__coordenada
 
     @property
-    def area_interacao(self):
-        return self.__area_interacao
+    def raio_interacao(self):
+        return self.__raio_interacao

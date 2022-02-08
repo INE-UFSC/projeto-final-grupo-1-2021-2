@@ -5,14 +5,14 @@ from Item import Item
 from PontoEntrega import PontoEntrega
 
 class Jogador(Movel):
-    def __init__(self, coord:Coordenada, tamanho:Tamanho, velocidade:float):
-        super().__init__(coord, tamanho, velocidade)
+    def __init__(self, coord:Coordenada):
+        super().__init__(coord, Tamanho(20,20), 1)
         self.__item_carregado = None
-        #remover pode_pegar_item e pode_entregar_item
 
     def pegarItem(self, item:Item) -> bool:
         if(self.__coord.calculaDistancia(item.coord) <= item.raio_interacao):
             self.__item_carregado = item
+            item.ativo = False
             #talvez fazer alguma coisa com o item aqui
             return True
         else:
