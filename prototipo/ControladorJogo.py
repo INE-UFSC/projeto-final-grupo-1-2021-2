@@ -63,4 +63,7 @@ class ControladorJogo:
         pass
     #VITORIA E DERROTA  
 
+    def mostra_texto(self, texto, tamanho, x, y ): 
+        pass
+
 
