@@ -54,8 +54,10 @@ class Fase:
     def informacaoCoordenadaJogador(inimigos_pessoa : InimigoPessoa):
         pass
 
-    def movimento(movel : Movel, obstaculos: ObstaculoMapa):
-        pass
+    def movimento(self):
+        
+        for mov in (*self.__inimigos_pessoa, self.__jogador):
+            mov.mover(mov.direcao_deslocamento)
 
     def verificaColisao(movel1: Movel, movel2: Movel):
         pass

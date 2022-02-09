@@ -51,9 +51,17 @@ class Movel(ABC):
     def velocidade(self, velocidade: float):
         self.__velocidade = velocidade
 
+    @direcao_deslocamento.setter
+    def direcao_deslocamento(self, dir:Coordenada):
+        self.__direcao_deslocamento = dir
+
     def desenhar(self, display, cor):
         self.__rect.center = (self.coord.x, self.coord.y)
         pygame.draw.rect(display, cor, self.__rect)
+
+    def mover(self, direcao: Coordenada):
+        self.__coord.mover(direcao.x*self.__velocidade, direcao.y*self.__velocidade)
+        self.__rect = self.__rect.move(direcao.x*self.__velocidade, direcao.y*self.__velocidade)
 
 
 '''    def desenhar(self, display, cor):

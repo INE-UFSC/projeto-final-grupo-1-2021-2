@@ -9,6 +9,9 @@ class ControladorJogo:
         self.__display = None
         self.tamanho_display = self.largura, self.altura = 640, 640
         self.__fase = None
+        self.__teclas_pressionadas = {
+            'w':False, 'a':False, 's':False, 'd':False, 'espaco':False
+        }
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -42,9 +45,35 @@ class ControladorJogo:
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
             self.__rodando = False
+        elif evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_w:
+                self.__teclas_pressionadas['w'] = True
+            elif evento.key == pygame.K_a:
+                self.__teclas_pressionadas['a'] = True
+            elif evento.key == pygame.K_s:
+                self.__teclas_pressionadas['s'] = True
+            elif evento.key == pygame.K_d:
+                self.__teclas_pressionadas['d'] = True
+            elif evento.key == pygame.K_SPACE:
+                self.__teclas_pressionadas['espaco'] = True
+        elif evento.type == pygame.KEYUP:
+            if evento.key == pygame.K_w:
+                self.__teclas_pressionadas['w'] = False
+            elif evento.key == pygame.K_a:
+                self.__teclas_pressionadas['a'] = False
+            elif evento.key == pygame.K_s:
+                self.__teclas_pressionadas['s'] = False
+            elif evento.key == pygame.K_d:
+                self.__teclas_pressionadas['d'] = False
+            elif evento.key == pygame.K_SPACE:
+                self.__teclas_pressionadas['espaco'] = False
 
     def loop(self):
-        pass
+        self.__fase.jogador.decideDirecao(
+            self.__teclas_pressionadas['w'], self.__teclas_pressionadas['s'],
+             self.__teclas_pressionadas['d'], self.__teclas_pressionadas['a'])
+
+        self.__fase.movimento()
 
     def renderizar(self):
         self.fase.jogador.desenhar(self.__display)
