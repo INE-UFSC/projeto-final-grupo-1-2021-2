@@ -10,6 +10,8 @@ class Movel(ABC):
         self.__tamanho = tamanho
         self.__velocidade = velocidade
         self.__direcao_deslocamento = Coordenada(0, 0)
+        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
+            self.tamanho.largura), int(self.tamanho.altura)))
 
     @abstractmethod
     # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
@@ -50,5 +52,10 @@ class Movel(ABC):
         self.__velocidade = velocidade
 
     def desenhar(self, display, cor):
+        self.__rect.center = (self.coord.x, self.coord.y)
+        pygame.draw.rect(display, cor, self.__rect)
+
+
+'''    def desenhar(self, display, cor):
         pygame.draw.rect(display, cor, (self.coord.x, self.coord.y, int(
-            self.tamanho.altura), int(self.tamanho.largura)))
+            self.tamanho.largura), int(self.tamanho.altura)))'''
