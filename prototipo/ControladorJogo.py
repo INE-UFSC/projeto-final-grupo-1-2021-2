@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 from Fase import Fase
 from ConstrutorFase import ConstrutorFase
-from prototipo.InimigoPessoa import InimigoPessoa
-from prototipo.Jogador import Jogador
+from InimigoPessoa import InimigoPessoa
+from Jogador import Jogador
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -75,9 +75,15 @@ class ControladorJogo:
             self.__teclas_pressionadas['w'], self.__teclas_pressionadas['s'],
              self.__teclas_pressionadas['d'], self.__teclas_pressionadas['a'])
 
+        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+            inim.decideDirecao()
+
         self.__fase.movimento()
 
     def renderizar(self):
+        self.__fase.mapa.desenhar(self.__display)
+        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+            inim.desenhar(self.__display)
         self.fase.jogador.desenhar(self.__display)
         #self.fase.inimigos_pessoa.desenhar(self.__display)
         pygame.display.flip()

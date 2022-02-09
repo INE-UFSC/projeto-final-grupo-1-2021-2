@@ -56,7 +56,7 @@ class Fase:
 
     def movimento(self):
         
-        for mov in (*self.__inimigos_pessoa, self.__jogador):
+        for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
             mov.mover(mov.direcao_deslocamento)
 
     def verificaColisao(movel1: Movel, movel2: Movel):

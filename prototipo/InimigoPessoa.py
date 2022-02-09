@@ -13,14 +13,14 @@ class InimigoPessoa(Movel):
         self.__coordenada_jogador = None #eh para ser atualizado pelo codigo, talvez mudar isso depois
 
     def decideDirecao(self): #praticamente um versor da direcao de deslocamento
-        if(self.__coordenada_jogador != None and self.__coord.calculaDistancia(self.__coordenada_jogador) <= self.__raio_deteccao):
-            self.__direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.__coord, self.__coordenada_jogador)
-        elif(self.__coord.calculaDistancia(self.__spawn) > self.__raio_deslocamento):
-            self.__direcao_deslocamento = Coordenada.versorEntreCoordenadas(
-                self.__coord, self.__spawn)
+        if(self.__coordenada_jogador != None and self.coord.calculaDistancia(self.__coordenada_jogador) <= self.__raio_deteccao):
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord, self.__coordenada_jogador)
+        elif(self.coord.calculaDistancia(self.__spawn) > self.__raio_deslocamento):
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
+                self.coord, self.__spawn)
         else:
             # talvez implementar alguma caminhada aleatoria depois
-            self.__direcao_deslocamento = Coordenada(0, 0)
+            self.direcao_deslocamento = Coordenada(0, 0)
 
     def colidiu(self, coord: Coordenada):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
