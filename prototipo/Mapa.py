@@ -59,3 +59,5 @@ class Mapa:
     def desenhar(self, display):
         cor = (112, 128, 144)  # cinza
         pygame.draw.rect(display, cor, self.__rect)
+        for obstaculo in self.__obstaculos:
+            obstaculo.desenhar(display)
