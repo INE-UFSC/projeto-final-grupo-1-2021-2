@@ -71,14 +71,7 @@ class ControladorJogo:
                 self.__teclas_pressionadas['espaco'] = False
 
     def loop(self):
-        self.__fase.jogador.decideDirecao(
-            self.__teclas_pressionadas['w'], self.__teclas_pressionadas['s'],
-             self.__teclas_pressionadas['d'], self.__teclas_pressionadas['a'])
-
-        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-            inim.decideDirecao()
-
-        self.__fase.movimento()
+        self.__fase.movimento(self.__teclas_pressionadas)
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)

@@ -62,7 +62,16 @@ class Fase:
     def informacaoCoordenadaJogador(inimigos_pessoa: InimigoPessoa):
         pass
 
-    def movimento(self):        
+    def movimento(self, teclas:dict):
+        self.jogador.decideDirecao(teclas['w'], teclas['s'], teclas['d'], teclas['a'])
+
+        for inim in self.__inimigos_pessoa:
+            inim.coordenada_jogador = self.__jogador.coord
+            inim.decideDirecao()
+
+        for inim in self.__inimigos_obstaculo:
+            inim.decideDirecao()
+
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
             mov.mover(mov.direcao_deslocamento)
 
