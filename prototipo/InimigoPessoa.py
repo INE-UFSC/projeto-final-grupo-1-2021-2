@@ -5,8 +5,8 @@ from Tamanho import Tamanho
 
 
 class InimigoPessoa(Movel):
-    def __init__(self, spawn:Coordenada, raio_deslocamento:float=100, raio_deteccao:float=200):
-        super().__init__(spawn, Tamanho(20,20), 0.8)
+    def __init__(self, spawn:Coordenada, raio_deslocamento:float=20, raio_deteccao:float=200, velocidade:float=0.03):
+        super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(20,20), velocidade)
         self.__spawn = spawn
         self.__raio_deslocamento = raio_deslocamento
         self.__raio_deteccao = raio_deteccao
@@ -16,11 +16,18 @@ class InimigoPessoa(Movel):
         if(self.__coordenada_jogador != None and self.coord.calculaDistancia(self.__coordenada_jogador) <= self.__raio_deteccao):
             self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord, self.__coordenada_jogador)
         elif(self.coord.calculaDistancia(self.__spawn) > self.__raio_deslocamento):
-            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
-                self.coord, self.__spawn)
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord, self.__spawn)
         else:
             # talvez implementar alguma caminhada aleatoria depois
             self.direcao_deslocamento = Coordenada(0, 0)
+
+    @property
+    def coordenada_jogador(self)->Coordenada:
+        return self.__coordenada_jogador
+    
+    @coordenada_jogador.setter
+    def coordenada_jogador(self, coord:Coordenada):
+        self.__coordenada_jogador = coord
 
     def colidiu(self, coord: Coordenada):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
