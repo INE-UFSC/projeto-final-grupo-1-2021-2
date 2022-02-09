@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 from Fase import Fase
 from ConstrutorFase import ConstrutorFase
-from prototipo.InimigoPessoa import InimigoPessoa
-from prototipo.Jogador import Jogador
+from InimigoPessoa import InimigoPessoa
+from Jogador import Jogador
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -11,6 +11,9 @@ class ControladorJogo:
         self.__display = None
         self.tamanho_display = self.largura, self.altura = 640, 640
         self.__fase = None
+        self.__teclas_pressionadas = {
+            'w':False, 'a':False, 's':False, 'd':False, 'espaco':False
+        }
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -44,11 +47,43 @@ class ControladorJogo:
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
             self.__rodando = False
+        elif evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_w:
+                self.__teclas_pressionadas['w'] = True
+            elif evento.key == pygame.K_a:
+                self.__teclas_pressionadas['a'] = True
+            elif evento.key == pygame.K_s:
+                self.__teclas_pressionadas['s'] = True
+            elif evento.key == pygame.K_d:
+                self.__teclas_pressionadas['d'] = True
+            elif evento.key == pygame.K_SPACE:
+                self.__teclas_pressionadas['espaco'] = True
+        elif evento.type == pygame.KEYUP:
+            if evento.key == pygame.K_w:
+                self.__teclas_pressionadas['w'] = False
+            elif evento.key == pygame.K_a:
+                self.__teclas_pressionadas['a'] = False
+            elif evento.key == pygame.K_s:
+                self.__teclas_pressionadas['s'] = False
+            elif evento.key == pygame.K_d:
+                self.__teclas_pressionadas['d'] = False
+            elif evento.key == pygame.K_SPACE:
+                self.__teclas_pressionadas['espaco'] = False
 
     def loop(self):
-        pass
+        self.__fase.jogador.decideDirecao(
+            self.__teclas_pressionadas['w'], self.__teclas_pressionadas['s'],
+             self.__teclas_pressionadas['d'], self.__teclas_pressionadas['a'])
+
+        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+            inim.decideDirecao()
+
+        self.__fase.movimento()
 
     def renderizar(self):
+        self.__fase.mapa.desenhar(self.__display)
+        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+            inim.desenhar(self.__display)
         self.fase.jogador.desenhar(self.__display)
         #self.fase.inimigos_pessoa.desenhar(self.__display)
         pygame.display.flip()

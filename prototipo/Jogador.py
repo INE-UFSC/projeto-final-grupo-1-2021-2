@@ -7,7 +7,7 @@ from PontoEntrega import PontoEntrega
 
 class Jogador(Movel):
     def __init__(self, coord:Coordenada):
-        super().__init__(coord, Tamanho(20,20), 1)
+        super().__init__(coord, Tamanho(20,20), 0.1)
         self.__item_carregado = None
 
     def pegarItem(self, item: Item) -> bool:
@@ -36,15 +36,15 @@ class Jogador(Movel):
         horizontal = 0
         vertical = 0
         if(cima):
-            vertical += 1
-        if(baixo):
             vertical -= 1
+        if(baixo):
+            vertical += 1
         if(direita):
             horizontal += 1
         if(esquerda):
             horizontal -= 1
 
-        self.__direcao_deslocamento = Coordenada.versorEntreCoordenadas(
+        self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
             Coordenada(0, 0), Coordenada(horizontal, vertical))
 
     def desenhar(self, display):

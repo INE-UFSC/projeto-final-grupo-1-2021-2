@@ -31,4 +31,7 @@ class Coordenada:
         x = coordB.x - coordA.x
         y = coordB.y - coordA.y
         modulo = (x**2 + y**2)**0.5
-        return Coordenada(x/modulo, y/modulo)
+        if modulo == 0:
+            return Coordenada(0,0)
+        else:
+            return Coordenada(x/modulo, y/modulo)
