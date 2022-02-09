@@ -3,6 +3,7 @@ from Tamanho import Tamanho
 from random import randrange
 from ObstaculoMapa import ObstaculoMapa
 from PontoEntrega import PontoEntrega
+import pygame
 
 
 class Mapa:
@@ -16,6 +17,8 @@ class Mapa:
         self.__spawn_itens = spawn_itens
         self.__pontos_entrega = pontos_entrega
         self.__obstaculos = obstaculos
+        self.__rect = pygame.Rect(
+            0, 0, self.__tamanho.largura, self.__tamanho.altura)
 
     # getters
 
@@ -40,7 +43,7 @@ class Mapa:
         return self.__obstaculos
 
     @property
-    def pontos_entrega(self)->PontoEntrega:
+    def pontos_entrega(self) -> PontoEntrega:
         return self.__pontos_entrega
 
     # métodos
@@ -52,3 +55,7 @@ class Mapa:
     def coordEntregaAleatoria(self):
         n = randrange(len(self.__pontos_entrega))
         return self.__pontos_entrega[n]
+
+    def desenhar(self, display):
+        cor = (112, 128, 144)  # cinza
+        pygame.draw.rect(display, cor, self.__rect)
