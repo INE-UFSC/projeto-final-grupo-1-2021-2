@@ -61,4 +61,4 @@ class Fase:
         pass
 
     def proximoItem(self) -> bool:
-        self.__lista_itens.pop().criar(self.mapa.coordItemAleatoria())
+        self.__lista_itens.pop(0).criar(self.mapa.coordItemAleatoria())

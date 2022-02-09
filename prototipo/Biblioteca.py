@@ -1,3 +1,4 @@
+from ast import Str
 from Mapa import Mapa
 from Item import Item
 from Coordenada import Coordenada
@@ -30,5 +31,5 @@ class Biblioteca:
         return cls.mapas[nivel]
 
     @classmethod
-    def getItensDificuldade(cls, dificuldade:int):
-        return cls.lista_itens[dificuldade]
+    def getItensDificuldade(cls, dificuldade:int, nivel:str):
+        return cls.lista_itens[dificuldade][nivel]

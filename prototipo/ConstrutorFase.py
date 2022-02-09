@@ -42,7 +42,7 @@ class ConstrutorFase:
     @staticmethod
     def constroiFase(nivel:str, dificuldade:int) -> Fase:
         mapa = Biblioteca().getMapaNivel(nivel)
-        lista_itens = Biblioteca().getItensDificuldade(dificuldade)
+        lista_itens = Biblioteca().getItensDificuldade(dificuldade, nivel)
         jogador = Jogador(mapa.spawn_jogador)
 
         num_inimigos = 1 + 2*dificuldade
