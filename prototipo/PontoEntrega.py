@@ -1,25 +1,28 @@
+import imp
 from Coordenada import Coordenada
+from Interativos import Interativos
 import pygame
 
 
-class PontoEntrega:
+class PontoEntrega(Interativos):
     def __init__(self, coord: Coordenada, raio_interacao: float = 50):
-        self.__coordenada = coord
-        self.__raio_interacao = raio_interacao
-        self.__rect = pygame.Rect(
-            self.__coordenada.x, self.__coordenada.y, 8, 8)
+        super().__init__(raio_interacao, coord)
+        self.rect = pygame.Rect(self.coordenada.x, self.coordenada.y, 8, 8)
 
-    # getters
+    def desenhar(self, display):
+        cor = (34, 139, 34)  # verde escuro
+        self.rect.center = (self.coordenada.x, self.coordenada.y)
+        pygame.draw.rect(display, cor, self.rect)
 
-    @property
+    def ativar(self):
+        self.ativo = True
+        return self
+
+
+'''    @property
     def coordenada(self):
         return self.__coordenada
 
     @property
     def raio_interacao(self):
-        return self.__raio_interacao
-
-    def desenhar(self, display):
-        cor = (34, 139, 34)  # verde escuro
-        self.__rect.center = (self.coordenada.x, self.coordenada.y)
-        pygame.draw.rect(display, cor, self.__rect)
+        return self.__raio_interacao'''
