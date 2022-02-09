@@ -39,6 +39,10 @@ class Movel(ABC):
     def direcao_deslocamento(self) -> Coordenada:
         return self.__direcao_deslocamento
 
+    @property
+    def rect(self):
+        return self.__rect
+
     @coord.setter
     def coord(self, coord: Coordenada):
         self.__coord = coord
@@ -52,7 +56,7 @@ class Movel(ABC):
         self.__velocidade = velocidade
 
     @direcao_deslocamento.setter
-    def direcao_deslocamento(self, dir:Coordenada):
+    def direcao_deslocamento(self, dir: Coordenada):
         self.__direcao_deslocamento = dir
 
     def desenhar(self, display, cor):
@@ -60,8 +64,10 @@ class Movel(ABC):
         pygame.draw.rect(display, cor, self.__rect)
 
     def mover(self, direcao: Coordenada):
-        self.__coord.mover(direcao.x*self.__velocidade, direcao.y*self.__velocidade)
-        self.__rect = self.__rect.move(direcao.x*self.__velocidade, direcao.y*self.__velocidade)
+        self.__coord.mover(direcao.x*self.__velocidade,
+                           direcao.y*self.__velocidade)
+        self.__rect = self.__rect.move(
+            direcao.x*self.__velocidade, direcao.y*self.__velocidade)
 
 
 '''    def desenhar(self, display, cor):
