@@ -1,28 +1,33 @@
 from Coordenada import Coordenada
-from Tamanho import Tamanho
+from Interativos import Interativos
 import pygame
 
 
-class Item:
+class Item(Interativos):
     def __init__(self, nome: str):
         self.__nome = nome
-        self.__raio_interacao = 30
-        self.__ativo = False
-        self.__coord = None
-        self.__rect = None
+        super().__init__(30)
 
     def criar(self, coordenada: Coordenada):
-        self.__coord = coordenada
-        self.__ativo = True
-        self.__rect = pygame.Rect(self.coord.x, self.coord.y, 14, 14)
+        self.coordenada = coordenada
+        self.ativo = True
+        self.rect = pygame.Rect(
+            self.coordenada.x, self.coordenada.y, 14, 14)
+        return self
 
-    @ property
+    def desenhar(self, display):
+        cor = (0, 255, 0)  # VERDE
+        self.rect.center = (self.coordenada.x, self.coordenada.y)
+        pygame.draw.rect(display, cor, self.rect)
+
+
+'''    @ property
     def raio_interacao(self) -> float:
         return self.__raio_interacao
 
     @ property
     def coord(self) -> Coordenada:
-        return self.__coord
+        return self.__coordenada
 
     @ property
     def ativo(self) -> bool:
@@ -30,8 +35,4 @@ class Item:
 
     @ ativo.setter
     def ativo(self, ativo: bool):
-        self.__ativo = ativo
-
-    def desenhar(self, display):
-        cor = (0, 255, 0)  # VERDE
-        pygame.draw.rect(display, cor, self.__rect)
+        self.__ativo = ativo'''
