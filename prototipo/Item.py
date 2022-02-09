@@ -9,11 +9,12 @@ class Item:
         self.__raio_interacao = 30
         self.__ativo = False
         self.__coord = None
-        self.__rect = pygame.Rect(self.coord.x, self.coord.y, 14, 14)
+        self.__rect = None
 
     def criar(self, coordenada: Coordenada):
         self.__coord = coordenada
         self.__ativo = True
+        self.__rect = pygame.Rect(self.coord.x, self.coord.y, 14, 14)
 
     @ property
     def raio_interacao(self) -> float:
