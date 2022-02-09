@@ -7,6 +7,8 @@ class ObstaculoMapa:
     def __init__(self, coordenada: Coordenada = '', tamanho: Tamanho = ''):
         self.__coordenada = coordenada
         self.__tamanho = tamanho
+        self.__rect = pygame.Rect((self.coordenada.x, self.coordenada.y, int(
+            self.tamanho.largura), int(self.tamanho.altura)))
 
     # getters
 
@@ -25,5 +27,5 @@ class ObstaculoMapa:
 
     def desenhar(self, display):
         cor = (119, 136, 153)  # cinza
-        pygame.draw.rect(display, cor, (self.coordenada.x, self.coordenada.y, int(
-            self.tamanho.altura), int(self.tamanho.largura)))
+        self.__rect.center = (self.coordenada.x, self.coordenada.y)
+        pygame.draw.rect(display, cor, self.__rect)
