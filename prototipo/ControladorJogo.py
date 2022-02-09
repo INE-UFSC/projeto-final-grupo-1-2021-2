@@ -12,6 +12,7 @@ class ControladorJogo:
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
 
+
     #GETTERS
     
     @property
