@@ -27,5 +27,4 @@ class ObstaculoMapa:
 
     def desenhar(self, display):
         cor = (47, 79, 79)  # cinza escuro
-        self.__rect.center = (self.coordenada.x, self.coordenada.y)
         pygame.draw.rect(display, cor, self.__rect)
