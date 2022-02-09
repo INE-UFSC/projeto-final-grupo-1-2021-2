@@ -19,6 +19,7 @@ class Fase:
         self.__pontos_entrega = pontos_entrega
         
         self.__item_ativo = None
+        self.proximoItem()
         #self.__num_itens = num_itens
         #self.__num_inimigos = num_inimigos
 
@@ -59,5 +60,5 @@ class Fase:
     def verificaColisao(movel1: Movel, movel2: Movel):
         pass
 
-    def proximoItem() -> bool:
-        pass
+    def proximoItem(self) -> bool:
+        self.__lista_itens.pop().criar(self.mapa.coordItemAleatoria())
