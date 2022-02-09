@@ -2,6 +2,7 @@ from Coordenada import Coordenada
 from Tamanho import Tamanho
 from random import randrange
 from ObstaculoMapa import ObstaculoMapa
+from PontoEntrega import PontoEntrega
 
 
 class Mapa:
@@ -37,6 +38,10 @@ class Mapa:
     @property
     def obstaculos(self):
         return self.__obstaculos
+
+    @property
+    def pontos_entrega(self)->PontoEntrega:
+        return self.__pontos_entrega
 
     # métodos
 

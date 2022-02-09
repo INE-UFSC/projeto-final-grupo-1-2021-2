@@ -1,20 +1,24 @@
+import pygame
 from Coordenada import Coordenada
 from Tamanho import Tamanho
 from abc import ABC, abstractmethod
 
+
 class Movel(ABC):
-    def __init__(self, coord:Coordenada, tamanho:Tamanho, velocidade:float):
+    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float):
         self.__coord = coord
         self.__tamanho = tamanho
         self.__velocidade = velocidade
-        self.__direcao_deslocamento = Coordenada(0,0)
-    
+        self.__direcao_deslocamento = Coordenada(0, 0)
+
     @abstractmethod
-    def decideDirecao(self): #define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
+    # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
+    def decideDirecao(self):
         pass
 
     @abstractmethod
-    def colidiu(coord: Coordenada): #define o que acontece quando o objeto colide com outro objeto (na coordenada coord)
+    # define o que acontece quando o objeto colide com outro objeto (na coordenada coord)
+    def colidiu(coord: Coordenada):
         pass
 
     @property
@@ -34,13 +38,17 @@ class Movel(ABC):
         return self.__direcao_deslocamento
 
     @coord.setter
-    def coord(self, coord:Coordenada):
+    def coord(self, coord: Coordenada):
         self.__coord = coord
 
     @tamanho.setter
-    def tamanho(self, tamanho:Tamanho):
+    def tamanho(self, tamanho: Tamanho):
         self.__tamanho = tamanho
 
     @velocidade.setter
-    def velocidade(self, velocidade:float):
+    def velocidade(self, velocidade: float):
         self.__velocidade = velocidade
+
+    def desenhar(self, display, cor):
+        pygame.draw.rect(display, cor, (self.coord.x, self.coord.y, int(
+            self.tamanho.altura), int(self.tamanho.largura)))

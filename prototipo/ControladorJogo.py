@@ -1,16 +1,19 @@
 import pygame
 from pygame.locals import *
-import Fase
+from Fase import Fase
+from ConstrutorFase import ConstrutorFase
 
 class ControladorJogo:
-    def __init__(self, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
+    def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
         self.__rodando = True
         self.__display = None
-        self.tamanho_display = self.largura, self.altura = 640, 400
-        self.__fase = fase
+        self.tamanho_display = self.largura, self.altura = 640, 640
+        self.__fase = None
+        '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
+        '''
 
 
     #GETTERS
@@ -34,6 +37,7 @@ class ControladorJogo:
         pygame.init()
         self.__display = pygame.display.set_mode(self.tamanho_display, pygame.HWSURFACE)
         self.__rodando = True
+        self.novaFase('teste', 0)
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -43,7 +47,7 @@ class ControladorJogo:
         pass
 
     def renderizar(self):
-        pass
+        pygame.display.flip()
 
     def limpar(self):
         pygame.quit()
@@ -60,8 +64,8 @@ class ControladorJogo:
         self.limpar()
     
     #CONTROLADOR
-    def novaFase(nivel_atual, dificuldade) -> Fase:
-        pass
+    def novaFase(self, nivel_atual:str, dificuldade:float):
+        self.__fase = ConstrutorFase.constroiFase(nivel_atual, dificuldade)
     #VITORIA E DERROTA  
 
     def mostra_texto(self, texto, tamanho, x, y ): 
