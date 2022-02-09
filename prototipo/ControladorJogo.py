@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 from Fase import Fase
 from ConstrutorFase import ConstrutorFase
+from prototipo.InimigoPessoa import InimigoPessoa
+from prototipo.Jogador import Jogador
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -48,6 +50,7 @@ class ControladorJogo:
 
     def renderizar(self):
         self.fase.jogador.desenhar(self.__display)
+        #self.fase.inimigos_pessoa.desenhar(self.__display)
         pygame.display.flip()
 
     def limpar(self):
@@ -62,6 +65,7 @@ class ControladorJogo:
                 self.eventos(evento)
             self.loop()
             self.renderizar()
+            #self.colisao()
         self.limpar()
     
     #CONTROLADOR
@@ -71,5 +75,12 @@ class ControladorJogo:
 
     def mostra_texto(self, texto, tamanho, x, y ): 
         pass
+    
+    def colisao(self): #Enquanto não há obstáculos no mapa 
+        if self.fase.jogador.colliderect(self.fase.inimigos_pessoa):
+            self.fase.jogador.coord.x -= 1
+            self.fase.jogador.coord.y -= 1
+    
+        
 
 
