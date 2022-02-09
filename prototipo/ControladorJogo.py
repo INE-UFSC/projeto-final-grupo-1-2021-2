@@ -4,6 +4,7 @@ from Fase import Fase
 from ConstrutorFase import ConstrutorFase
 from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
+from Item import Item
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -77,8 +78,8 @@ class ControladorJogo:
         self.__fase.mapa.desenhar(self.__display)
         for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
             inim.desenhar(self.__display)
-        self.fase.jogador.desenhar(self.__display)
-        #self.fase.inimigos_pessoa.desenhar(self.__display)
+        self.__fase.jogador.desenhar(self.__display)
+        if isinstance(self.__fase.item_ativo, Item): self.__fase.item_ativo.desenhar(self.__display)
         pygame.display.flip()
 
     def limpar(self):
