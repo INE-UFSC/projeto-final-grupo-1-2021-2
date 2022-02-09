@@ -33,5 +33,5 @@ class Item:
         self.__ativo = ativo
 
     def desenhar(self, display):
-        cor = (0, 255, 0)
+        cor = (0, 255, 0)  # VERDE
         pygame.draw.rect(display, cor, self.__rect)
