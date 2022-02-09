@@ -47,6 +47,7 @@ class ControladorJogo:
         pass
 
     def renderizar(self):
+        self.fase.jogador.desenhar(self.__display)
         pygame.display.flip()
 
     def limpar(self):
