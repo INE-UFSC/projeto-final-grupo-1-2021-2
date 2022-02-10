@@ -6,6 +6,7 @@ from PontoEntrega import PontoEntrega
 from Movel import Movel
 from ObstaculoMapa import ObstaculoMapa
 from Mapa import Mapa
+from random import randrange
 
 
 class Fase:
@@ -21,7 +22,7 @@ class Fase:
 
         self.__ponto_entrega_ativo = None
         self.__item_ativo = None
-        # self.proximoItem()
+        self.proximoItem()
         #self.__num_itens = num_itens
         #self.__num_inimigos = num_inimigos
 
@@ -29,6 +30,10 @@ class Fase:
     @property
     def jogador(self):
         return self.__jogador
+
+    @property
+    def ponto_entrega_ativo(self)->PontoEntrega:
+        return self.__ponto_entrega_ativo
 
     @property
     def inimigos_obstaculo(self):
@@ -59,9 +64,6 @@ class Fase:
     def statusJogador(jogador: Jogador):
         pass
 
-    def informacaoCoordenadaJogador(inimigos_pessoa: InimigoPessoa):
-        pass
-
     def movimento(self, teclas: dict):
         self.jogador.decideDirecao(
             teclas['w'], teclas['s'], teclas['d'], teclas['a'])
@@ -74,10 +76,10 @@ class Fase:
             inim.decideDirecao()
 
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
-            if (mov.rect.left+mov.direcao_deslocamento.x < 0 or mov.rect.top+mov.direcao_deslocamento.y < 0
-                    or mov.rect.bottom+mov.direcao_deslocamento.y > self.mapa.tamanho.altura or mov.rect.right
-                    + mov.direcao_deslocamento.x > self.mapa.tamanho.largura):
-                return
+            if (mov.rect.left+mov.direcao_deslocamento.x < 0 or mov.rect.right + mov.direcao_deslocamento.x > self.mapa.tamanho.largura):
+                mov.direcao_deslocamento.x = 0
+            if(mov.rect.top+mov.direcao_deslocamento.y < 0 or mov.rect.bottom+mov.direcao_deslocamento.y > self.mapa.tamanho.altura):
+                mov.direcao_deslocamento.y = 0
             mov.mover(mov.direcao_deslocamento)
 
     def verificaColisao(movel1: Movel, movel2: Movel):
@@ -92,7 +94,7 @@ class Fase:
             else:
                 self.__ponto_entrega_ativo = self.__pontos_entrega.pop(
                     0).ativar()
-            return
+            return True
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
         return False

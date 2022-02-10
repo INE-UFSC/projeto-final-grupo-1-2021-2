@@ -4,6 +4,8 @@ from Fase import Fase
 from ConstrutorFase import ConstrutorFase
 from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
+from Item import Item
+from PontoEntrega import PontoEntrega
 
 class ControladorJogo:
     def __init__(self):   #, fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -75,9 +77,12 @@ class ControladorJogo:
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
+        if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega): self.__fase.ponto_entrega_ativo.desenhar(self.__display)
         for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
             inim.desenhar(self.__display)
-        self.fase.jogador.desenhar(self.__display)
+        self.__fase.jogador.desenhar(self.__display)
+        if isinstance(self.__fase.item_ativo, Item):
+            self.__fase.item_ativo.desenhar(self.__display)
         pygame.display.flip()
 
     def limpar(self):
@@ -93,6 +98,7 @@ class ControladorJogo:
             self.loop()
             self.renderizar()
             #self.colisao()
+            #NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
     
     #CONTROLADOR

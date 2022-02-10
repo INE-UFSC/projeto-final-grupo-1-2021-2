@@ -19,6 +19,7 @@ class Jogador(Movel):
             return False
 
     def removerItem(self):
+        self.__item_carregado.ativo = True
         self.__item_carregado = None
 
     def entregarItem(self, ponto_entrega: PontoEntrega) -> bool:
