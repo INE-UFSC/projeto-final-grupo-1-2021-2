@@ -43,6 +43,10 @@ class Fase:
     def item_ativo(self):
         return self.__item_ativo
 
+    @item_ativo.setter
+    def item_ativo(self, item):
+        self.__item_ativo = item
+
     @property
     def inimigos_pessoa(self):
         return self.__inimigos_pessoa
@@ -87,14 +91,20 @@ class Fase:
 
     def proximoItem(self) -> bool:
         if len(self.lista_itens) > 0:
-            self.__item_ativo = self.__lista_itens.pop(
-                0).criar(self.mapa.coordItemAleatoria())
-            if len(self.pontos_entrega) == 1:
-                self.__ponto_entrega_ativo = self.pontos_entrega[0]
-            else:
-                self.__ponto_entrega_ativo = self.__pontos_entrega.pop(
-                    0).ativar()
-            return True
+            self.__item_ativo = self.__lista_itens.pop(0).criar(self.mapa.coordItemAleatoria())
+            self.__ponto_entrega_ativo = self.pontos_entrega[randrange(len(self.pontos_entrega))]
+            return False
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
-        return False
+        return True
+
+    def gerenciamentoItem(self, comando_interagir_item:bool):
+        if self.__item_ativo == None and self.__jogador.item_carregado == None:
+            if self.proximoItem():
+                return True #vitoria
+        elif comando_interagir_item and self.__item_ativo != None:
+            if self.__jogador.pegarItem(self.__item_ativo):
+                pass #acao se pegou
+
+            if self.__jogador.entregarItem(self.ponto_entrega_ativo):
+                self.item_ativo = None #acao se entregou

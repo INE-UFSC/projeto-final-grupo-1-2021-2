@@ -74,14 +74,16 @@ class ControladorJogo:
 
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
+        self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco'])
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
-        if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega): self.__fase.ponto_entrega_ativo.desenhar(self.__display)
+        if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
+            self.__fase.ponto_entrega_ativo.desenhar(self.__display)
         for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
             inim.desenhar(self.__display)
         self.__fase.jogador.desenhar(self.__display)
-        if isinstance(self.__fase.item_ativo, Item):
+        if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
             self.__fase.item_ativo.desenhar(self.__display)
         pygame.display.flip()
 

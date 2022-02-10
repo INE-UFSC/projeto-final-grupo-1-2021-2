@@ -7,11 +7,11 @@ import pygame
 class PontoEntrega(Interativos):
     def __init__(self, coord: Coordenada, raio_interacao: float = 50):
         super().__init__(raio_interacao, coord)
-        self.rect = pygame.Rect(self.coordenada.x, self.coordenada.y, 50, 50)
+        self.rect = pygame.Rect(self.coord.x, self.coord.y, 50, 50)
 
     def desenhar(self, display):
         cor = (34, 139, 34)  # verde escuro
-        self.rect.center = (self.coordenada.x, self.coordenada.y)
+        self.rect.center = (self.coord.x, self.coord.y)
         pygame.draw.rect(display, cor, self.rect)
 
     def ativar(self):

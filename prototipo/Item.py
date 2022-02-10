@@ -9,15 +9,15 @@ class Item(Interativos):
         super().__init__(30)
 
     def criar(self, coordenada: Coordenada):
-        self.coordenada = coordenada
+        self.coord = coordenada
         self.ativo = True
         self.rect = pygame.Rect(
-            self.coordenada.x, self.coordenada.y, 14, 14)
+            self.coord.x, self.coord.y, 14, 14)
         return self
 
     def desenhar(self, display):
         cor = (0, 255, 0)  # VERDE
-        self.rect.center = (self.coordenada.x, self.coordenada.y)
+        self.rect.center = (self.coord.x, self.coord.y)
         pygame.draw.rect(display, cor, self.rect)
 
 
