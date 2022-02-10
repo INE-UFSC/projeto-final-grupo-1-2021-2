@@ -62,8 +62,9 @@ class Fase:
     def informacaoCoordenadaJogador(inimigos_pessoa: InimigoPessoa):
         pass
 
-    def movimento(self, teclas:dict):
-        self.jogador.decideDirecao(teclas['w'], teclas['s'], teclas['d'], teclas['a'])
+    def movimento(self, teclas: dict):
+        self.jogador.decideDirecao(
+            teclas['w'], teclas['s'], teclas['d'], teclas['a'])
 
         for inim in self.__inimigos_pessoa:
             inim.coordenada_jogador = self.__jogador.coord
@@ -73,6 +74,10 @@ class Fase:
             inim.decideDirecao()
 
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
+            if (mov.rect.left+mov.direcao_deslocamento.x < 0 or mov.rect.top+mov.direcao_deslocamento.y < 0
+                    or mov.rect.bottom+mov.direcao_deslocamento.y > self.mapa.tamanho.altura or mov.rect.right
+                    + mov.direcao_deslocamento.x > self.mapa.tamanho.largura):
+                return
             mov.mover(mov.direcao_deslocamento)
 
     def verificaColisao(movel1: Movel, movel2: Movel):

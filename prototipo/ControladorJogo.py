@@ -105,10 +105,13 @@ class ControladorJogo:
     def mostra_texto(self, texto, tamanho, x, y ): 
         pass
     
-    def colisao(self): #Enquanto não há obstáculos no mapa 
-        if self.fase.jogador.colliderect(self.fase.inimigos_pessoa):
+    def colisao(self): 
+        if self.fase.jogador.colliderect(self.fase.inimigos_pessoa) or self.fase.jogador.colliderect(self.fase.inimigos_obstaculo):
             self.fase.jogador.coord.x -= 1
             self.fase.jogador.coord.y -= 1
+        elif self.fase.inimigos_pessoa.colliderect(self.fase.inimigos_obstaculo):
+            self.fase.inimigos_pessoa.coord.x -= 1
+            self.fase.inimigos_pessoa.coord.y -= 1
     
         
 
