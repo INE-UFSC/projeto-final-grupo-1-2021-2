@@ -31,7 +31,9 @@ class InimigoPessoa(Movel):
 
     def colidiu(self, coord: Coordenada):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
-        pass
+        self.coord.x -= 1
+        self.coord.y -= 1
+
 
     def desenhar(self, display):
         cor = (255, 0, 0) #vermelho

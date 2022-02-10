@@ -75,6 +75,7 @@ class ControladorJogo:
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
         self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco'])
+        self.colisao()
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
@@ -99,7 +100,6 @@ class ControladorJogo:
                 self.eventos(evento)
             self.loop()
             self.renderizar()
-            #self.colisao()
             #NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
     
@@ -116,10 +116,7 @@ class ControladorJogo:
             if self.fase.jogador.rect.colliderect(inim.rect):
                 self.fase.jogador.coord.x -= 1
                 self.fase.jogador.coord.y -= 1
-            elif inim.rect.colliderect(inim.rect):
-                inim.coord.x -= 1
-                inim.coord.y -= 1
-
+           
     
         
 
