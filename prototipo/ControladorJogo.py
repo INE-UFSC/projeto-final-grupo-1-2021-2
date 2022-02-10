@@ -115,13 +115,16 @@ class ControladorJogo:
         for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
             if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
                 self.fase.jogador.coord.y -= 1 #se ele for para cima e colidir, ele volta para trás
+                inim.coord.y += 1
             elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
                 self.fase.jogador.coord.y += 1 # se ele for para baixo e colidir, ele volta para cima
+                inim.coord.y -= 1
             elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
                 self.fase.jogador.coord.x -= 1 # se ele for para direita e colidir, ele volta para esquerda
+                inim.coord.x += 1
             elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
                 self.fase.jogador.coord.x += 1 # se ele for para esquerda e colidir, ele volta para direita
-           
+                inim.coord.x -= 1
     
         
 
