@@ -74,7 +74,8 @@ class ControladorJogo:
 
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
-        self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco'])
+        if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
+            pass #VITORIA!! (na fase)
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
