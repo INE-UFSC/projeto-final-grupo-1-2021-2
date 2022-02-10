@@ -10,27 +10,35 @@ class Jogador(Movel):
         super().__init__(coord, Tamanho(20,20), 0.1)
         self.__item_carregado = None
 
+    @property
+    def item_carregado(self)->Item:
+        return self.__item_carregado
+
+    @item_carregado.setter
+    def item_carregado(self, item):
+        self.__item_carregado = item
+
     def pegarItem(self, item: Item) -> bool:
-        if(self.__coord.calculaDistancia(item.coord) <= item.raio_interacao):
+        if(item.ativo and self.coord.calculaDistancia(item.coord) <= item.raio_interacao):
             self.__item_carregado = item
             item.ativo = False
             return True
         else:
             return False
 
-    def removerItem(self):
+    def perderItem(self):
         self.__item_carregado.ativo = True
         self.__item_carregado = None
 
     def entregarItem(self, ponto_entrega: PontoEntrega) -> bool:
-        if(self.__coord.calculaDistancia(ponto_entrega.coord) <= ponto_entrega.raio_interacao):
-            self.removerItem()
+        if(self.item_carregado != None and self.coord.calculaDistancia(ponto_entrega.coord) <= ponto_entrega.raio_interacao):
+            self.item_carregado = None
             return True
         else:
             return False
 
     def colidiu(self, coord: Coordenada):
-        self.removerItem()
+        self.perderItem()
         # expandir depois
 
     def decideDirecao(self, cima: bool, baixo: bool, direita: bool, esquerda: bool):

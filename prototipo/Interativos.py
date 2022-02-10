@@ -7,7 +7,7 @@ import pygame
 class Interativos(ABC):
     def __init__(self, raio_interacao: float = None, coordenada: Coordenada = None):
         self.__raio_interacao = raio_interacao
-        self.__coordenada = coordenada
+        self.__coord = coordenada
         self.__ativo = False
         self.__rect = None
 
@@ -16,8 +16,8 @@ class Interativos(ABC):
         return self.__raio_interacao
 
     @ property
-    def coordenada(self) -> Coordenada:
-        return self.__coordenada
+    def coord(self) -> Coordenada:
+        return self.__coord
 
     @ property
     def ativo(self) -> bool:
@@ -27,9 +27,9 @@ class Interativos(ABC):
     def rect(self) -> pygame.Rect:
         return self.__rect
 
-    @ coordenada.setter
-    def coordenada(self, coord: Coordenada):
-        self.__coordenada = coord
+    @ coord.setter
+    def coord(self, coord: Coordenada):
+        self.__coord = coord
 
     @ ativo.setter
     def ativo(self, ativo: bool):
