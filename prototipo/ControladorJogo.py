@@ -113,9 +113,14 @@ class ControladorJogo:
     
     def colisao(self): 
         for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-            if self.fase.jogador.rect.colliderect(inim.rect):
-                self.fase.jogador.coord.x -= 1
-                self.fase.jogador.coord.y -= 1
+            if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
+                self.fase.jogador.coord.y -= 1 #se ele for para cima e colidir, ele volta para trás
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
+                self.fase.jogador.coord.y += 1 # se ele for para baixo e colidir, ele volta para cima
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
+                self.fase.jogador.coord.x -= 1 # se ele for para direita e colidir, ele volta para esquerda
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
+                self.fase.jogador.coord.x += 1 # se ele for para esquerda e colidir, ele volta para direita
            
     
         
