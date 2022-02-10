@@ -110,12 +110,14 @@ class ControladorJogo:
         pass
     
     def colisao(self): 
-        if self.fase.jogador.colliderect(self.fase.inimigos_pessoa) or self.fase.jogador.colliderect(self.fase.inimigos_obstaculo):
-            self.fase.jogador.coord.x -= 1
-            self.fase.jogador.coord.y -= 1
-        elif self.fase.inimigos_pessoa.colliderect(self.fase.inimigos_obstaculo):
-            self.fase.inimigos_pessoa.coord.x -= 1
-            self.fase.inimigos_pessoa.coord.y -= 1
+        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+            if self.fase.jogador.rect.colliderect(inim.rect):
+                self.fase.jogador.coord.x -= 1
+                self.fase.jogador.coord.y -= 1
+            elif inim.rect.colliderect(inim.rect):
+                inim.coord.x -= 1
+                inim.coord.y -= 1
+
     
         
 
