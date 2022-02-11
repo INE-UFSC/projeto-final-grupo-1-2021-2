@@ -23,7 +23,6 @@ class InimigoPessoa(Movel):
                 self.direcao_deslocamento = Coordenada(0, 0)
 
         else:
-            self.atingido -= 1
             self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord_atingido, self.coord)
 
     @property
