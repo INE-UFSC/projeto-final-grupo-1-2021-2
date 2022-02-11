@@ -5,7 +5,7 @@ from Tamanho import Tamanho
 
 
 class InimigoPessoa(Movel):
-    def __init__(self, spawn:Coordenada, raio_deslocamento:float=20, raio_deteccao:float=200, velocidade:float=0.03):
+    def __init__(self, spawn:Coordenada, raio_deslocamento:float=20, raio_deteccao:float=200, velocidade:float=2):
         super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(20,20), velocidade)
         self.__spawn = spawn
         self.__raio_deslocamento = raio_deslocamento
@@ -31,8 +31,7 @@ class InimigoPessoa(Movel):
 
     def colidiu(self, coord: Coordenada):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
-        self.coord.x -= 1
-        self.coord.y -= 1
+        self.coord = Coordenada(self.__spawn.x, self.__spawn.y)
 
 
     def desenhar(self, display):
