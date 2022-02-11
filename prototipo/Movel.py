@@ -12,6 +12,8 @@ class Movel(ABC):
         self.__direcao_deslocamento = Coordenada(0, 0)
         self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
             self.tamanho.largura), int(self.tamanho.altura)))
+        self.__atingido = False
+        self.__coord_atingido = None
 
     @abstractmethod
     # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
@@ -42,6 +44,14 @@ class Movel(ABC):
     def rect(self):
         return self.__rect
 
+    @property
+    def atingido(self)->int:
+        return self.__atingido
+
+    @property
+    def coord_atingido(self)->Coordenada:
+        return self.__coord_atingido
+
     @coord.setter
     def coord(self, coord: Coordenada):
         self.__coord = coord
@@ -58,13 +68,22 @@ class Movel(ABC):
     def direcao_deslocamento(self, dir: Coordenada):
         self.__direcao_deslocamento = dir
 
+    @atingido.setter
+    def atingido(self, atingido:int):
+        self.__atingido = atingido
+
+    @coord_atingido.setter
+    def coord_atingido(self, coord:Coordenada):
+        self.__coord_atingido = Coordenada(coord.x, coord.y)
+
     def desenhar(self, display, cor):
         self.__rect.center = (self.coord.x, self.coord.y)
         pygame.draw.rect(display, cor, self.__rect)
 
     def mover(self, direcao: Coordenada):
-        self.__coord.mover(direcao.x*self.__velocidade,
-                           direcao.y*self.__velocidade)
+        velocidade = self.velocidade * 2 if self.atingido else self.velocidade
+        self.__coord.mover(direcao.x*velocidade,
+                           direcao.y*velocidade)
         self.__rect.update((self.coord.x, self.coord.y, int(
             self.tamanho.largura), int(self.tamanho.altura)))
 
