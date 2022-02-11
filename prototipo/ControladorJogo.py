@@ -56,6 +56,7 @@ class ControladorJogo:
         self.__display = pygame.display.set_mode(
             self.tamanho_display, pygame.HWSURFACE)
         self.__rodando = True
+        self.__jogando = True
         self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
         self.__timer_text = self.__timer_font.render(
             "01:00", True, (255, 255, 255))
@@ -95,6 +96,8 @@ class ControladorJogo:
                     '%M:%S', time.gmtime(self.__timer_sec)), True, (255, 255, 255))
             else:
                 pygame.time.set_timer(self.__timer, 0)
+                self.__jogando = False
+
 
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
@@ -103,15 +106,25 @@ class ControladorJogo:
         self.__fase.colisao_moveis()
 
     def renderizar(self):
-        self.__fase.mapa.desenhar(self.__display)
-        if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-            self.__fase.ponto_entrega_ativo.desenhar(self.__display)
-        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-            inim.desenhar(self.__display)
-        self.__fase.jogador.desenhar(self.__display)
-        if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-            self.__fase.item_ativo.desenhar(self.__display)
-        self.__display.blit(self.__timer_text, (self.altura-160, 20))
+        if self.__jogando == True:
+            self.__fase.mapa.desenhar(self.__display)
+            if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
+                self.__fase.ponto_entrega_ativo.desenhar(self.__display)
+            for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
+                inim.desenhar(self.__display)
+            self.__fase.jogador.desenhar(self.__display)
+            if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
+                self.__fase.item_ativo.desenhar(self.__display)
+            self.__display.blit(self.__timer_text, (self.altura-160, 20))
+
+        else: 
+            self.__display.fill((0, 0, 0))
+            font = pygame.font.Font("freesansbold.ttf", 70)
+            game_over = font.render('GAME OVER', True, (138, 47, 47))
+            textRect = game_over.get_rect()
+            textRect.center = (self.largura/2, self.altura/2)
+            self.__display.blit(game_over, textRect)
+
         pygame.display.flip()
 
     def limpar(self):
@@ -120,6 +133,7 @@ class ControladorJogo:
     def executar(self):  # def que substitui a execucaoFase
         if self.inicializar() == False:
             self.__rodando = False
+            self.__jogando = False
 
         while self.__rodando:
             for evento in pygame.event.get():
@@ -137,3 +151,4 @@ class ControladorJogo:
 
     def mostra_texto(self, texto, tamanho, x, y):
         pass
+
