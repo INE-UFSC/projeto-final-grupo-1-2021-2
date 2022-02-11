@@ -1,4 +1,3 @@
-from ast import Str
 from Mapa import Mapa
 from Item import Item
 from Coordenada import Coordenada
@@ -20,7 +19,7 @@ class Biblioteca:
             'restaurante':None
             }
     lista_itens = [
-        {'teste':[Item('item1'),Item('item2')]},#itens dificuldade teste (0)
+        {'teste':[Item('item1'), Item('item2'), Item('item3')]},#itens dificuldade teste (0)
         {'mercado':[], 'cozinha':[], 'restaurante':[]},
         {'mercado':[], 'cozinha':[], 'restaurante':[]},
         {'mercado':[], 'cozinha':[], 'restaurante':[]}

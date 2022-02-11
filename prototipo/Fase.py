@@ -108,3 +108,4 @@ class Fase:
 
             if self.__jogador.entregarItem(self.ponto_entrega_ativo):
                 self.item_ativo = None #acao se entregou
+        return False
