@@ -23,6 +23,8 @@ class ControladorJogo:
         self.__timer_sec = 60
         self.__timer_text = None
         self.__timer = None
+        self.__fps = 60
+        self.__timer_fps = pygame.time.Clock()
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -98,7 +100,7 @@ class ControladorJogo:
         self.__fase.movimento(self.__teclas_pressionadas)
         if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
             pass #VITORIA!! (na fase)
-        self.colisao()
+        #self.__fase.colisao()
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
@@ -124,6 +126,7 @@ class ControladorJogo:
                 self.eventos(evento)
             self.loop()
             self.renderizar()
+            self.__timer_fps.tick(self.__fps)
             # NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
 
@@ -134,22 +137,3 @@ class ControladorJogo:
 
     def mostra_texto(self, texto, tamanho, x, y):
         pass
-
-    def colisao(self):
-        for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-            if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
-                # se ele for para cima e colidir, ele volta para trás
-                self.fase.jogador.coord.y -= 1
-                inim.coord.y += 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
-                # se ele for para baixo e colidir, ele volta para cima
-                self.fase.jogador.coord.y += 1
-                inim.coord.y -= 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
-                # se ele for para direita e colidir, ele volta para esquerda
-                self.fase.jogador.coord.x -= 1
-                inim.coord.x += 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
-                # se ele for para esquerda e colidir, ele volta para direita
-                self.fase.jogador.coord.x += 1
-                inim.coord.x -= 1

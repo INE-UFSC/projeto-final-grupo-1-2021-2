@@ -108,4 +108,23 @@ class Fase:
 
             if self.__jogador.entregarItem(self.ponto_entrega_ativo):
                 self.item_ativo = None #acao se entregou
-        return False
+        return False    
+
+    #def colisao(self):
+        for inim in (*self.inimigos_pessoa, *self.inimigos_obstaculo):
+            if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
+                # se ele for para cima e colidir, ele volta para trás
+                self.fase.jogador.coord.y -= 1
+                inim.coord.y += 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
+                # se ele for para baixo e colidir, ele volta para cima
+                self.fase.jogador.coord.y += 1
+                inim.coord.y -= 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
+                # se ele for para direita e colidir, ele volta para esquerda
+                self.fase.jogador.coord.x -= 1
+                inim.coord.x += 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
+                # se ele for para esquerda e colidir, ele volta para direita
+                self.fase.jogador.coord.x += 1
+                inim.coord.x -= 1
