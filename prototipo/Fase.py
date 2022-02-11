@@ -104,13 +104,20 @@ class Fase:
         return False
 
     def colisao_mapa(self, movel):
-        if (movel.rect.left+movel.direcao_deslocamento.x < 0 or movel.rect.right + movel.direcao_deslocamento.x > self.mapa.tamanho.largura):
+        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade) < 0 or movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade) > self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
-        if(movel.rect.top+movel.direcao_deslocamento.y < 0 or movel.rect.bottom+movel.direcao_deslocamento.y > self.mapa.tamanho.altura):
+        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade) < 0 or movel.rect.bottom+(movel.direcao_deslocamento.y*movel.velocidade) > self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
-        if (movel.rect.collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
-            movel.direcao_deslocamento.x *= -1
-            movel.direcao_deslocamento.y *= -1
+        for obstaculo in self.mapa.obstaculos:
+            if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade) == obstaculo.rect.right or movel.rect.right +
+                    movel.direcao_deslocamento.x == obstaculo.rect.left):
+                movel.direcao_deslocamento.x = 0
+            if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade) == obstaculo.rect.bottom or movel.rect.bottom +
+                    movel.direcao_deslocamento.y == obstaculo.rect.top):
+                movel.direcao_deslocamento.y = 0
+        # if (movel.mover(movel.direcao_deslocamento).rect.collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
+        #    movel.direcao_deslocamento.x = 0
+        #    movel.direcao_deslocamento.y = 0
 
     def colisao_moveis(self):
         num_moveis = len(
