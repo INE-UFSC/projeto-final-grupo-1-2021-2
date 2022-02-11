@@ -7,9 +7,9 @@ import pygame
 
 
 class Mapa:
-    def __init__(self, tamanho: Tamanho, spawn_jogador: Coordenada, spawn_inimigos_p: list[Coordenada],
-                 caminhos_inimigos_o: list[list[Coordenada]], spawn_itens: list[Coordenada],
-                 pontos_entrega: list[Coordenada], obstaculos: list[ObstaculoMapa]):
+    def __init__(self, tamanho: Tamanho, spawn_jogador: Coordenada, spawn_inimigos_p: list,
+                 caminhos_inimigos_o: list, spawn_itens: list,
+                 pontos_entrega: list, obstaculos: list):
         self.__tamanho = tamanho
         self.__spawn_jogador = spawn_jogador
         self.__spawn_inimigos_p = spawn_inimigos_p

@@ -23,6 +23,7 @@ class Fase:
         self.__ponto_entrega_ativo = None
         self.__item_ativo = None
         self.proximoItem()
+        self.vitoria = False
         #self.__num_itens = num_itens
         #self.__num_inimigos = num_inimigos
 
@@ -89,12 +90,14 @@ class Fase:
             return False
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
+        self.vitoria = True
         return True
 
     def gerenciamentoItem(self, comando_interagir_item: bool):
         if self.__item_ativo == None and self.__jogador.item_carregado == None:
             if self.proximoItem():
-                return True  # vitoria
+                return True
+                 # vitoria
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
                 pass  # acao se pegou

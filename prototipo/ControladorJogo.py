@@ -102,7 +102,8 @@ class ControladorJogo:
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
         if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
-            pass #VITORIA!! (na fase)
+            pass
+            
         self.__fase.colisao_moveis()
 
     def renderizar(self):
@@ -116,6 +117,12 @@ class ControladorJogo:
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
                 self.__fase.item_ativo.desenhar(self.__display)
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
+            if self.__fase.vitoria == True:
+                font = pygame.font.Font("freesansbold.ttf", 70)
+                vitoria = font.render('VITÓRIA', True, (138, 47, 47))
+                textRect = vitoria.get_rect()
+                textRect.center = (self.largura/2, self.altura/2)
+                self.__display.blit(vitoria, textRect)
 
         else: 
             self.__display.fill((0, 0, 0))
@@ -149,6 +156,5 @@ class ControladorJogo:
         self.__fase = ConstrutorFase.constroiFase(nivel_atual, dificuldade)
     # VITORIA E DERROTA
 
-    def mostra_texto(self, texto, tamanho, x, y):
-        pass
+
 
