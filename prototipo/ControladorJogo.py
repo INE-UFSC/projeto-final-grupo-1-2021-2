@@ -124,14 +124,15 @@ class ControladorJogo:
                 textRect.center = (self.largura/2, self.altura/2)
                 self.__display.blit(vitoria, textRect)
 
-        else: 
+        elif self.__fase.vitoria != True: 
             self.__display.fill((0, 0, 0))
             font = pygame.font.Font("freesansbold.ttf", 70)
             game_over = font.render('GAME OVER', True, (138, 47, 47))
             textRect = game_over.get_rect()
             textRect.center = (self.largura/2, self.altura/2)
             self.__display.blit(game_over, textRect)
-
+        else:
+            self.inicializar() == False
         pygame.display.flip()
 
     def limpar(self):
