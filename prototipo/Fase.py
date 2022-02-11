@@ -32,7 +32,7 @@ class Fase:
         return self.__jogador
 
     @property
-    def ponto_entrega_ativo(self)->PontoEntrega:
+    def ponto_entrega_ativo(self) -> PontoEntrega:
         return self.__ponto_entrega_ativo
 
     @property
@@ -80,10 +80,7 @@ class Fase:
             inim.decideDirecao()
 
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
-            if (mov.rect.left+mov.direcao_deslocamento.x < 0 or mov.rect.right + mov.direcao_deslocamento.x > self.mapa.tamanho.largura):
-                mov.direcao_deslocamento.x = 0
-            if(mov.rect.top+mov.direcao_deslocamento.y < 0 or mov.rect.bottom+mov.direcao_deslocamento.y > self.mapa.tamanho.altura):
-                mov.direcao_deslocamento.y = 0
+            self.colisao_mapa(mov)
             mov.mover(mov.direcao_deslocamento)
 
     def verificaColisao(movel1: Movel, movel2: Movel):
@@ -91,21 +88,32 @@ class Fase:
 
     def proximoItem(self) -> bool:
         if len(self.lista_itens) > 0:
-            self.__item_ativo = self.__lista_itens.pop(0).criar(self.mapa.coordItemAleatoria())
-            self.__ponto_entrega_ativo = self.pontos_entrega[randrange(len(self.pontos_entrega))]
+            self.__item_ativo = self.__lista_itens.pop(
+                0).criar(self.mapa.coordItemAleatoria())
+            self.__ponto_entrega_ativo = self.pontos_entrega[randrange(
+                len(self.pontos_entrega))]
             return False
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
         return True
 
-    def gerenciamentoItem(self, comando_interagir_item:bool):
+    def gerenciamentoItem(self, comando_interagir_item: bool):
         if self.__item_ativo == None and self.__jogador.item_carregado == None:
             if self.proximoItem():
-                return True #vitoria
+                return True  # vitoria
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
-                pass #acao se pegou
+                pass  # acao se pegou
 
             if self.__jogador.entregarItem(self.ponto_entrega_ativo):
-                self.item_ativo = None #acao se entregou
+                self.item_ativo = None  # acao se entregou
         return False
+
+    def colisao_mapa(self, movel):
+        if (movel.rect.left+movel.direcao_deslocamento.x < 0 or movel.rect.right + movel.direcao_deslocamento.x > self.mapa.tamanho.largura):
+            movel.direcao_deslocamento.x = 0
+        if(movel.rect.top+movel.direcao_deslocamento.y < 0 or movel.rect.bottom+movel.direcao_deslocamento.y > self.mapa.tamanho.altura):
+            movel.direcao_deslocamento.y = 0
+        if (movel.rect.collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
+            movel.direcao_deslocamento.x *= -1
+            movel.direcao_deslocamento.y *= -1
