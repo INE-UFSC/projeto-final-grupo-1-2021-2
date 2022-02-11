@@ -20,6 +20,10 @@ class ObstaculoMapa:
     def tamanho(self):
         return self.__tamanho
 
+    @property
+    def rect(self):
+        return self.__rect
+
     # métodos
 
     def criarDuasCoordenadas(a, b):
