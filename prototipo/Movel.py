@@ -77,15 +77,16 @@ class Movel(ABC):
         self.__coord_atingido = Coordenada(coord.x, coord.y)
 
     def desenhar(self, display, cor):
-        self.__rect.center = (self.coord.x, self.coord.y)
         pygame.draw.rect(display, cor, self.__rect)
 
+    def velocidade_real(self)->float:
+        return self.velocidade * 2 if self.atingido else self.velocidade
+
     def mover(self, direcao: Coordenada):
-        velocidade = self.velocidade * 2 if self.atingido else self.velocidade
+        velocidade = self.velocidade_real()
         self.__coord.mover(direcao.x*velocidade,
                            direcao.y*velocidade)
-        self.__rect.update((self.coord.x, self.coord.y, int(
-            self.tamanho.largura), int(self.tamanho.altura)))
+        self.__rect.center = self.coord.x, self.coord.y
 
 
 '''    def desenhar(self, display, cor):
