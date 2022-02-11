@@ -104,9 +104,9 @@ class Fase:
         return False
 
     def colisao_mapa(self, movel):
-        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade) < 0 or movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade) > self.mapa.tamanho.largura):
+        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
-        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade) < 0 or movel.rect.bottom+(movel.direcao_deslocamento.y*movel.velocidade) > self.mapa.tamanho.altura):
+        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or movel.rect.bottom+(movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
         for obstaculo in self.mapa.obstaculos:
             if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade) == obstaculo.rect.right or movel.rect.right +
