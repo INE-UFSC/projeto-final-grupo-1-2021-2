@@ -38,24 +38,32 @@ class Jogador(Movel):
             return False
 
     def colidiu(self, coord: Coordenada):
+        self.atingido = 15
+        self.coord_atingido = coord
         if self.item_carregado != None:
             self.perderItem()
         # expandir depois
 
     def decideDirecao(self, cima: bool, baixo: bool, direita: bool, esquerda: bool):
-        horizontal = 0
-        vertical = 0
-        if(cima):
-            vertical -= 1
-        if(baixo):
-            vertical += 1
-        if(direita):
-            horizontal += 1
-        if(esquerda):
-            horizontal -= 1
+        if self.atingido == 0:
+            horizontal = 0
+            vertical = 0
+            if(cima):
+                vertical -= 1
+            if(baixo):
+                vertical += 1
+            if(direita):
+                horizontal += 1
+            if(esquerda):
+                horizontal -= 1
 
-        self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
-            Coordenada(0, 0), Coordenada(horizontal, vertical))
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
+                Coordenada(0, 0), Coordenada(horizontal, vertical))
+
+        else:
+            self.atingido -= 1
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord_atingido, self.coord)
+            
 
     def desenhar(self, display):
         cor = (0, 0, 255)  # azul
