@@ -8,7 +8,7 @@ from Tamanho import Tamanho
 class Biblioteca:
     mapas = {
             #mapa para testes
-            'teste':Mapa(Tamanho(600,600), Coordenada(100,500), [Coordenada(500,300)], 
+            'teste':Mapa(Tamanho(640,640), Coordenada(100,500), [Coordenada(500,300)], 
             [[Coordenada(240,150),Coordenada(240,450),Coordenada(360,450),Coordenada(360, 150)]],
             [Coordenada(500,100), Coordenada(100,100)], [Coordenada(50,550)], [ObstaculoMapa(Coordenada(290, 200),Tamanho(200, 20))]),
             #mapa mercado
