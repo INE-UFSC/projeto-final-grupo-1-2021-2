@@ -61,7 +61,6 @@ class Jogador(Movel):
                 Coordenada(0, 0), Coordenada(horizontal, vertical))
 
         else:
-            self.atingido -= 1
             self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord_atingido, self.coord)
             
 

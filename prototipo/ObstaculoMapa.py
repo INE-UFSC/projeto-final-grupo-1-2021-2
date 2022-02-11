@@ -5,16 +5,16 @@ import pygame
 
 class ObstaculoMapa:
     def __init__(self, coordenada: Coordenada = '', tamanho: Tamanho = ''):
-        self.__coordenada = coordenada
+        self.__coord = coordenada
         self.__tamanho = tamanho
-        self.__rect = pygame.Rect((self.coordenada.x, self.coordenada.y, int(
+        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
             self.tamanho.largura), int(self.tamanho.altura)))
 
     # getters
 
     @property
-    def coordenada(self):
-        return self.__coordenada
+    def coord(self):
+        return self.__coord
 
     @property
     def tamanho(self):

@@ -79,7 +79,7 @@ class Fase:
 
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
             self.colisao_mapa(mov)
-            mov.mover(mov.direcao_deslocamento)
+            mov.mover()
 
     def proximoItem(self) -> bool:
         if len(self.lista_itens) > 0:
@@ -107,26 +107,21 @@ class Fase:
         return False
 
     def colisao_mapa(self, movel):
-        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or movel.rect.right +
-                (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
+        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or
+        movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
-        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or movel.rect.bottom +
-                (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
-            movel.direcao_deslocamento.y = 0
-        if (movel.rect.move(movel.direcao_deslocamento.x*movel.velocidade_real(),
-                            movel.direcao_deslocamento.y*movel.velocidade_real()).
-                collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
-            movel.direcao_deslocamento.x = 0
+        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or
+        movel.rect.bottom + (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
 
-        '''for obstaculo in self.mapa.obstaculos:
-            if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade) == obstaculo.rect.right or movel.rect.right +
-                    movel.direcao_deslocamento.x == obstaculo.rect.left):
-                movel.direcao_deslocamento.x = 0
-            if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade) == obstaculo.rect.bottom or movel.rect.bottom +
-                    movel.direcao_deslocamento.y == obstaculo.rect.top):
-                movel.direcao_deslocamento.y = 0
-        '''
+        #tem que arrumar isso ainda
+        if (movel.rect.move(movel.direcao_deslocamento.x*movel.velocidade_real(), 0).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
+            movel.direcao_deslocamento.x = 0
+            movel.rect.center = movel.coord.x, movel.coord.y
+        if (movel.rect.move(0, movel.direcao_deslocamento.y*movel.velocidade_real()).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
+            movel.direcao_deslocamento.y = 0
+            movel.rect.center = movel.coord.x, movel.coord.y
+
 
     def colisao_moveis(self):
         num_moveis = len(
@@ -141,21 +136,3 @@ class Fase:
                     if movel_i.rect.colliderect(movel_j.rect):
                         movel_i.colidiu(movel_j.coord)
                         movel_j.colidiu(movel_i.coord)
-
-        '''for inim in (*self.inimigos_pessoa, *self.inimigos_obstaculo):
-            if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
-                # se ele for para cima e colidir, ele volta para trás
-                self.fase.jogador.coord.y -= 1
-                inim.coord.y += 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
-                # se ele for para baixo e colidir, ele volta para cima
-                self.fase.jogador.coord.y += 1
-                inim.coord.y -= 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
-                # se ele for para direita e colidir, ele volta para esquerda
-                self.fase.jogador.coord.x -= 1
-                inim.coord.x += 1
-            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
-                # se ele for para esquerda e colidir, ele volta para direita
-                self.fase.jogador.coord.x += 1
-                inim.coord.x -= 1'''

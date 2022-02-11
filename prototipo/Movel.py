@@ -10,8 +10,7 @@ class Movel(ABC):
         self.__tamanho = tamanho
         self.__velocidade = velocidade
         self.__direcao_deslocamento = Coordenada(0, 0)
-        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
-            self.tamanho.largura), int(self.tamanho.altura)))
+        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(self.tamanho.largura), int(self.tamanho.altura)))
         self.__atingido = False
         self.__coord_atingido = None
 
@@ -80,9 +79,12 @@ class Movel(ABC):
         pygame.draw.rect(display, cor, self.__rect)
 
     def velocidade_real(self)->float:
-        return self.velocidade * 2 if self.atingido else self.velocidade
+        return self.velocidade * 2 if self.atingido > 0 else self.velocidade
 
-    def mover(self, direcao: Coordenada):
+    def mover(self):
+        if self.atingido > 0: 
+            self.atingido -= 1
+        direcao = self.__direcao_deslocamento
         velocidade = self.velocidade_real()
         self.__coord.mover(direcao.x*velocidade,
                            direcao.y*velocidade)
