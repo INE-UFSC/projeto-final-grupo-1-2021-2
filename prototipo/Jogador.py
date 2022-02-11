@@ -38,7 +38,8 @@ class Jogador(Movel):
             return False
 
     def colidiu(self, coord: Coordenada):
-        self.perderItem()
+        if self.item_carregado != None:
+            self.perderItem()
         # expandir depois
 
     def decideDirecao(self, cima: bool, baixo: bool, direita: bool, esquerda: bool):

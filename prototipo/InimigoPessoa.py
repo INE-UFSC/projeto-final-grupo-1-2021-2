@@ -31,8 +31,7 @@ class InimigoPessoa(Movel):
 
     def colidiu(self, coord: Coordenada):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
-        self.coord.x -= 1
-        self.coord.y -= 1
+        self.coord = Coordenada(self.__spawn.x, self.__spawn.y)
 
 
     def desenhar(self, display):

@@ -18,9 +18,8 @@ class Movel(ABC):
     def decideDirecao(self):
         pass
 
-    @abstractmethod
     # define o que acontece quando o objeto colide com outro objeto (na coordenada coord)
-    def colidiu(coord: Coordenada):
+    def colidiu(self, coord: Coordenada):
         pass
 
     @property
@@ -66,8 +65,8 @@ class Movel(ABC):
     def mover(self, direcao: Coordenada):
         self.__coord.mover(direcao.x*self.__velocidade,
                            direcao.y*self.__velocidade)
-        self.__rect = self.__rect.move(
-            direcao.x*self.__velocidade, direcao.y*self.__velocidade)
+        self.__rect.update((self.coord.x, self.coord.y, int(
+            self.tamanho.largura), int(self.tamanho.altura)))
 
 
 '''    def desenhar(self, display, cor):

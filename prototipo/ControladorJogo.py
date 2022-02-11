@@ -100,7 +100,7 @@ class ControladorJogo:
         self.__fase.movimento(self.__teclas_pressionadas)
         if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
             pass #VITORIA!! (na fase)
-        #self.__fase.colisao()
+        self.__fase.colisao_moveis()
 
     def renderizar(self):
         self.__fase.mapa.desenhar(self.__display)
