@@ -5,7 +5,7 @@ from copy import deepcopy
 
 
 class InimigoObstaculo(Movel):
-    def __init__(self, caminho:list, tamanho:Tamanho=Tamanho(30,30), velocidade:float=0.15):
+    def __init__(self, caminho:list, tamanho:Tamanho=Tamanho(30,30), velocidade:float=4):
         if(len(caminho) < 2):
             raise ValueError(
                 f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
@@ -28,7 +28,7 @@ class InimigoObstaculo(Movel):
             self.direcao_deslocamento = Coordenada(
                 direcao.x*intensidade_velocidade, direcao.y*intensidade_velocidade)
 
-    def colidiu(coord: Coordenada):  # a principio nao faz nada, talvez implementar algo depois
+    def colidiu(self, coord: Coordenada):  # a principio nao faz nada, talvez implementar algo depois
         pass
 
     def desenhar(self, display):

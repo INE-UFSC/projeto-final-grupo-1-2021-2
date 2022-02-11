@@ -65,9 +65,6 @@ class Fase:
 
     # METODOS
 
-    def statusJogador(jogador: Jogador):
-        pass
-
     def movimento(self, teclas: dict):
         self.jogador.decideDirecao(
             teclas['w'], teclas['s'], teclas['d'], teclas['a'])
@@ -82,9 +79,6 @@ class Fase:
         for mov in (*self.__inimigos_pessoa, *self.__inimigos_obstaculo, self.__jogador):
             self.colisao_mapa(mov)
             mov.mover(mov.direcao_deslocamento)
-
-    def verificaColisao(movel1: Movel, movel2: Movel):
-        pass
 
     def proximoItem(self) -> bool:
         if len(self.lista_itens) > 0:
@@ -117,3 +111,35 @@ class Fase:
         if (movel.rect.collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
             movel.direcao_deslocamento.x *= -1
             movel.direcao_deslocamento.y *= -1
+
+    def colisao_moveis(self):
+        num_moveis = len(
+            (self.__jogador, *self.__inimigos_pessoa, *self.__inimigos_obstaculo))
+        lista_moveis = [self.__jogador, *
+                        self.__inimigos_pessoa, *self.__inimigos_obstaculo]
+        for i in range(num_moveis):
+            movel_i = lista_moveis[i]
+            if i+1 < num_moveis:
+                for j in range(i+1, num_moveis):
+                    movel_j = lista_moveis[j]
+                    if movel_i.rect.colliderect(movel_j.rect):
+                        movel_i.colidiu(movel_j.coord)
+                        movel_j.colidiu(movel_i.coord)
+
+        '''for inim in (*self.inimigos_pessoa, *self.inimigos_obstaculo):
+            if self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['w'] == True:
+                # se ele for para cima e colidir, ele volta para trás
+                self.fase.jogador.coord.y -= 1
+                inim.coord.y += 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['s'] == True:
+                # se ele for para baixo e colidir, ele volta para cima
+                self.fase.jogador.coord.y += 1
+                inim.coord.y -= 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['d'] == True:
+                # se ele for para direita e colidir, ele volta para esquerda
+                self.fase.jogador.coord.x -= 1
+                inim.coord.x += 1
+            elif self.fase.jogador.rect.colliderect(inim.rect) and self.__teclas_pressionadas['a'] == True:
+                # se ele for para esquerda e colidir, ele volta para direita
+                self.fase.jogador.coord.x += 1
+                inim.coord.x -= 1'''
