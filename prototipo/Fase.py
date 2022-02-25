@@ -7,6 +7,7 @@ from Movel import Movel
 from ObstaculoMapa import ObstaculoMapa
 from Mapa import Mapa
 from random import randrange
+from math import ceil, floor
 
 
 class Fase:
@@ -107,20 +108,33 @@ class Fase:
         return False
 
     def colisao_mapa(self, movel):
-        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or
-        movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
+        deslocamento_x = movel.direcao_deslocamento.x*movel.velocidade_real()
+        deslocamento_x = ceil(deslocamento_x) if deslocamento_x >= 0 else floor(deslocamento_x)
+
+        deslocamento_y = movel.direcao_deslocamento.y*movel.velocidade_real()
+        deslocamento_y = ceil(deslocamento_y) if deslocamento_y >= 0 else floor(deslocamento_y)
+
+        lista_obstaculos = [obst.rect for obst in self.mapa.obstaculos]
+
+        if (movel.rect.left+(deslocamento_x) <= 0 or
+        movel.rect.right + (deslocamento_x) >= self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
-        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or
-        movel.rect.bottom + (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
+        if(movel.rect.top+(deslocamento_y) <= 0 or
+        movel.rect.bottom + (deslocamento_y) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
 
         #tem que arrumar isso ainda
-        if (movel.rect.move(movel.direcao_deslocamento.x*movel.velocidade_real(), 0).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
+        colide_xy = (movel.rect.move(deslocamento_x, deslocamento_y).collidelist(lista_obstaculos) != -1)
+        colide_x = movel.rect.move(deslocamento_x, 0).collidelist(lista_obstaculos) != -1
+        colide_y = movel.rect.move(0, deslocamento_y).collidelist(lista_obstaculos) != -1
+        if (colide_xy and not(colide_x or colide_y)):
             movel.direcao_deslocamento.x = 0
-            movel.rect.center = movel.coord.x, movel.coord.y
-        if (movel.rect.move(0, movel.direcao_deslocamento.y*movel.velocidade_real()).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
             movel.direcao_deslocamento.y = 0
-            movel.rect.center = movel.coord.x, movel.coord.y
+        if (colide_x):
+            movel.direcao_deslocamento.x = 0
+        if (colide_y):
+            movel.direcao_deslocamento.y = 0
+        
 
 
     def colisao_moveis(self):

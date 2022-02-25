@@ -9,8 +9,8 @@ class Biblioteca:
     mapas = {
             #mapa para testes
             'teste':Mapa(Tamanho(640,640), Coordenada(100,500), [Coordenada(500,300)], 
-            [[Coordenada(240,150),Coordenada(240,450),Coordenada(360,450),Coordenada(360, 150)]],
-            [Coordenada(500,100), Coordenada(100,100)], [Coordenada(50,550)], [ObstaculoMapa(Coordenada(290, 200),Tamanho(200, 20))]),
+            [[Coordenada(240,150),Coordenada(240,450),Coordenada(530,450),Coordenada(530, 150)]],
+            [Coordenada(500,100), Coordenada(100,100)], [Coordenada(50,550)], [ObstaculoMapa(Coordenada(290, 200),Tamanho(200, 20)), ObstaculoMapa(Coordenada(290, 200),Tamanho(20, 200))]),
             #mapa mercado
             'mercado':None,
             #mapa cozinha
