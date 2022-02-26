@@ -113,8 +113,7 @@ class ControladorJogo:
                 self.__jogando = False
                 self.__estados['jogo'] = False
                 if self.__fase.vitoria == True:
-                    self.__estados['principal'] = True
-                
+                    self.__estados['principal'] = True 
                
 
     def loop(self):
