@@ -9,7 +9,7 @@ import pygame
 class Mapa:
     def __init__(self, tamanho: Tamanho, spawn_jogador: Coordenada, spawn_inimigos_p: list,
                  caminhos_inimigos_o: list, spawn_itens: list,
-                 pontos_entrega: list, obstaculos: list):
+                 pontos_entrega: list, obstaculos: list, largura_display, altura_display):
         self.__tamanho = tamanho
         self.__spawn_jogador = spawn_jogador
         self.__spawn_inimigos_p = spawn_inimigos_p
@@ -18,7 +18,8 @@ class Mapa:
         self.__pontos_entrega = pontos_entrega
         self.__obstaculos = obstaculos
         self.__rect = pygame.Rect(
-            0, 0, self.__tamanho.largura, self.__tamanho.altura)
+            0, 0, largura_display, altura_display
+        )
 
     # getters
 
@@ -56,8 +57,10 @@ class Mapa:
         n = randrange(len(self.__pontos_entrega))
         return self.__pontos_entrega[n]
 
-    def desenhar(self, display):
+    def desenhar(self, display, posicao_camera):
         cor = (112, 128, 144)  # cinza
+        #self.__rect.x = self.__tamanho.largura - posicao_camera.x
+        #self.__rect.y = self.__tamanho.altura - posicao_camera.y
         pygame.draw.rect(display, cor, self.__rect)
         for obstaculo in self.__obstaculos:
-            obstaculo.desenhar(display)
+            obstaculo.desenhar(display, posicao_camera)

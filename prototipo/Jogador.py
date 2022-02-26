@@ -64,6 +64,6 @@ class Jogador(Movel):
             self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord_atingido, self.coord)
             
 
-    def desenhar(self, display):
+    def desenhar(self, display, posicao_camera):
         cor = (0, 0, 255)  # azul
-        return super().desenhar(display, cor)
+        return super().desenhar(display, cor, posicao_camera)

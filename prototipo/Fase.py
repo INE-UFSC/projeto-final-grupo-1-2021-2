@@ -97,7 +97,7 @@ class Fase:
         if self.__item_ativo == None and self.__jogador.item_carregado == None:
             if self.proximoItem():
                 return True
-                 # vitoria
+                # vitoria
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
                 pass  # acao se pegou
@@ -107,21 +107,27 @@ class Fase:
         return False
 
     def colisao_mapa(self, movel):
-        if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or
-        movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
+        # if (movel.rect.left+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or
+        # movel.rect.right + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
+        #    movel.direcao_deslocamento.x = 0
+        # if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or
+        # movel.rect.bottom + (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
+        #    movel.direcao_deslocamento.y = 0
+
+        if ((movel.coord.x-movel.rect.width/2)+(movel.direcao_deslocamento.x*movel.velocidade_real()) <= 0 or
+                (movel.coord.x+movel.rect.width/2) + (movel.direcao_deslocamento.x*movel.velocidade_real()) >= self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
-        if(movel.rect.top+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or
-        movel.rect.bottom + (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
+        if((movel.coord.y-movel.rect.height/2)+(movel.direcao_deslocamento.y*movel.velocidade_real()) <= 0 or
+           (movel.coord.y+movel.rect.height/2) + (movel.direcao_deslocamento.y*movel.velocidade_real()) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
 
-        #tem que arrumar isso ainda
+        # tem que arrumar isso ainda
         if (movel.rect.move(movel.direcao_deslocamento.x*movel.velocidade_real(), 0).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
             movel.direcao_deslocamento.x = 0
             movel.rect.center = movel.coord.x, movel.coord.y
         if (movel.rect.move(0, movel.direcao_deslocamento.y*movel.velocidade_real()).collidelist([obst.rect for obst in self.mapa.obstaculos]) != -1):
             movel.direcao_deslocamento.y = 0
             movel.rect.center = movel.coord.x, movel.coord.y
-
 
     def colisao_moveis(self):
         num_moveis = len(

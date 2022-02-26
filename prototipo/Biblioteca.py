@@ -7,28 +7,32 @@ from Tamanho import Tamanho
 
 class Biblioteca:
     mapas = {
-            #mapa para testes
-            'teste':Mapa(Tamanho(640,640), Coordenada(100,500), [Coordenada(500,300)], 
-            [[Coordenada(240,150),Coordenada(240,450),Coordenada(360,450),Coordenada(360, 150)]],
-            [Coordenada(500,100), Coordenada(100,100)], [Coordenada(50,550)], [ObstaculoMapa(Coordenada(290, 200),Tamanho(200, 20))]),
-            #mapa mercado
-            'mercado':None,
-            #mapa cozinha
-            'cozinha':None,
-            #mapa restaurante
-            'restaurante':None
-            }
+        # mapa para testes
+        'teste': Mapa(Tamanho(700, 700), Coordenada(100, 500), [Coordenada(500, 300)],
+                      [[Coordenada(240, 150), Coordenada(240, 450),
+                        Coordenada(360, 450), Coordenada(360, 150)]],
+                      [Coordenada(500, 100), Coordenada(100, 100)], [Coordenada(50, 550)], [
+            ObstaculoMapa(Coordenada(290, 200), Tamanho(200, 20))],
+            640, 640),
+        # mapa mercado
+        'mercado': None,
+        # mapa cozinha
+        'cozinha': None,
+        # mapa restaurante
+        'restaurante': None
+    }
     lista_itens = [
-        {'teste':[Item('item1'), Item('item2'), Item('item3')]},#itens dificuldade teste (0)
-        {'mercado':[], 'cozinha':[], 'restaurante':[]},
-        {'mercado':[], 'cozinha':[], 'restaurante':[]},
-        {'mercado':[], 'cozinha':[], 'restaurante':[]}
-        ]
+        {'teste': [Item('item1'), Item('item2'), Item('item3')]
+         },  # itens dificuldade teste (0)
+        {'mercado': [], 'cozinha':[], 'restaurante':[]},
+        {'mercado': [], 'cozinha':[], 'restaurante':[]},
+        {'mercado': [], 'cozinha':[], 'restaurante':[]}
+    ]
 
     @classmethod
-    def getMapaNivel(cls, nivel:str)->Mapa:
+    def getMapaNivel(cls, nivel: str) -> Mapa:
         return cls.mapas[nivel]
 
     @classmethod
-    def getItensDificuldade(cls, dificuldade:int, nivel:str):
+    def getItensDificuldade(cls, dificuldade: int, nivel: str):
         return cls.lista_itens[dificuldade][nivel]

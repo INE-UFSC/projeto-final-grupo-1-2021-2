@@ -29,6 +29,8 @@ class ObstaculoMapa:
     def criarDuasCoordenadas(a, b):
         pass
 
-    def desenhar(self, display):
+    def desenhar(self, display, posicao_camera):
         cor = (47, 79, 79)  # cinza escuro
+        self.__rect.x = self.coord.x - posicao_camera.x
+        self.__rect.y = self.coord.y - posicao_camera.y
         pygame.draw.rect(display, cor, self.__rect)

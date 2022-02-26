@@ -7,6 +7,7 @@ from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
 from Item import Item
 from PontoEntrega import PontoEntrega
+from Camera import Camera
 
 
 class ControladorJogo:
@@ -25,6 +26,7 @@ class ControladorJogo:
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
+        self.__camera = None
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -63,6 +65,7 @@ class ControladorJogo:
         self.__timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.__timer, 1000)
         self.novaFase('teste', 0)
+        self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -98,24 +101,24 @@ class ControladorJogo:
                 pygame.time.set_timer(self.__timer, 0)
                 self.__jogando = False
 
-
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
         if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
             pass
-            
+
         self.__fase.colisao_moveis()
 
     def renderizar(self):
+        self.__camera.moverCamera()
         if self.__jogando == True:
-            self.__fase.mapa.desenhar(self.__display)
+            self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int)
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-                self.__fase.ponto_entrega_ativo.desenhar(self.__display)
+                self.__fase.ponto_entrega_ativo.desenhar(self.__display, self.__camera.posicao_int)
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-                inim.desenhar(self.__display)
-            self.__fase.jogador.desenhar(self.__display)
+                inim.desenhar(self.__display, self.__camera.posicao_int)
+            self.__fase.jogador.desenhar(self.__display, self.__camera.posicao_int)
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-                self.__fase.item_ativo.desenhar(self.__display)
+                self.__fase.item_ativo.desenhar(self.__display, self.__camera.posicao_int)
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
             if self.__fase.vitoria == True:
                 font = pygame.font.Font("freesansbold.ttf", 70)
@@ -124,7 +127,7 @@ class ControladorJogo:
                 textRect.center = (self.largura/2, self.altura/2)
                 self.__display.blit(vitoria, textRect)
 
-        elif self.__fase.vitoria != True: 
+        elif self.__fase.vitoria != True:
             self.__display.fill((0, 0, 0))
             font = pygame.font.Font("freesansbold.ttf", 70)
             game_over = font.render('GAME OVER', True, (138, 47, 47))
@@ -156,6 +159,3 @@ class ControladorJogo:
     def novaFase(self, nivel_atual: str, dificuldade: float):
         self.__fase = ConstrutorFase.constroiFase(nivel_atual, dificuldade)
     # VITORIA E DERROTA
-
-
-
