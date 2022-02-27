@@ -11,14 +11,18 @@ class Camera:
         self.__posicao_float = Coordenada(0, 0)
         self.__largura_display = tamanho_display[0]
         self.__altura_display = tamanho_display[1]
-        self.__constante = Coordenada(-self.__largura_display, -
-                                      self.__altura_display)
+        # self.__constante = Coordenada(-self.__largura_display/2 + jogador_rect.width, -
+        # self.__altura_display/2 + jogador_rect.height)
 
     def moverCamera(self):
+        # self.__posicao_float.x += (self.__jogador_rect.x -
+        # self.__posicao_float.x + self.__constante.x)
+        # self.__posicao_float.y += (self.__jogador_rect.y -
+        # self.__posicao_float.y + self.__constante.y)
         self.__posicao_float.x += (self.__jogador_rect.x -
-                                   self.__posicao_float.x + self.__constante.x)
+                                   self.__posicao_float.x)
         self.__posicao_float.y += (self.__jogador_rect.y -
-                                   self.__posicao_float.y + self.__constante.y)
+                                   self.__posicao_float.y)
         self.__posicao_int.x, self.__posicao_int.y = int(
             self.__posicao_float.x), int(self.__posicao_float.y)
         self.__posicao_int.x = max(
@@ -67,4 +71,4 @@ class Camera:
 
     @property
     def posicao_int(self):
-        return self.__posicao_int'''   
+        return self.__posicao_int'''
