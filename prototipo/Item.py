@@ -18,9 +18,10 @@ class Item(Interativos):
     def desenhar(self, display, posicao_camera):
         cor = (0, 255, 0)  # VERDE
         self.rect.center = (self.coord.x, self.coord.y)
-        self.rect.x = self.coord.x - posicao_camera.x
-        self.rect.y = self.coord.y - posicao_camera.y
-        pygame.draw.rect(display, cor, self.rect)
+        #self.rect.x = self.coord.x - posicao_camera.x
+        #self.rect.y = self.coord.y - posicao_camera.y
+        rect_camera = self.rect.move(-posicao_camera.x, -posicao_camera.y)
+        pygame.draw.rect(display, cor, rect_camera)
 
 
 '''    @ property

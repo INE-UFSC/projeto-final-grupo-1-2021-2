@@ -77,9 +77,10 @@ class Movel(ABC):
         self.__coord_atingido = Coordenada(coord.x, coord.y)
 
     def desenhar(self, display, cor, posicao_camera):
-        self.__rect.centerx = self.__coord.x - posicao_camera.x
-        self.__rect.centery = self.__coord.y - posicao_camera.y
-        pygame.draw.rect(display, cor, self.__rect)
+        #self.__rect.centerx = self.__coord.x - posicao_camera.x
+        #self.__rect.centery = self.__coord.y - posicao_camera.y
+        rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
+        pygame.draw.rect(display, cor, rect_camera)
 
     def velocidade_real(self) -> float:
         return self.velocidade * 2 if self.atingido > 0 else self.velocidade
