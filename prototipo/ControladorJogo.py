@@ -110,15 +110,20 @@ class ControladorJogo:
 
     def renderizar(self):
         self.__camera.moverCamera()
+        self.__display.fill((0, 0, 0))
         if self.__jogando == True:
-            self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int)
+            self.__fase.mapa.desenhar(
+                self.__display, self.__camera.posicao_int)
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-                self.__fase.ponto_entrega_ativo.desenhar(self.__display, self.__camera.posicao_int)
+                self.__fase.ponto_entrega_ativo.desenhar(
+                    self.__display, self.__camera.posicao_int)
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
                 inim.desenhar(self.__display, self.__camera.posicao_int)
-            self.__fase.jogador.desenhar(self.__display, self.__camera.posicao_int)
+            self.__fase.jogador.desenhar(
+                self.__display, self.__camera.posicao_int)
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-                self.__fase.item_ativo.desenhar(self.__display, self.__camera.posicao_int)
+                self.__fase.item_ativo.desenhar(
+                    self.__display, self.__camera.posicao_int)
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
             if self.__fase.vitoria == True:
                 font = pygame.font.Font("freesansbold.ttf", 70)
