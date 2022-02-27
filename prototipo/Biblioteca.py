@@ -12,8 +12,7 @@ class Biblioteca:
                       [[Coordenada(240, 150), Coordenada(240, 450),
                         Coordenada(360, 450), Coordenada(360, 150)]],
                       [Coordenada(500, 100), Coordenada(100, 100)], [Coordenada(50, 550)], [
-            ObstaculoMapa(Coordenada(290, 200), Tamanho(200, 20))],
-            640, 640),
+            ObstaculoMapa(Coordenada(290, 200), Tamanho(200, 20))]),
         # mapa mercado
         'mercado': None,
         # mapa cozinha
