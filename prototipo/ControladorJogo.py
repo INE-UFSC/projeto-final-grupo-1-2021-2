@@ -256,6 +256,7 @@ class ControladorJogo:
                     self.__jogando = True
                     self.__estados['jogo'] = True
                     self.__estados['principal'] = False
+                    self.reinicia_timer()
                 elif self.opcao  == 'Tutorial':
                     self.__estados['principal'] = False
                     self.__estados['tutorial'] = True
@@ -272,5 +273,8 @@ class ControladorJogo:
                     self.__estados['principal'] = True
                     self.__estados['creditos'] = False
         
-
+    def reinicia_timer(self):
+        pass
+    # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
+    # o timer seja reiniciado
 
