@@ -8,10 +8,10 @@ from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
 from Item import Item
 from PontoEntrega import PontoEntrega
-from Menu import Menu
-from MenuCreditos import MenuCreditos
-from MenuPrincipal import MenuPrincipal
-from MenuTutorial import MenuTutorial
+# from Menu import Menu
+# from MenuCreditos import MenuCreditos
+# from MenuPrincipal import MenuPrincipal
+# from MenuTutorial import MenuTutorial
 
 class ControladorJogo:
     # , fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
