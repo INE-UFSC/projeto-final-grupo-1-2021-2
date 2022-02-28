@@ -5,15 +5,9 @@ from pygame.locals import *
 import Menu
 
 class MenuPrincipal(Menu):
-    def __init__(self, controladorJogo):
-        Menu.__init__(self, controladorJogo)
+    def __init__(self):
         pass
 
     def display_menu(self): 
         pass
  
-    def move_cursor(self): 
-        pass
-
-    def checa_entrada(self):
-        pass
