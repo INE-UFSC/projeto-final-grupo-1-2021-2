@@ -2,9 +2,9 @@ import pygame, sys
 from pygame.locals import *
 import Menu
 
-class MenuTutorial(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
+class MenuCreditos(Menu):
+    def __init__(self):
+        pass
 
     def display_menu(self):
         pass
