@@ -142,6 +142,7 @@ class ControladorJogo:
             self.__display.fill((0, 0, 0))
             self.MenuTutorial()
         elif self.__jogando == True and self.__estados['jogo'] == True:
+            self.__display.fill((0, 0, 0))
             self.__fase.mapa.desenhar(
                 self.__display, self.__camera.posicao_int)
 
