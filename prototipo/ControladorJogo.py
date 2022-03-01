@@ -12,6 +12,8 @@ from PontoEntrega import PontoEntrega
 # from MenuCreditos import MenuCreditos
 # from MenuPrincipal import MenuPrincipal
 # from MenuTutorial import MenuTutorial
+from Camera import Camera
+
 
 class ControladorJogo:
     # , fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
@@ -33,7 +35,9 @@ class ControladorJogo:
         # self.__menu_crd = MenuCreditos()
         # self.__menu_tut = MenuTutorial()
         self.__fonte = 'PressStart2P-vaV7.ttf'
-        self.__estados = {'principal' : True, 'tutorial' : False, 'creditos' : False, 'jogo' : False, 'game_over' : False}
+        self.__estados = {'principal': True, 'tutorial': False,
+                          'creditos': False, 'jogo': False, 'game_over': False}
+        self.__camera = None
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -73,7 +77,9 @@ class ControladorJogo:
         pygame.time.set_timer(self.__timer, 1000)
         self.novaFase('teste', 0)
         self.opcao = 'Jogar'
-        self.cursor_rect = pygame.Rect(self.largura/2 - 100, self.altura/2, 130, 130)
+        self.cursor_rect = pygame.Rect(
+            self.largura/2 - 100, self.altura/2, 130, 130)
+        self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -89,7 +95,7 @@ class ControladorJogo:
                 self.__teclas_pressionadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = True
-           
+
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = False
@@ -101,8 +107,7 @@ class ControladorJogo:
                 self.__teclas_pressionadas['d'] = False
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = False
-            
-           
+
         elif evento.type == self.__timer:
             if self.__timer_sec > 0:
                 self.__timer_sec -= 1
@@ -113,56 +118,63 @@ class ControladorJogo:
                 self.__jogando = False
                 self.__estados['jogo'] = False
                 if self.__fase.vitoria == True:
-                    self.__estados['principal'] = True 
-               
+                    self.__estados['principal'] = True
 
     def loop(self):
         self.__fase.movimento(self.__teclas_pressionadas)
         if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
             pass
-            
+
         self.__fase.colisao_moveis()
 
     def renderizar(self):
+        self.__camera.moverCamera()
+
         self.MudaEstados()
         if self.__estados['principal'] == True:
-            self.__display.fill((0, 0, 0)) 
+            self.__display.fill((0, 0, 0))
             self.MenuPrincipal()
             self.move_cursor()
         elif self.__estados['creditos'] == True:
-            self.__display.fill((0, 0, 0)) 
+            self.__display.fill((0, 0, 0))
             self.MenuCreditos()
         elif self.__estados['tutorial'] == True:
-            self.__display.fill((0, 0, 0)) 
+            self.__display.fill((0, 0, 0))
             self.MenuTutorial()
         elif self.__jogando == True and self.__estados['jogo'] == True:
-            self.__fase.mapa.desenhar(self.__display)
+            self.__fase.mapa.desenhar(
+                self.__display, self.__camera.posicao_int)
 
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-                self.__fase.ponto_entrega_ativo.desenhar(self.__display)
+                self.__fase.ponto_entrega_ativo.desenhar(
+                    self.__display, self.__camera.posicao_int)
 
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
-                inim.desenhar(self.__display)
-            self.__fase.jogador.desenhar(self.__display)
+                inim.desenhar(self.__display, self.__camera.posicao_int)
+            self.__fase.jogador.desenhar(
+                self.__display, self.__camera.posicao_int)
 
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-                self.__fase.item_ativo.desenhar(self.__display)
+                self.__fase.item_ativo.desenhar(
+                    self.__display, self.__camera.posicao_int)
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
 
             if self.__fase.vitoria == True:
-                self.desenha_texto("VITÓRIA", 50, self.largura/2, self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
+                self.desenha_texto("VITÓRIA", 50, self.largura/2,
+                                   self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
 
-        elif self.__fase.vitoria != True and self.__jogando == False: 
+        elif self.__fase.vitoria != True and self.__jogando == False:
             self.__display.fill((0, 0, 0))
-            self.__estados['game_over']  = True
-            self.desenha_texto("Game Over", 50, self.largura/2, self.altura/2, ((138, 47, 47)), self.__fonte)
-            self.desenha_texto("Aperte A para retornar ao Menu Principal", 12, self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+            self.__estados['game_over'] = True
+            self.desenha_texto("Game Over", 50, self.largura/2,
+                               self.altura/2, ((138, 47, 47)), self.__fonte)
+            self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
+                               self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
             if self.__teclas_pressionadas['a'] == True:
                 self.__estados['principal'] = True
         else:
             self.inicializar() == False
         pygame.display.flip()
-        
 
     def limpar(self):
         pygame.quit()
@@ -184,70 +196,100 @@ class ControladorJogo:
     def novaFase(self, nivel_atual: str, dificuldade: float):
         self.__fase = ConstrutorFase.constroiFase(nivel_atual, dificuldade)
 
-    def desenha_texto(self, texto, tamanho, x, y, cor, fonte): 
+    def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
         font = pygame.font.Font(fonte, tamanho)
         text_surface = font.render(texto, True, cor)
         text_rect = text_surface.get_rect()
-        text_rect.center = (x,y)
-        self.__display.blit(text_surface,text_rect)
-    
-    def move_cursor(self): #Movimentação do Cursor (Setinha)
+        text_rect.center = (x, y)
+        self.__display.blit(text_surface, text_rect)
+
+    def move_cursor(self):  # Movimentação do Cursor (Setinha)
         if self.__teclas_pressionadas['s'] == True:
             if self.opcao == 'Jogar':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2 + 40)
-                self.opcao  = 'Tutorial'
-            elif self.opcao  == 'Tutorial':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2 + 80)
-                self.opcao  = 'Créditos'
-            elif self.opcao  == 'Créditos':
-                self.cursor_rect.midtop = (self.largura/2 - 100 , self.altura/2 + 120)
-                self.opcao  = 'Sair'
-            elif self.opcao  == 'Sair':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 40)
+                self.opcao = 'Tutorial'
+            elif self.opcao == 'Tutorial':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 80)
+                self.opcao = 'Créditos'
+            elif self.opcao == 'Créditos':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 120)
+                self.opcao = 'Sair'
+            elif self.opcao == 'Sair':
                 self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2)
-                self.opcao  = 'Jogar'
-        elif self.__teclas_pressionadas['w'] == True: 
-            if self.opcao  == 'Jogar':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2 + 120)
-                self.opcao  = 'Sair'
-            elif self.opcao  == 'Sair':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2 + 80)
-                self.opcao  = 'Créditos'
-            elif self.opcao  == 'Tutorial':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2 + 40)
-                self.opcao  = 'Jogar'
-            elif self.opcao  == 'Créditos':
+                self.opcao = 'Jogar'
+        elif self.__teclas_pressionadas['w'] == True:
+            if self.opcao == 'Jogar':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 120)
+                self.opcao = 'Sair'
+            elif self.opcao == 'Sair':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 80)
+                self.opcao = 'Créditos'
+            elif self.opcao == 'Tutorial':
+                self.cursor_rect.midtop = (
+                    self.largura/2 - 100, self.altura/2 + 40)
+                self.opcao = 'Jogar'
+            elif self.opcao == 'Créditos':
                 self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2)
-                self.opcao  = 'Tutorial'
+                self.opcao = 'Tutorial'
 
     def MenuPrincipal(self):
-        self.desenha_texto('Nome do Jogo', 40, self.largura/ 2, self.altura / 8, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("  Menu Principal ", 25,self.largura / 2,self.altura / 4, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Jogar", 20,self.largura/2,self.altura/2, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Tutorial", 20,self.largura/2,self.altura/2 + 40, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Créditos", 20,self.largura/2,self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Sair", 20,self.largura/2,self.altura/2 + 120, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Voltar: A", 20,self.largura/2 - 200,self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Avançar: D", 20,self.largura/2 + 200,self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto('▶', 20, self.cursor_rect.x, self.cursor_rect.y, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto('Nome do Jogo', 40, self.largura / 2,
+                           self.altura / 8, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("  Menu Principal ", 25, self.largura / 2,
+                           self.altura / 4, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Jogar", 20, self.largura/2,
+                           self.altura/2, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Tutorial", 20, self.largura/2,
+                           self.altura/2 + 40, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Créditos", 20, self.largura/2,
+                           self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Sair", 20, self.largura/2,
+                           self.altura/2 + 120, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Voltar: A", 20, self.largura/2 - 200,
+                           self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto("Avançar: D", 20, self.largura/2 + 200,
+                           self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
+        self.desenha_texto('▶', 20, self.cursor_rect.x,
+                           self.cursor_rect.y, ((255, 255, 255)), self.__fonte)
 
     def MenuCreditos(self):
-        self.desenha_texto('Créditos', 20,self.largura / 2,self.altura/ 4 - 20, (255, 255, 255), self.__fonte)
-        self.desenha_texto('Arthur Torres de Lino', 15,self.largura / 2,self.altura / 2 + 10, (255, 255, 255),self.__fonte)
-        self.desenha_texto('Brenda Silva Machado', 15,self.largura/ 2,self.altura/ 2 + 50, (255, 255, 255), self.__fonte)
-        self.desenha_texto('Gabriela Furtado da Silveira', 15,self.largura/ 2,self.altura / 2 + 90, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Voltar: A", 10,self.largura/2 - 200,self.altura/2 + 190, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Avançar: D", 10,self.largura/2 + 200,self.altura/2 + 190, (255, 255, 255), self.__fonte)
+        self.desenha_texto('Créditos', 20, self.largura / 2,
+                           self.altura / 4 - 20, (255, 255, 255), self.__fonte)
+        self.desenha_texto('Arthur Torres de Lino', 15, self.largura / 2,
+                           self.altura / 2 + 10, (255, 255, 255), self.__fonte)
+        self.desenha_texto('Brenda Silva Machado', 15, self.largura / 2,
+                           self.altura / 2 + 50, (255, 255, 255), self.__fonte)
+        self.desenha_texto('Gabriela Furtado da Silveira', 15, self.largura /
+                           2, self.altura / 2 + 90, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
+                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
+                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
 
     def MenuTutorial(self):
-        self.desenha_texto('Tutorial', 40,self.largura/ 2,self.altura / 2 - 120, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Direira:  D", 15,self.largura/2,self.altura/2 - 30, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Esquerda: A", 15,self.largura/2,self.altura/2, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Cima: W", 15,self.largura/2,self.altura/2 + 30, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Baixo: S", 15,self.largura/2,self.altura/2 + 60, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Pegar Item: Espaço", 15,self.largura/2,self.altura/2 + 90, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Entregar Item: Espaço", 15,self.largura/2,self.altura/2 + 120, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Voltar: A", 10,self.largura/2 - 200,self.altura/2 + 190, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Avançar: D", 10,self.largura/2 + 200,self.altura/2 + 190, (255, 255, 255), self.__fonte)
+        self.desenha_texto('Tutorial', 40, self.largura / 2,
+                           self.altura / 2 - 120, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Andar para Direira:  D", 15, self.largura/2,
+                           self.altura/2 - 30, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Andar para Esquerda: A", 15, self.largura/2,
+                           self.altura/2, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Andar para Cima: W", 15, self.largura/2,
+                           self.altura/2 + 30, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Andar para Baixo: S", 15, self.largura/2,
+                           self.altura/2 + 60, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Pegar Item: Espaço", 15, self.largura/2,
+                           self.altura/2 + 90, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Entregar Item: Espaço", 15, self.largura/2,
+                           self.altura/2 + 120, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
+                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
+        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
+                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
 
     def MudaEstados(self):
         if self.__estados['jogo'] == False:
@@ -257,22 +299,22 @@ class ControladorJogo:
                     self.__estados['jogo'] = True
                     self.__estados['principal'] = False
                     self.reinicia_timer()
-                elif self.opcao  == 'Tutorial':
+                elif self.opcao == 'Tutorial':
                     self.__estados['principal'] = False
                     self.__estados['tutorial'] = True
-                elif self.opcao  == 'Créditos':
+                elif self.opcao == 'Créditos':
                     self.__estados['principal'] = False
                     self.__estados['creditos'] = True
-                elif self.opcao  == 'Sair':
+                elif self.opcao == 'Sair':
                     self.inicializar() == False
             elif self.__teclas_pressionadas['a'] == True:
-                if self.__estados['tutorial']  == True:
+                if self.__estados['tutorial'] == True:
                     self.__estados['principal'] = True
                     self.__estados['tutorial'] = False
-                elif self.__estados['creditos']  == True:
+                elif self.__estados['creditos'] == True:
                     self.__estados['principal'] = True
                     self.__estados['creditos'] = False
-        
+
     def reinicia_timer(self):
         self.__timer_sec = 60
         self.__timer_text = self.__timer_font.render(
@@ -280,5 +322,3 @@ class ControladorJogo:
         pygame.time.set_timer(self.__timer, 1000)
     # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
     # o timer seja reiniciado
-
-

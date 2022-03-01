@@ -10,7 +10,8 @@ class Movel(ABC):
         self.__tamanho = tamanho
         self.__velocidade = velocidade
         self.__direcao_deslocamento = Coordenada(0, 0)
-        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(self.tamanho.largura), int(self.tamanho.altura)))
+        self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
+            self.tamanho.largura), int(self.tamanho.altura)))
         self.__atingido = False
         self.__coord_atingido = None
 
@@ -44,11 +45,11 @@ class Movel(ABC):
         return self.__rect
 
     @property
-    def atingido(self)->int:
+    def atingido(self) -> int:
         return self.__atingido
 
     @property
-    def coord_atingido(self)->Coordenada:
+    def coord_atingido(self) -> Coordenada:
         return self.__coord_atingido
 
     @coord.setter
@@ -68,21 +69,24 @@ class Movel(ABC):
         self.__direcao_deslocamento = dir
 
     @atingido.setter
-    def atingido(self, atingido:int):
+    def atingido(self, atingido: int):
         self.__atingido = atingido
 
     @coord_atingido.setter
-    def coord_atingido(self, coord:Coordenada):
+    def coord_atingido(self, coord: Coordenada):
         self.__coord_atingido = Coordenada(coord.x, coord.y)
 
-    def desenhar(self, display, cor):
-        pygame.draw.rect(display, cor, self.__rect)
+    def desenhar(self, display, cor, posicao_camera):
+        #self.__rect.centerx = self.__coord.x - posicao_camera.x
+        #self.__rect.centery = self.__coord.y - posicao_camera.y
+        rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
+        pygame.draw.rect(display, cor, rect_camera)
 
-    def velocidade_real(self)->float:
+    def velocidade_real(self) -> float:
         return self.velocidade * 2 if self.atingido > 0 else self.velocidade
 
     def mover(self):
-        if self.atingido > 0: 
+        if self.atingido > 0:
             self.atingido -= 1
         direcao = self.__direcao_deslocamento
         velocidade = self.velocidade_real()

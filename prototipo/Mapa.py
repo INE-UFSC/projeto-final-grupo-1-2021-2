@@ -18,7 +18,8 @@ class Mapa:
         self.__pontos_entrega = pontos_entrega
         self.__obstaculos = obstaculos
         self.__rect = pygame.Rect(
-            0, 0, self.__tamanho.largura, self.__tamanho.altura)
+            0, 0, self.__tamanho.largura, self.__tamanho.altura
+        )
 
     # getters
 
@@ -56,8 +57,11 @@ class Mapa:
         n = randrange(len(self.__pontos_entrega))
         return self.__pontos_entrega[n]
 
-    def desenhar(self, display):
+    def desenhar(self, display, posicao_camera):
         cor = (112, 128, 144)  # cinza
-        pygame.draw.rect(display, cor, self.__rect)
+        #self.__rect.x = self.__tamanho.largura - posicao_camera.x
+        #self.__rect.y = self.__tamanho.altura - posicao_camera.y
+        rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
+        pygame.draw.rect(display, cor, rect_camera)
         for obstaculo in self.__obstaculos:
-            obstaculo.desenhar(display)
+            obstaculo.desenhar(display, posicao_camera)
