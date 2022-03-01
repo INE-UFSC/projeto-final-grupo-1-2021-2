@@ -274,7 +274,10 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
         
     def reinicia_timer(self):
-        pass
+        self.__timer_sec = 60
+        self.__timer_text = self.__timer_font.render(
+            "01:00", True, ((255, 255, 255)))
+        pygame.time.set_timer(self.__timer, 1000)
     # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
     # o timer seja reiniciado
 
