@@ -7,7 +7,7 @@ from Movel import Movel
 from ObstaculoMapa import ObstaculoMapa
 from Mapa import Mapa
 from random import randrange
-from math import ceil, floor
+from math import floor, ceil
 
 
 class Fase:
@@ -134,7 +134,6 @@ class Fase:
             movel.direcao_deslocamento.x = 0
         if (colide_y):
             movel.direcao_deslocamento.y = 0
-        
 
     def colisao_moveis(self):
         num_moveis = len(
