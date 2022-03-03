@@ -75,7 +75,7 @@ class ControladorJogo:
             "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.__timer, 1000)
-        self.novaFase('cozinha', 1)
+        self.novaFase('restaurante', 1)
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
             self.largura/2 - 100, self.altura/2, 130, 130)

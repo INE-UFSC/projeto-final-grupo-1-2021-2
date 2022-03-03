@@ -38,7 +38,7 @@ class Jogador(Movel):
             return False
 
     def colidiu(self, coord: Coordenada):
-        self.atingido = 15
+        self.atingido = 60
         self.coord_atingido = coord
         if self.item_carregado != None:
             self.perderItem()

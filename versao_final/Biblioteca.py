@@ -151,7 +151,73 @@ class Biblioteca(metaclass=Singleton):
                     ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560))
                 ]),
             # mapa restaurante
-            'restaurante': None
+            'restaurante': Mapa(
+                #tamanho
+                Tamanho(2400, 1720),
+                #spawn jogador
+                Coordenada(1200, 140),
+                #spawn inimigos p
+                [
+                    Coordenada(195, 145), Coordenada(185, 1325), Coordenada(945, 425), Coordenada(945, 815),
+                    Coordenada(1205, 225), Coordenada(1765, 625), Coordenada(1765, 1160), Coordenada(1765, 1545)
+                ],
+                #caminhos inimigos o
+                [
+                    [Coordenada(535, 160), Coordenada(535, 710), Coordenada(610, 710), Coordenada(610, 160)],
+                    [Coordenada(280, 1310), Coordenada(280, 1430), Coordenada(840, 1430), Coordenada(840, 1310)],
+                    [Coordenada(1080, 360), Coordenada(1080, 1200), Coordenada(1320, 1200), Coordenada(1320, 360)],
+                    [Coordenada(1400, 280), Coordenada(1400, 480), Coordenada(1680, 480), Coordenada(1680, 280)],
+                    [Coordenada(1800, 280), Coordenada(1800, 480), Coordenada(2080, 480), Coordenada(2080, 280)],
+                    [Coordenada(1480, 830), Coordenada(1480, 1450), Coordenada(2060, 1450), Coordenada(2060, 830)],
+                    
+                ],
+                #spawn itens
+                [
+                    Coordenada(1055, 1585), Coordenada(1135, 1585), Coordenada(1215, 1585),
+                    Coordenada(1295, 1585), Coordenada(1375, 1585)
+                ],
+                #pontos entrega
+                [
+                    Coordenada(415, 240), Coordenada(415, 600), Coordenada(735, 240), Coordenada(735, 600),
+                    Coordenada(415, 1030), Coordenada(415, 1160), Coordenada(745, 1030), Coordenada(745, 1160),
+                    Coordenada(340, 1610), Coordenada(760, 1610), Coordenada(1690, 130), Coordenada(2020, 130),
+                    Coordenada(2280, 270), Coordenada(2280, 560), Coordenada(1610, 960), Coordenada(1610, 1320),
+                    Coordenada(1930, 960), Coordenada(1930, 1320)
+                ],
+                #obstaculos
+                [
+                    ObstaculoMapa(Coordenada(0, 0), Tamanho(2400, 80)),
+                    ObstaculoMapa(Coordenada(0, 80), Tamanho(80, 1560)),
+                    ObstaculoMapa(Coordenada(0, 1640), Tamanho(2400, 80)),
+                    ObstaculoMapa(Coordenada(365, 160), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(365, 520), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(685, 160), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(685, 520), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(80, 760), Tamanho(230, 80)),
+                    ObstaculoMapa(Coordenada(335, 980), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(665, 980), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(240, 1080), Tamanho(680, 40)),
+                    ObstaculoMapa(Coordenada(335, 1120), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(665, 1120), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(260, 1560), Tamanho(160, 80)),
+                    ObstaculoMapa(Coordenada(680, 1560), Tamanho(160, 80)),
+                    ObstaculoMapa(Coordenada(920, 1400), Tamanho(80, 240)),
+                    ObstaculoMapa(Coordenada(1000, 1600), Tamanho(400, 40)),
+                    ObstaculoMapa(Coordenada(1040, 80), Tamanho(40, 40)),
+                    ObstaculoMapa(Coordenada(1080, 80), Tamanho(240, 20)),
+                    ObstaculoMapa(Coordenada(1320, 80), Tamanho(40, 40)),
+                    ObstaculoMapa(Coordenada(1160, 440), Tamanho(80, 680)),
+                    ObstaculoMapa(Coordenada(1610, 80), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(1940, 80), Tamanho(160, 100)),
+                    ObstaculoMapa(Coordenada(2220, 190), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(2220, 480), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(2080, 720), Tamanho(240, 80)),
+                    ObstaculoMapa(Coordenada(1560, 880), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(1880, 880), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(1560, 1240), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(1880, 1240), Tamanho(100, 160)),
+                    ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560))
+                ])
         }
         self.__lista_itens = [
             {'teste': [Item('item1'), Item('item2'), Item('item3')]
