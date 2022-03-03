@@ -38,6 +38,11 @@ class ControladorJogo:
         self.__estados = {'principal': True, 'tutorial': False,
                           'creditos': False, 'jogo': False, 'game_over': False}
         self.__camera = None
+        self.altura_jogar = self.altura/2
+        self.altura_tutorial = self.altura/2 + 40
+        self.altura_creditos = self.altura/2 + 80
+        self.altura_sair = self.altura/2 + 120
+        self.distancia_cursor = self.largura/2 - 100
         '''
         self.__tempo_restante = tempo_restante
         self.__nivel_atual = nivel_atual
@@ -78,7 +83,7 @@ class ControladorJogo:
         self.novaFase('restaurante', 1)
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
-            self.largura/2 - 100, self.altura/2, 130, 130)
+            self.distancia_cursor, self.altura/2, 130, 130)
         self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
@@ -161,7 +166,7 @@ class ControladorJogo:
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
 
             if self.__fase.vitoria == True:
-                self.desenha_texto("VITÓRIA", 50, self.largura/2,
+                self.desenha_texto("Vitória!", 50, self.largura/2,
                                    self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
 
         elif self.__fase.vitoria != True and self.__jogando == False:
@@ -208,35 +213,44 @@ class ControladorJogo:
         if self.__teclas_pressionadas['s'] == True:
             if self.opcao == 'Jogar':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 40)
+                    self.distancia_cursor, self.altura_tutorial)
                 self.opcao = 'Tutorial'
+                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Tutorial':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 80)
+                    self.distancia_cursor, self.altura_creditos)
                 self.opcao = 'Créditos'
+                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Créditos':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 120)
+                    self.distancia_cursor, self.altura_sair)
                 self.opcao = 'Sair'
+                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Sair':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2)
+                self.cursor_rect.midtop = (
+                    self.distancia_cursor, self.altura_jogar)
                 self.opcao = 'Jogar'
+                self.__teclas_pressionadas['s'] = False
         elif self.__teclas_pressionadas['w'] == True:
             if self.opcao == 'Jogar':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 120)
+                    self.distancia_cursor, self.altura_sair)
                 self.opcao = 'Sair'
+                self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Sair':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 80)
+                    self.distancia_cursor, self.altura_creditos)
                 self.opcao = 'Créditos'
+                self.__teclas_pressionadas['w'] = False
+            elif self.opcao == 'Créditos':
+                self.cursor_rect.midtop = (self.distancia_cursor, self.altura_tutorial)
+                self.opcao = 'Tutorial'
+                self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Tutorial':
                 self.cursor_rect.midtop = (
-                    self.largura/2 - 100, self.altura/2 + 40)
+                    self.distancia_cursor, self.altura_jogar)
                 self.opcao = 'Jogar'
-            elif self.opcao == 'Créditos':
-                self.cursor_rect.midtop = (self.largura/2 - 100, self.altura/2)
-                self.opcao = 'Tutorial'
+                self.__teclas_pressionadas['w'] = False
 
     def MenuPrincipal(self):
         self.desenha_texto('Nome do Jogo', 40, self.largura / 2,
@@ -244,13 +258,13 @@ class ControladorJogo:
         self.desenha_texto("  Menu Principal ", 25, self.largura / 2,
                            self.altura / 4, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Jogar", 20, self.largura/2,
-                           self.altura/2, ((255, 255, 255)), self.__fonte)
+                           self.altura_jogar, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Tutorial", 20, self.largura/2,
-                           self.altura/2 + 40, ((255, 255, 255)), self.__fonte)
+                           self.altura_tutorial, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Créditos", 20, self.largura/2,
-                           self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+                           self.altura_creditos, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Sair", 20, self.largura/2,
-                           self.altura/2 + 120, ((255, 255, 255)), self.__fonte)
+                           self.altura_sair, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Voltar: A", 20, self.largura/2 - 200,
                            self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
         self.desenha_texto("Avançar: D", 20, self.largura/2 + 200,
@@ -293,6 +307,10 @@ class ControladorJogo:
                            self.altura/2 + 190, (255, 255, 255), self.__fonte)
 
     def MudaEstados(self):
+        if self.__estados['principal'] == True:
+            self.__estados['tutorial'] = False
+            self.__estados['creditos'] = False
+            self.__estados['jogo'] = False
         if self.__estados['jogo'] == False:
             if self.__teclas_pressionadas['d'] == True:
                 if self.opcao == 'Jogar':
