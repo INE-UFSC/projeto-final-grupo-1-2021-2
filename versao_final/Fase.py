@@ -18,7 +18,7 @@ class Fase:
         self.__inimigos_obstaculo = inimigos_obstaculo
 
         self.__mapa = mapa
-        self.__lista_itens = lista_itens
+        self.__lista_itens = [*lista_itens]
         self.__pontos_entrega = pontos_entrega
 
         self.__ponto_entrega_ativo = None
