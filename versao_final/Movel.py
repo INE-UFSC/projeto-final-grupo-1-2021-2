@@ -58,7 +58,8 @@ class Movel(ABC):
 
     @tamanho.setter
     def tamanho(self, tamanho: Tamanho):
-        self.__tamanho = tamanho
+        self.__tamanho.largura = tamanho.largura
+        self.__tamanho.altura = tamanho.altura
 
     @velocidade.setter
     def velocidade(self, velocidade: float):

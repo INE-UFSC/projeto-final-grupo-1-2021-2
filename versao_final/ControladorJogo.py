@@ -20,7 +20,7 @@ class ControladorJogo:
     def __init__(self):
         self.__rodando = True
         self.__display = None
-        self.tamanho_display = self.largura, self.altura = 640, 640
+        self.tamanho_display = self.largura, self.altura = 720*2, 480*2
         self.__fase = None
         self.__teclas_pressionadas = {
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False}
@@ -75,7 +75,7 @@ class ControladorJogo:
             "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.__timer, 1000)
-        self.novaFase('teste', 0)
+        self.novaFase('restaurante', 1)
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
             self.largura/2 - 100, self.altura/2, 130, 130)

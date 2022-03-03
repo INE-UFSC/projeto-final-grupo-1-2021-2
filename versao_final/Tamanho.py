@@ -1,5 +1,5 @@
 class Tamanho:
-    def __init__(self, altura: float, largura: float):
+    def __init__(self, largura:int, altura:int):
         self.__altura = altura
         self.__largura = largura
 

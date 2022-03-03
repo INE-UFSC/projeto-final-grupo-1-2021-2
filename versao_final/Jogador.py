@@ -7,7 +7,7 @@ from PontoEntrega import PontoEntrega
 
 class Jogador(Movel):
     def __init__(self, coord:Coordenada):
-        super().__init__(coord, Tamanho(20,20), 3)
+        super().__init__(coord, Tamanho(40,40), 5)
         self.__item_carregado = None
 
     @property
@@ -38,7 +38,7 @@ class Jogador(Movel):
             return False
 
     def colidiu(self, coord: Coordenada):
-        self.atingido = 15
+        self.atingido = 60
         self.coord_atingido = coord
         if self.item_carregado != None:
             self.perderItem()
