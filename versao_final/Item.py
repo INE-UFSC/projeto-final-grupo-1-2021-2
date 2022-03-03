@@ -6,13 +6,13 @@ import pygame
 class Item(Interativos):
     def __init__(self, nome: str):
         self.__nome = nome
-        super().__init__(30)
+        super().__init__(80)
 
     def criar(self, coordenada: Coordenada):
         self.coord = coordenada
         self.ativo = True
         self.rect = pygame.Rect(
-            self.coord.x, self.coord.y, 14, 14)
+            self.coord.x, self.coord.y, 25, 25)
         return self
 
     def desenhar(self, display, posicao_camera):
