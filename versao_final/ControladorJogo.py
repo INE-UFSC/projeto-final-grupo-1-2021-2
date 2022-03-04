@@ -80,7 +80,7 @@ class ControladorJogo:
             "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.__timer, 1000)
-        self.novaFase('restaurante', 1)
+        self.novaFase('mercado', 2)
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
             self.distancia_cursor, self.altura/2, 130, 130)
@@ -200,7 +200,7 @@ class ControladorJogo:
 
     # CONTROLADOR
     def novaFase(self, nivel_atual: str, dificuldade: float):
-        self.__fase = ConstrutorFase.constroiFase(nivel_atual, dificuldade)
+        self.__fase = ConstrutorFase().constroiFase(nivel_atual, dificuldade)
 
     def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
         font = pygame.font.Font(fonte, tamanho)

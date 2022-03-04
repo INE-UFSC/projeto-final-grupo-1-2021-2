@@ -10,32 +10,6 @@ class Biblioteca(metaclass=Singleton):
 
     def __init__(self):
         self.__mapas = {
-            # mapa para testes
-            'teste': Mapa(
-                #tamanho
-                Tamanho(700, 700),
-                #spawn jogador
-                Coordenada(100, 500),
-                #spawn inimigos p
-                [
-                    Coordenada(500, 300)
-                ],
-                #caminhos inimigos o
-                [
-                    [Coordenada(240, 150), Coordenada(240, 450), Coordenada(360, 450), Coordenada(360, 150)]
-                ],
-                #spawn itens
-                [
-                    Coordenada(500, 100), Coordenada(100, 100)
-                ],
-                #pontos entrega
-                [
-                    Coordenada(50, 550)
-                ],
-                #obstaculos
-                [
-                    ObstaculoMapa(Coordenada(290, 200), Tamanho(20, 200))
-                ]),
             # mapa mercado
             'mercado': Mapa(
                 #tamanho
@@ -220,15 +194,22 @@ class Biblioteca(metaclass=Singleton):
                 ])
         }
         self.__lista_itens = [
-            {'teste': [Item('item1'), Item('item2'), Item('item3')]
-             },  # itens dificuldade teste (0)
-            {'mercado': [Item('item1'), Item('item2'), Item('item3')], 'cozinha':[], 'restaurante':[]},
-            {'mercado': [Item('item1'), Item('item2'), Item('item3')], 'cozinha':[], 'restaurante':[]},
-            {'mercado': [Item('item1'), Item('item2'), Item('item3')], 'cozinha':[], 'restaurante':[]}
+            #dificuldade 0
+            {'mercado': [Item('Ovo'), Item('Queijo'), Item('Presunto')],
+             'cozinha':[Item('Ovo'), Item('Queijo'), Item('Presunto')],
+             'restaurante':[Item('Omelete')]},
+            #dificuldade 1
+            {'mercado': [Item('Massa'), Item('Molho de tomate'), Item('Carne Moida')],
+             'cozinha':[Item('Massa'), Item('Molho de tomate'), Item('Carne Moida')],
+             'restaurante':[Item('Macarronada'), Item('Lasanha')]},
+            #dificuldade 2
+            {'mercado': [Item('Arroz'), Item('Feijao'), Item('Carne de porco')],
+             'cozinha':[Item('Arroz'), Item('Feijao'), Item('Carne de porco')],
+             'restaurante':[Item('Feijoada'), Item('PF')]}
         ]
 
     def getMapaNivel(self, nivel: str) -> Mapa:
         return self.__mapas[nivel]
 
     def getItensDificuldade(self, dificuldade: int, nivel: str):
-        return self.__lista_itens[dificuldade][nivel]
+        return [*self.__lista_itens[dificuldade][nivel]]
