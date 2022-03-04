@@ -178,8 +178,8 @@ class ControladorJogo:
                                self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
             if self.__teclas_pressionadas['a'] == True:
                 self.__estados['principal'] = True
-        else:
-            self.inicializar() == False
+        '''    else:
+                self.inicializar() == False'''
         pygame.display.flip()
 
     def limpar(self):

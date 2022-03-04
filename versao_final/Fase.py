@@ -72,8 +72,7 @@ class Fase:
             teclas['w'], teclas['s'], teclas['d'], teclas['a'])
 
         for inim in self.__inimigos_pessoa:
-            inim.coordenada_jogador = self.__jogador.coord
-            inim.decideDirecao()
+            inim.decideDirecao(self.__jogador.coord)
 
         for inim in self.__inimigos_obstaculo:
             inim.decideDirecao()
