@@ -7,9 +7,13 @@ from random import randrange
 from InimigoObstaculo import InimigoObstaculo
 from InimigoPessoa import InimigoPessoa
 from PontoEntrega import PontoEntrega
+from Singleton import Singleton
+from math import ceil
 
 
-class ConstrutorFase:
+class ConstrutorFase(metaclass=Singleton):
+    def __init__(self):
+        self.__biblioteca = Biblioteca()
     '''def __init__(self, dificuldade : int, mapa : Mapa, lista_itens : list, num_inimigos : int, num_itens : int, nivel : int):
         self.__dificuldade = dificuldade
         self.__mapa = mapa
@@ -39,22 +43,30 @@ class ConstrutorFase:
         return self.__nivel'''
 
     #METODO
-    @staticmethod
-    def constroiFase(nivel:str, dificuldade:int) -> Fase:
-        mapa = Biblioteca().getMapaNivel(nivel)
-        lista_itens = Biblioteca().getItensDificuldade(dificuldade, nivel)
+    def constroiFase(self, nivel:str, dificuldade:int) -> Fase:
+        mapa = self.__biblioteca.getMapaNivel(nivel)
+
         jogador = Jogador(mapa.spawn_jogador)
+        #dificuldade de 1 a 3
+        num_inimigos_p = ceil((dificuldade+1)/3 * len(mapa.spawn_inimigos_p))
+        num_inimigos_o = ceil((dificuldade+1)/3 * len(mapa.caminho_inimigos_o))
 
-        num_inimigos = 1 + 2*dificuldade
+        lista_spawn_p = mapa.spawn_inimigos_p
+        lista_caminhos_o = mapa.caminho_inimigos_o
         inimigos_pessoa, inimigos_obstaculo = [],[]
-        for i in range(num_inimigos):
-            inimigos_pessoa.append(InimigoPessoa(mapa.spawn_inimigos_p.pop(randrange(len(mapa.spawn_inimigos_p))))) #adiciona um inimigo de um spawn aleatorio
-            inimigos_obstaculo.append(InimigoObstaculo(mapa.caminho_inimigos_o.pop(randrange(len(mapa.caminho_inimigos_o)))))
+        for i in range(num_inimigos_p):
+            inimigos_pessoa.append(InimigoPessoa(lista_spawn_p.pop(randrange(len(lista_spawn_p))))) #adiciona um inimigo de um spawn aleatorio
+        for i in range(num_inimigos_o):
+            inimigos_obstaculo.append(InimigoObstaculo(lista_caminhos_o.pop(randrange(len(lista_caminhos_o)))))
 
-        num_pontos_entrega = 1 if( nivel == 'teste' or nivel == 'mercado') else 1 + 2*dificuldade
         pontos_entrega = []
-        for i in range(num_pontos_entrega): #ver esse numero depois
-            pontos_entrega.append(PontoEntrega(mapa.pontos_entrega.pop(randrange(len(mapa.pontos_entrega)))))
+        for pe in mapa.pontos_entrega:
+            pontos_entrega.append(PontoEntrega(pe))
 
+        num_itens = 6 + dificuldade * 2
+        itens_diferentes = len(self.__biblioteca.getItensDificuldade(dificuldade, nivel))
+        lista_itens = []
+        for i in range(num_itens):
+            lista_itens.append(self.__biblioteca.getItensDificuldade(dificuldade, nivel)[randrange(itens_diferentes)])
 
         return Fase(jogador, inimigos_pessoa, inimigos_obstaculo, mapa, pontos_entrega, lista_itens)

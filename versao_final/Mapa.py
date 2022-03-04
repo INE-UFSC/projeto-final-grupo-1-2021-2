@@ -33,19 +33,19 @@ class Mapa:
 
     @property
     def spawn_inimigos_p(self):
-        return self.__spawn_inimigos_p
+        return [*self.__spawn_inimigos_p]
 
     @property
     def caminho_inimigos_o(self):
-        return self.__caminho_inimigos_o
+        return [*self.__caminho_inimigos_o]
 
     @property
     def obstaculos(self):
-        return self.__obstaculos
+        return [*self.__obstaculos]
 
     @property
     def pontos_entrega(self) -> PontoEntrega:
-        return self.__pontos_entrega
+        return [*self.__pontos_entrega]
 
     # métodos
 
