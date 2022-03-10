@@ -14,6 +14,7 @@ class Movel(ABC):
             self.tamanho.largura), int(self.tamanho.altura)))
         self.__atingido = False
         self.__coord_atingido = None
+        self.__angulo = 0
 
     @abstractmethod
     # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
@@ -52,6 +53,10 @@ class Movel(ABC):
     def coord_atingido(self) -> Coordenada:
         return self.__coord_atingido
 
+    @property
+    def angulo(self)->int:
+        return self.__angulo
+
     @coord.setter
     def coord(self, coord: Coordenada):
         self.__coord = coord
@@ -67,7 +72,32 @@ class Movel(ABC):
 
     @direcao_deslocamento.setter
     def direcao_deslocamento(self, dir: Coordenada):
-        self.__direcao_deslocamento = dir
+        self.__direcao_deslocamento.x = dir.x
+        self.__direcao_deslocamento.y = dir.y
+
+        if self.direcao_deslocamento.x != 0 and self.direcao_deslocamento.y != 0:
+            if abs(self.direcao_deslocamento.x) >= 0.924:
+                if self.direcao_deslocamento.x > 0:
+                    self.__angulo = 270
+                else:
+                    self.__angulo = 90
+            elif abs(self.direcao_deslocamento.y) >= 0.924:
+                if self.direcao_deslocamento.y > 0:
+                    self.__angulo = 180
+                else:
+                    self.__angulo = 0
+            else:
+                if self.direcao_deslocamento.x > 0:
+                    if self.direcao_deslocamento.y > 0:
+                        self.__angulo = 225
+                    else:
+                        self.__angulo = 315
+                else:
+                    if self.direcao_deslocamento.y > 0:
+                        self.__angulo = 135
+                    else:
+                        self.__angulo = 45
+
 
     @atingido.setter
     def atingido(self, atingido: int):
@@ -93,6 +123,10 @@ class Movel(ABC):
         velocidade = self.velocidade_real()
         self.__coord.mover(direcao.x*velocidade,
                            direcao.y*velocidade)
+        if self.angulo >= 315 or self.angulo <= 45 or (self.angulo >= 135 and self.angulo <= 225):
+            self.__rect.update(0, 0, self.tamanho.largura, self.tamanho.altura)
+        else:
+            self.__rect.update(0, 0, self.tamanho.altura, self.tamanho.largura)            
         self.__rect.center = self.coord.x, self.coord.y
 
 
