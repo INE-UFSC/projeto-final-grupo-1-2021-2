@@ -13,6 +13,7 @@ from PontoEntrega import PontoEntrega
 # from MenuPrincipal import MenuPrincipal
 # from MenuTutorial import MenuTutorial
 from Camera import Camera
+from Estados import EstadosControlador
 
 
 class ControladorJogo:
@@ -48,6 +49,7 @@ class ControladorJogo:
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
         '''
+        self.__estado_jogo = EstadosControlador(0) #'menus', 'jogando', 'pause'
 
     # GETTERS
 
@@ -80,7 +82,7 @@ class ControladorJogo:
             "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.__timer, 1000)
-        self.novaFase('mercado', 2)
+        self.novaFase('cozinha', 2)
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
             self.distancia_cursor, self.altura/2, 130, 130)
@@ -126,14 +128,36 @@ class ControladorJogo:
                     self.__estados['principal'] = True
 
     def loop(self):
-        self.__fase.movimento(self.__teclas_pressionadas)
-        if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
+        if int(self.__estado_jogo) == 1: #jogando
+            self.__fase.movimento(self.__teclas_pressionadas)
+            if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
+                pass            
+            self.__fase.colisao_moveis()
+            self.__camera.moverCamera()
+            #timer do jogo
+        
+        elif int(self.__estado_jogo) == 0: #menus
+            #colocar acoes do menu aqui
             pass
 
-        self.__fase.colisao_moveis()
+        elif int(self.__estado_jogo) == 2: #pause
+            #colocar acoes de pause aqui
+            pass
 
     def renderizar(self):
-        self.__camera.moverCamera()
+        if int(self.__estado_jogo) == 1: #jogando
+            #renderizar jogo
+            #renderizar interface
+            pass
+
+        elif int(self.__estado_jogo) == 0: #menus
+            #renderizar menu
+            pass
+
+        elif int(self.__estado_jogo) == 2: #pause
+            #rederizar jogo um pouco mais escuro
+            #renderizar menu de pause
+            pass
 
         self.MudaEstados()
         if self.__estados['principal'] == True:
@@ -201,6 +225,7 @@ class ControladorJogo:
     # CONTROLADOR
     def novaFase(self, nivel_atual: str, dificuldade: float):
         self.__fase = ConstrutorFase().constroiFase(nivel_atual, dificuldade)
+        #inicia o timer
 
     def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
         font = pygame.font.Font(fonte, tamanho)
@@ -325,7 +350,7 @@ class ControladorJogo:
                     self.__estados['principal'] = False
                     self.__estados['creditos'] = True
                 elif self.opcao == 'Sair':
-                    self.inicializar() == False
+                    self.__rodando = False
             elif self.__teclas_pressionadas['a'] == True:
                 if self.__estados['tutorial'] == True:
                     self.__estados['principal'] = True
