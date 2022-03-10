@@ -24,7 +24,7 @@ class Fase:
         self.__ponto_entrega_ativo = None
         self.__item_ativo = None
         self.proximoItem()
-        self.vitoria = False
+        self.__vitoria = False
         #self.__num_itens = num_itens
         #self.__num_inimigos = num_inimigos
 
@@ -65,6 +65,10 @@ class Fase:
     def pontos_entrega(self):
         return self.__pontos_entrega
 
+    @property
+    def vitoria(self):
+        return self.__vitoria
+
     # METODOS
 
     def movimento(self, teclas: dict):
@@ -87,17 +91,18 @@ class Fase:
                 0).criar(self.mapa.coordItemAleatoria())
             self.__ponto_entrega_ativo = self.pontos_entrega[randrange(
                 len(self.pontos_entrega))]
-            return False
+            return
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
-        self.vitoria = True
-        return True
+        self.__vitoria = True
+        return
 
     def gerenciamentoItem(self, comando_interagir_item: bool):
         if self.__item_ativo == None and self.__jogador.item_carregado == None:
-            if self.proximoItem():
-                return True
-                # vitoria
+            #    if self.proximoItem():
+            #        return True
+            # vitoria
+            self.proximoItem()
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
                 pass  # acao se pegou
@@ -108,24 +113,29 @@ class Fase:
 
     def colisao_mapa(self, movel):
         deslocamento_x = movel.direcao_deslocamento.x*movel.velocidade_real()
-        deslocamento_x = ceil(deslocamento_x) if deslocamento_x >= 0 else floor(deslocamento_x)
+        deslocamento_x = ceil(
+            deslocamento_x) if deslocamento_x >= 0 else floor(deslocamento_x)
 
         deslocamento_y = movel.direcao_deslocamento.y*movel.velocidade_real()
-        deslocamento_y = ceil(deslocamento_y) if deslocamento_y >= 0 else floor(deslocamento_y)
+        deslocamento_y = ceil(
+            deslocamento_y) if deslocamento_y >= 0 else floor(deslocamento_y)
 
         lista_obstaculos = [obst.rect for obst in self.mapa.obstaculos]
 
         if (movel.rect.left+(deslocamento_x) <= 0 or
-        movel.rect.right + (deslocamento_x) >= self.mapa.tamanho.largura):
+                movel.rect.right + (deslocamento_x) >= self.mapa.tamanho.largura):
             movel.direcao_deslocamento.x = 0
         if(movel.rect.top+(deslocamento_y) <= 0 or
-        movel.rect.bottom + (deslocamento_y) >= self.mapa.tamanho.altura):
+           movel.rect.bottom + (deslocamento_y) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
 
-        #tem que arrumar isso ainda
-        colide_xy = (movel.rect.move(deslocamento_x, deslocamento_y).collidelist(lista_obstaculos) != -1)
-        colide_x = movel.rect.move(deslocamento_x, 0).collidelist(lista_obstaculos) != -1
-        colide_y = movel.rect.move(0, deslocamento_y).collidelist(lista_obstaculos) != -1
+        # tem que arrumar isso ainda
+        colide_xy = (movel.rect.move(deslocamento_x,
+                     deslocamento_y).collidelist(lista_obstaculos) != -1)
+        colide_x = movel.rect.move(
+            deslocamento_x, 0).collidelist(lista_obstaculos) != -1
+        colide_y = movel.rect.move(
+            0, deslocamento_y).collidelist(lista_obstaculos) != -1
         if (colide_xy and not(colide_x or colide_y)):
             movel.direcao_deslocamento.x = 0
             movel.direcao_deslocamento.y = 0

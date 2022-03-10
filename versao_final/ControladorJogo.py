@@ -20,8 +20,10 @@ class ControladorJogo:
     def __init__(self):
         self.__rodando = True
         self.__display = None
-        self.tamanho_display = self.largura, self.altura = 720*2, 480*2
+        self.tamanho_display = self.largura, self.altura = 720*2, 400*2
         self.__fase = None
+        self.__nivel_atual = None
+        self.__dificuldade = None
         self.__teclas_pressionadas = {
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False}
         self.__timer_font = None
@@ -76,15 +78,16 @@ class ControladorJogo:
         self.__rodando = True
         self.__jogando = False
         self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
-        self.__timer_text = self.__timer_font.render(
-            "01:00", True, ((255, 255, 255)))
+        # self.__timer_text = self.__timer_font.render(
+        # "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.__timer, 1000)
-        self.novaFase('mercado', 2)
+        self.proxima_fase()
+        #pygame.time.set_timer(self.__timer, 1000)
+        # self.novaFase()
         self.opcao = 'Jogar'
         self.cursor_rect = pygame.Rect(
             self.distancia_cursor, self.altura/2, 130, 130)
-        self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
+        #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -168,8 +171,10 @@ class ControladorJogo:
             if self.__fase.vitoria == True:
                 self.desenha_texto("Vitória!", 50, self.largura/2,
                                    self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
+                self.proxima_fase()
 
         elif self.__fase.vitoria != True and self.__jogando == False:
+            #self.proxima_fase()
             self.__display.fill((0, 0, 0))
             self.__estados['game_over'] = True
             self.desenha_texto("Game Over", 50, self.largura/2,
@@ -195,12 +200,34 @@ class ControladorJogo:
             self.loop()
             self.renderizar()
             self.__timer_fps.tick(self.__fps)
+            # self.proxima_fase()
             # NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
 
     # CONTROLADOR
-    def novaFase(self, nivel_atual: str, dificuldade: float):
-        self.__fase = ConstrutorFase().constroiFase(nivel_atual, dificuldade)
+    def novaFase(self):
+        self.decide_fase()
+        self.__fase = ConstrutorFase().constroiFase(
+            self.__nivel_atual, self.__dificuldade)
+        self.reinicia_timer()
+        self.__camera = Camera(self.__fase.jogador.rect, self.tamanho_display)
+        print(self.__nivel_atual)
+
+    def decide_fase(self):
+        self.__dificuldade = 0
+        if self.__fase == None:
+            self.__nivel_atual = 'mercado'
+        elif self.__fase.vitoria == True:
+            if self.__nivel_atual == 'mercado':
+                self.__nivel_atual = 'cozinha'
+            elif self.__nivel_atual == 'cozinha':
+                self.__nivel_atual = 'restaurante'
+            else:
+                self.__nivel_atual = 'mercado'
+
+    def proxima_fase(self):
+        # if self.__jogando == False:
+        self.novaFase()
 
     def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
         font = pygame.font.Font(fonte, tamanho)
@@ -243,7 +270,8 @@ class ControladorJogo:
                 self.opcao = 'Créditos'
                 self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Créditos':
-                self.cursor_rect.midtop = (self.distancia_cursor, self.altura_tutorial)
+                self.cursor_rect.midtop = (
+                    self.distancia_cursor, self.altura_tutorial)
                 self.opcao = 'Tutorial'
                 self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Tutorial':
@@ -314,6 +342,7 @@ class ControladorJogo:
         if self.__estados['jogo'] == False:
             if self.__teclas_pressionadas['d'] == True:
                 if self.opcao == 'Jogar':
+                    # self.proxima_fase()
                     self.__jogando = True
                     self.__estados['jogo'] = True
                     self.__estados['principal'] = False
