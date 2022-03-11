@@ -162,6 +162,8 @@ class ControladorJogo:
                 pass
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
+            self.move_cursor()
+            self.MudaEstados()
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(2)
             # timer do jogo
