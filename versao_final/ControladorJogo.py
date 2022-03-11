@@ -8,10 +8,10 @@ from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
 from Item import Item
 from PontoEntrega import PontoEntrega
-# from Menu import Menu
-# from MenuCreditos import MenuCreditos
-# from MenuPrincipal import MenuPrincipal
-# from MenuTutorial import MenuTutorial
+#from Menu import Menu
+from MenuCreditos import MenuCreditos
+from MenuPrincipal import MenuPrincipal
+from MenuTutorial import MenuTutorial
 from Camera import Camera
 from Estados import EstadosControlador
 
@@ -35,10 +35,10 @@ class ControladorJogo:
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
-        # self.__menu = Menu(self.__display)
-        # self.__menu_prin = MenuPrincipal(self.__display)
-        # self.__menu_crd = MenuCreditos()
-        # self.__menu_tut = MenuTutorial()
+        #self.__menu = Menu()
+        self.__menu_prin = MenuPrincipal()
+        self.__menu_crd = MenuCreditos()
+        self.__menu_tut = MenuTutorial()
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
                           'creditos': False, 'jogo': False, 'game_over': False}
@@ -183,15 +183,12 @@ class ControladorJogo:
 
         self.MudaEstados()
         if self.__estados['principal'] == True:
-            self.__display.fill((0, 0, 0))
-            self.MenuPrincipal()
+            self.__menu_prin.display_menu()
             self.move_cursor()
         elif self.__estados['creditos'] == True:
-            self.__display.fill((0, 0, 0))
-            self.MenuCreditos()
+            self.__menu_crd.display_menu()
         elif self.__estados['tutorial'] == True:
-            self.__display.fill((0, 0, 0))
-            self.MenuTutorial()
+            self.__menu_tut.display_menu()
         elif self.__jogando == True and self.__estados['jogo'] == True:
             self.__display.fill((0, 0, 0))
             self.__fase.mapa.desenhar(
@@ -322,60 +319,6 @@ class ControladorJogo:
                     self.distancia_cursor, self.altura_jogar)
                 self.opcao = 'Jogar'
                 self.__teclas_pressionadas['w'] = False
-
-    def MenuPrincipal(self):
-        self.desenha_texto('Nome do Jogo', 40, self.largura / 2,
-                           self.altura / 8, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("  Menu Principal ", 25, self.largura / 2,
-                           self.altura / 4, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Jogar", 20, self.largura/2,
-                           self.altura_jogar, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Tutorial", 20, self.largura/2,
-                           self.altura_tutorial, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Créditos", 20, self.largura/2,
-                           self.altura_creditos, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Sair", 20, self.largura/2,
-                           self.altura_sair, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Voltar: A", 20, self.largura/2 - 200,
-                           self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto("Avançar: D", 20, self.largura/2 + 200,
-                           self.altura/2 + 190, ((255, 255, 255)), self.__fonte)
-        self.desenha_texto('▶', 20, self.cursor_rect.x,
-                           self.cursor_rect.y, ((255, 255, 255)), self.__fonte)
-
-    def MenuCreditos(self):
-        self.desenha_texto('Créditos', 20, self.largura / 2,
-                           self.altura / 4 - 20, (255, 255, 255), self.__fonte)
-        self.desenha_texto('Arthur Torres de Lino', 15, self.largura / 2,
-                           self.altura / 2 + 10, (255, 255, 255), self.__fonte)
-        self.desenha_texto('Brenda Silva Machado', 15, self.largura / 2,
-                           self.altura / 2 + 50, (255, 255, 255), self.__fonte)
-        self.desenha_texto('Gabriela Furtado da Silveira', 15, self.largura /
-                           2, self.altura / 2 + 90, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
-                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
-                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
-
-    def MenuTutorial(self):
-        self.desenha_texto('Tutorial', 40, self.largura / 2,
-                           self.altura / 2 - 120, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Direira:  D", 15, self.largura/2,
-                           self.altura/2 - 30, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Esquerda: A", 15, self.largura/2,
-                           self.altura/2, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Cima: W", 15, self.largura/2,
-                           self.altura/2 + 30, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Andar para Baixo: S", 15, self.largura/2,
-                           self.altura/2 + 60, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Pegar Item: Espaço", 15, self.largura/2,
-                           self.altura/2 + 90, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Entregar Item: Espaço", 15, self.largura/2,
-                           self.altura/2 + 120, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
-                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
-        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
-                           self.altura/2 + 190, (255, 255, 255), self.__fonte)
 
     def MudaEstados(self):
         if self.__estados['principal'] == True:
