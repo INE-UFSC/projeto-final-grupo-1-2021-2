@@ -242,7 +242,7 @@ class ControladorJogo:
         '''    else:
                 self.inicializar() == False'''
         
-        #self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) teste de imagem
+        #self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
         pygame.display.flip()
 
     def limpar(self):
