@@ -26,9 +26,9 @@ class ControladorJogo:
         self.__nivel_atual = None
         self.__dificuldade = None
         self.__teclas_pressionadas = { #True enquanto pressionadas
-            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
+            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
         self.__teclas_clicadas = { #True somente por 1 frame quando soltas
-            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
+            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
         self.__timer_font = None
         self.__timer_sec = 60
         self.__timer_text = None
@@ -89,8 +89,6 @@ class ControladorJogo:
         #pygame.time.set_timer(self.__timer, 1000)
         # self.novaFase()
         self.opcao = 'Jogar'
-        self.cursor_rect = pygame.Rect(
-            self.distancia_cursor, self.altura/2, 130, 130)
         #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
@@ -109,6 +107,10 @@ class ControladorJogo:
                 self.__teclas_pressionadas['espaco'] = True
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = True
+            elif evento.key == pygame.K_BACKSPACE:
+                self.__teclas_pressionadas['backspace'] = True
+            elif evento.key == pygame.K_RETURN:
+                self.__teclas_pressionadas['enter'] = True
 
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_w:
@@ -118,7 +120,6 @@ class ControladorJogo:
                 self.__teclas_pressionadas['a'] = False
                 self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
-                self.__teclas_pressionadas['s'] = False
                 self.__teclas_clicadas['s'] = True
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = False
@@ -129,6 +130,12 @@ class ControladorJogo:
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = False
                 self.__teclas_clicadas['esc'] = True
+            elif evento.key == pygame.K_BACKSPACE:
+                self.__teclas_pressionadas['backspace'] = False
+                self.__teclas_clicadas['backspace'] = True
+            elif evento.key == pygame.K_RETURN:
+                self.__teclas_pressionadas['enter'] = False
+                self.__teclas_clicadas['enter'] = True
 
         elif evento.type == self.__timer and int(self.__estado_jogo) == 1: # se for do timer e se estiver jogando
             if self.__timer_sec > 0:
@@ -149,6 +156,8 @@ class ControladorJogo:
                 pass            
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
+            self.move_cursor()
+            self.MudaEstados()
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(2)
             #timer do jogo
@@ -173,22 +182,24 @@ class ControladorJogo:
             pass
 
         elif int(self.__estado_jogo) == 0: #menus
-            #renderizar menu
-            pass
+            if self.__estados['principal'] == True:
+                self.__menu_prin.display_menu()
+            elif self.__estados['creditos'] == True:
+                self.__menu_crd.display_menu()
+            elif self.__estados['tutorial'] == True:
+                self.__menu_tut.display_menu()
 
         elif int(self.__estado_jogo) == 2: #pause
             #rederizar jogo um pouco mais escuro
             #renderizar menu de pause
             pass
-
-        self.MudaEstados()
+   
         if self.__estados['principal'] == True:
-            self.__menu_prin.display_menu()
-            self.move_cursor()
+                self.__menu_prin.display_menu()
         elif self.__estados['creditos'] == True:
-            self.__menu_crd.display_menu()
+                self.__menu_crd.display_menu()
         elif self.__estados['tutorial'] == True:
-            self.__menu_tut.display_menu()
+                self.__menu_tut.display_menu()
         elif self.__jogando == True and self.__estados['jogo'] == True:
             self.__display.fill((0, 0, 0))
             self.__fase.mapa.desenhar(
@@ -277,48 +288,40 @@ class ControladorJogo:
         self.__display.blit(text_surface, text_rect)
 
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
-        if self.__teclas_pressionadas['s'] == True:
+        if self.__teclas_clicadas['s'] == True:
             if self.opcao == 'Jogar':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_tutorial)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
                 self.opcao = 'Tutorial'
-                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Tutorial':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_creditos)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
                 self.opcao = 'Créditos'
-                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Créditos':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_sair)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
                 self.opcao = 'Sair'
-                self.__teclas_pressionadas['s'] = False
             elif self.opcao == 'Sair':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_jogar)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
                 self.opcao = 'Jogar'
-                self.__teclas_pressionadas['s'] = False
-        elif self.__teclas_pressionadas['w'] == True:
+        elif self.__teclas_clicadas['w'] == True:
             if self.opcao == 'Jogar':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_sair)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
                 self.opcao = 'Sair'
-                self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Sair':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_creditos)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
                 self.opcao = 'Créditos'
-                self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Créditos':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_tutorial)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
                 self.opcao = 'Tutorial'
-                self.__teclas_pressionadas['w'] = False
             elif self.opcao == 'Tutorial':
-                self.cursor_rect.midtop = (
-                    self.distancia_cursor, self.altura_jogar)
+                self.__menu_prin.cursor_rect.midtop = (
+                    self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
                 self.opcao = 'Jogar'
-                self.__teclas_pressionadas['w'] = False
 
     def MudaEstados(self):
         if self.__estados['principal'] == True:
@@ -326,7 +329,7 @@ class ControladorJogo:
             self.__estados['creditos'] = False
             self.__estados['jogo'] = False
         if self.__estados['jogo'] == False:
-            if self.__teclas_pressionadas['d'] == True:
+            if self.__teclas_clicadas['enter'] == True:
                 if self.opcao == 'Jogar':
                     # self.proxima_fase()
                     self.__estado_jogo = EstadosControlador(1) #jogando
@@ -342,7 +345,7 @@ class ControladorJogo:
                     self.__estados['creditos'] = True
                 elif self.opcao == 'Sair':
                     self.__rodando = False
-            elif self.__teclas_pressionadas['a'] == True:
+            elif self.__teclas_clicadas['backspace'] == True:
                 if self.__estados['tutorial'] == True:
                     self.__estados['principal'] = True
                     self.__estados['tutorial'] = False
