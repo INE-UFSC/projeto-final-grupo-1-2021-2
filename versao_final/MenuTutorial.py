@@ -33,7 +33,9 @@ class MenuTutorial(Menu):
                            self.altura/2 + 90, self.__branco, self.__fonte)
         self.desenha_texto("Entregar Item: Espaço", 15, self.largura/2,
                            self.altura/2 + 120, self.__branco, self.__fonte)
-        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
+        self.desenha_texto("Pausa: Esc", 15, self.largura/2,
+                           self.altura/2 + 150, self.__branco, self.__fonte)                   
+        self.desenha_texto("Voltar: Backspace", 10, self.largura/2 - 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
-        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
+        self.desenha_texto("Avançar: Enter", 10, self.largura/2 + 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)

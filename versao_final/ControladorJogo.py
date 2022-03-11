@@ -82,8 +82,6 @@ class ControladorJogo:
         pygame.time.set_timer(self.__timer, 1000)
         self.novaFase('mercado', 2)
         self.opcao = 'Jogar'
-        self.cursor_rect = pygame.Rect(
-            self.distancia_cursor, self.altura/2, 130, 130)
         self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
 
     def eventos(self, evento):
@@ -137,17 +135,13 @@ class ControladorJogo:
 
         self.MudaEstados()
         if self.__estados['principal'] == True:
-            self.__display.fill((0, 0, 0))
             self.__menu_prin.display_menu()
             self.move_cursor()
         elif self.__estados['creditos'] == True:
-            self.__display.fill((0, 0, 0))
             self.__menu_crd.display_menu()
         elif self.__estados['tutorial'] == True:
-            #self.__display.fill((0, 0, 0))
             self.__menu_tut.display_menu()
         elif self.__jogando == True and self.__estados['jogo'] == True:
-            self.__display.fill((0, 0, 0))
             self.__fase.mapa.desenhar(
                 self.__display, self.__camera.posicao_int)
 
@@ -212,7 +206,7 @@ class ControladorJogo:
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
         if self.__teclas_pressionadas['s'] == True:
             if self.opcao == 'Jogar':
-                self.cursor_rect.midtop = (
+                self.__menu_prin.cursor_rect.midtop = (
                     self.distancia_cursor, self.altura_tutorial)
                 self.opcao = 'Tutorial'
                 self.__teclas_pressionadas['s'] = False

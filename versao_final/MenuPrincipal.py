@@ -38,9 +38,9 @@ class MenuPrincipal(Menu):
                            self.altura_creditos, self.__branco, self.__fonte)
         self.desenha_texto("Sair", 20, self.largura/2,
                            self.altura_sair, self.__branco, self.__fonte)
-        self.desenha_texto("Voltar: A", 20, self.largura/2 - 200,
+        self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
-        self.desenha_texto("Avançar: D", 20, self.largura/2 + 200,
+        self.desenha_texto("Avançar: Enter", 20, self.largura/2 + 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
         self.desenha_texto('▶', 20, self.cursor_rect.x,
                            self.cursor_rect.y, self.__branco, self.__fonte)

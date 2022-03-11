@@ -27,7 +27,7 @@ class MenuCreditos(Menu):
                            self.altura / 2 + 50, self.__branco, self.__fonte)
         self.desenha_texto('Gabriela Furtado da Silveira', 15, self.largura /
                            2, self.altura / 2 + 90, self.__branco, self.__fonte)
-        self.desenha_texto("Voltar: A", 10, self.largura/2 - 200,
+        self.desenha_texto("Voltar: Backspace", 10, self.largura/2 - 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
-        self.desenha_texto("Avançar: D", 10, self.largura/2 + 200,
+        self.desenha_texto("Avançar: Enter", 10, self.largura/2 + 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
