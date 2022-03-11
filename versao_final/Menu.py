@@ -20,5 +20,5 @@ class Menu(View):
         text_rect.center = (x, y)
         self.__display.blit(text_surface, text_rect)
 
-    
+
             

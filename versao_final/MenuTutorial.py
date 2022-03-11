@@ -7,6 +7,7 @@ class MenuTutorial(Menu):
         pass
            
     def display_menu(self):
+        self.__display.fill((0, 0, 0))
         self.desenha_texto('Tutorial', 40, self.largura / 2,
                            self.altura / 2 - 120, self.__branco, self.__fonte)
         self.desenha_texto("Andar para Direira:  D", 15, self.largura/2,

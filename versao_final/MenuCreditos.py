@@ -7,6 +7,7 @@ class MenuCreditos(Menu):
         pass
 
     def display_menu(self):
+        self.__display.fill((0, 0, 0))
         self.desenha_texto('Créditos', 20, self.largura / 2,
                            self.altura / 4 - 20, self.__branco, self.__fonte)
         self.desenha_texto('Arthur Torres de Lino', 15, self.largura / 2,

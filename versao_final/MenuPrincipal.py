@@ -10,6 +10,7 @@ class MenuPrincipal(Menu):
         self.altura_sair = self.altura/2 + 120
 
     def display_menu(self): 
+        self.__display.fill((0, 0, 0))
         self.desenha_texto('Nome do Jogo', 40, self.largura / 2,
                            self.altura / 8, self.__branco, self.__fonte)
         self.desenha_texto("  Menu Principal ", 25, self.largura / 2,
