@@ -99,33 +99,34 @@ class ControladorJogo:
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = True
+                self.__teclas_clicadas['w'] = True
             elif evento.key == pygame.K_a:
                 self.__teclas_pressionadas['a'] = True
+                self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
                 self.__teclas_pressionadas['s'] = True
+                self.__teclas_clicadas['s'] = True
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = True
+                self.__teclas_clicadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = True
+                self.__teclas_clicadas['espaco'] = True
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = True
+                self.__teclas_clicadas['esc'] = True
 
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = False
-                self.__teclas_clicadas['w'] = True
             elif evento.key == pygame.K_a:
                 self.__teclas_pressionadas['a'] = False
-                self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
                 self.__teclas_pressionadas['s'] = False
-                self.__teclas_clicadas['s'] = True
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = False
-                self.__teclas_clicadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = False
-                self.__teclas_clicadas['espaco'] = True
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = False
                 self.__teclas_clicadas['esc'] = True
