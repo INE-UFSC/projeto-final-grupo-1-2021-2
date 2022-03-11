@@ -8,14 +8,14 @@ class MenuPrincipal(Menu):
         self.__branco = ((255, 255, 255))
         self.tamanho_display = self.largura, self.altura = 720*2, 480*2
         self.distancia_cursor = self.largura/2 - 100
-        self.cursor_rect = pygame.Rect(
-            self.distancia_cursor, self.altura/2, 130, 130)
         self.__display = pygame.display.set_mode(
             self.tamanho_display, pygame.HWSURFACE)
-        self.altura_jogar = self.altura/2
-        self.altura_tutorial = self.altura/2 + 40
-        self.altura_creditos = self.altura/2 + 80
-        self.altura_sair = self.altura/2 + 120
+        self.altura_jogar = self.altura/2 - 40
+        self.altura_tutorial = self.altura/2
+        self.altura_creditos = self.altura/2 + 40
+        self.altura_sair = self.altura/2 + 80
+        self.cursor_rect = pygame.Rect(
+            self.distancia_cursor, self.altura_jogar, 130, 130)
 
     def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
         font = pygame.font.Font(fonte, tamanho)
@@ -38,9 +38,9 @@ class MenuPrincipal(Menu):
                            self.altura_creditos, self.__branco, self.__fonte)
         self.desenha_texto("Sair", 20, self.largura/2,
                            self.altura_sair, self.__branco, self.__fonte)
-        self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
+        self.desenha_texto("Voltar: Backspace", 10, self.largura/2 - 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
-        self.desenha_texto("Avançar: Enter", 20, self.largura/2 + 200,
+        self.desenha_texto("Avançar: Enter", 10, self.largura/2 + 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
         self.desenha_texto('▶', 20, self.cursor_rect.x,
                            self.cursor_rect.y, self.__branco, self.__fonte)

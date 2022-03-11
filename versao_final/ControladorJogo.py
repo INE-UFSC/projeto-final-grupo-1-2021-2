@@ -162,15 +162,14 @@ class ControladorJogo:
                 pass
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
-            self.move_cursor()
-            self.MudaEstados()
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(2)
             # timer do jogo
 
         elif int(self.__estado_jogo) == 0:  # menus
-            # colocar acoes do menu aqui
-            pass
+            self.move_cursor()
+            self.MudaEstados()
+            
 
         elif int(self.__estado_jogo) == 2:  # pause
             # colocar acoes de pause aqui

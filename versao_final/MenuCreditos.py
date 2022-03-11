@@ -19,14 +19,14 @@ class MenuCreditos(Menu):
 
     def display_menu(self):
         self.__display.fill((0, 0, 0))
-        self.desenha_texto('Créditos', 20, self.largura / 2,
+        self.desenha_texto('Créditos', 40, self.largura / 2,
                            self.altura / 4 - 20, self.__branco, self.__fonte)
         self.desenha_texto('Arthur Torres de Lino', 15, self.largura / 2,
-                           self.altura / 2 + 10, self.__branco, self.__fonte)
+                           self.altura / 2 - 50, self.__branco, self.__fonte)
         self.desenha_texto('Brenda Silva Machado', 15, self.largura / 2,
-                           self.altura / 2 + 50, self.__branco, self.__fonte)
+                           self.altura / 2 - 90, self.__branco, self.__fonte)
         self.desenha_texto('Gabriela Furtado da Silveira', 15, self.largura /
-                           2, self.altura / 2 + 90, self.__branco, self.__fonte)
+                           2, self.altura / 2 - 130, self.__branco, self.__fonte)
         self.desenha_texto("Voltar: Backspace", 10, self.largura/2 - 200,
                            self.altura/2 + 190, self.__branco, self.__fonte)
         self.desenha_texto("Avançar: Enter", 10, self.largura/2 + 200,
