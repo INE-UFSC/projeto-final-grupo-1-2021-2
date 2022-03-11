@@ -25,9 +25,9 @@ class ControladorJogo:
         self.__fase = None
         self.__nivel_atual = None
         self.__dificuldade = None
-        self.__teclas_pressionadas = { #True enquanto pressionadas
+        self.__teclas_pressionadas = {  # True enquanto pressionadas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
-        self.__teclas_clicadas = { #True somente por 1 frame quando soltas
+        self.__teclas_clicadas = {  # True somente por 1 frame quando soltas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
         self.__timer_font = None
         self.__timer_sec = 60
@@ -53,7 +53,8 @@ class ControladorJogo:
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
         '''
-        self.__estado_jogo = EstadosControlador(1) #'menus', 'jogando', 'pause'
+        self.__estado_jogo = EstadosControlador(
+            1)  # 'menus', 'jogando', 'pause'
 
     # GETTERS
 
@@ -130,7 +131,8 @@ class ControladorJogo:
                 self.__teclas_pressionadas['esc'] = False
                 self.__teclas_clicadas['esc'] = True
 
-        elif evento.type == self.__timer and int(self.__estado_jogo) == 1: # se for do timer e se estiver jogando
+        # se for do timer e se estiver jogando
+        elif evento.type == self.__timer and int(self.__estado_jogo) == 1:
             if self.__timer_sec > 0:
                 self.__timer_sec -= 1
                 self.__timer_text = self.__timer_font.render(time.strftime(
@@ -143,22 +145,22 @@ class ControladorJogo:
                     self.__estados['principal'] = True
 
     def loop(self):
-        if int(self.__estado_jogo) == 1: #jogando
+        if int(self.__estado_jogo) == 1:  # jogando
             self.__fase.movimento(self.__teclas_pressionadas)
             if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
-                pass            
+                pass
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(2)
-            #timer do jogo
-        
-        elif int(self.__estado_jogo) == 0: #menus
-            #colocar acoes do menu aqui
+            # timer do jogo
+
+        elif int(self.__estado_jogo) == 0:  # menus
+            # colocar acoes do menu aqui
             pass
 
-        elif int(self.__estado_jogo) == 2: #pause
-            #colocar acoes de pause aqui
+        elif int(self.__estado_jogo) == 2:  # pause
+            # colocar acoes de pause aqui
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(1)
 
@@ -167,18 +169,18 @@ class ControladorJogo:
                 self.__teclas_clicadas[k] = False
 
     def renderizar(self):
-        if int(self.__estado_jogo) == 1: #jogando
-            #renderizar jogo
-            #renderizar interface
+        if int(self.__estado_jogo) == 1:  # jogando
+            # renderizar jogo
+            # renderizar interface
             pass
 
-        elif int(self.__estado_jogo) == 0: #menus
-            #renderizar menu
+        elif int(self.__estado_jogo) == 0:  # menus
+            # renderizar menu
             pass
 
-        elif int(self.__estado_jogo) == 2: #pause
-            #rederizar jogo um pouco mais escuro
-            #renderizar menu de pause
+        elif int(self.__estado_jogo) == 2:  # pause
+            # rederizar jogo um pouco mais escuro
+            # renderizar menu de pause
             pass
 
         self.MudaEstados()
@@ -211,13 +213,16 @@ class ControladorJogo:
                     self.__display, self.__camera.posicao_int)
             self.__display.blit(self.__timer_text, (self.altura-160, 20))
 
+            self.__fase.desenhar_bussola_interativos(
+                self.__display, self.__camera.posicao_int)
+
             if self.__fase.vitoria == True:
                 self.desenha_texto("Vitória!", 50, self.largura/2,
                                    self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
                 self.proxima_fase()
 
         elif self.__fase.vitoria != True and self.__jogando == False:
-            #self.proxima_fase()
+            # self.proxima_fase()
             self.__display.fill((0, 0, 0))
             self.__estados['game_over'] = True
             self.desenha_texto("Game Over", 50, self.largura/2,
@@ -386,7 +391,7 @@ class ControladorJogo:
             if self.__teclas_pressionadas['d'] == True:
                 if self.opcao == 'Jogar':
                     # self.proxima_fase()
-                    self.__estado_jogo = EstadosControlador(1) #jogando
+                    self.__estado_jogo = EstadosControlador(1)  # jogando
                     self.__jogando = True
                     self.__estados['jogo'] = True
                     self.__estados['principal'] = False
