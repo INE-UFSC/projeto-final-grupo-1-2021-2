@@ -14,6 +14,7 @@ from MenuPrincipal import MenuPrincipal
 from MenuTutorial import MenuTutorial
 from Camera import Camera
 from Estados import EstadosControlador
+from GerenciadorImagens import GerenciadorImagens
 
 
 class ControladorJogo:
@@ -54,6 +55,7 @@ class ControladorJogo:
         self.__dificuldade = dificuldade
         '''
         self.__estado_jogo = EstadosControlador(1) #'menus', 'jogando', 'pause'
+        self.__gerenciador_imagens = None
 
     # GETTERS
 
@@ -90,6 +92,8 @@ class ControladorJogo:
         # self.novaFase()
         self.opcao = 'Jogar'
         #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
+        self.__gerenciador_imagens = GerenciadorImagens()
+
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -97,45 +101,46 @@ class ControladorJogo:
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = True
+                self.__teclas_clicadas['w'] = True
             elif evento.key == pygame.K_a:
                 self.__teclas_pressionadas['a'] = True
+                self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
                 self.__teclas_pressionadas['s'] = True
+                self.__teclas_clicadas['s'] = True
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = True
+                self.__teclas_clicadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = True
+                self.__teclas_clicadas['espaco'] = True
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = True
+                self.__teclas_clicadas['esc'] = True
             elif evento.key == pygame.K_BACKSPACE:
                 self.__teclas_pressionadas['backspace'] = True
+                self.__teclas_clicadas['backspace'] = True
             elif evento.key == pygame.K_RETURN:
                 self.__teclas_pressionadas['enter'] = True
+                self.__teclas_clicadas['enter'] = True
 
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = False
-                self.__teclas_clicadas['w'] = True
             elif evento.key == pygame.K_a:
                 self.__teclas_pressionadas['a'] = False
-                self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
-                self.__teclas_clicadas['s'] = True
+                self.__teclas_pressionadas['s'] = False
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = False
-                self.__teclas_clicadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = False
-                self.__teclas_clicadas['espaco'] = True
             elif evento.key == pygame.K_ESCAPE:
                 self.__teclas_pressionadas['esc'] = False
-                self.__teclas_clicadas['esc'] = True
             elif evento.key == pygame.K_BACKSPACE:
                 self.__teclas_pressionadas['backspace'] = False
-                self.__teclas_clicadas['backspace'] = True
             elif evento.key == pygame.K_RETURN:
                 self.__teclas_pressionadas['enter'] = False
-                self.__teclas_clicadas['enter'] = True
 
         elif evento.type == self.__timer and int(self.__estado_jogo) == 1: # se for do timer e se estiver jogando
             if self.__timer_sec > 0:
@@ -236,6 +241,8 @@ class ControladorJogo:
                 self.__estados['principal'] = True
         '''    else:
                 self.inicializar() == False'''
+        
+        #self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
         pygame.display.flip()
 
     def limpar(self):
