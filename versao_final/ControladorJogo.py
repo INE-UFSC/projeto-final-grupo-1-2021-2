@@ -14,6 +14,7 @@ from PontoEntrega import PontoEntrega
 # from MenuTutorial import MenuTutorial
 from Camera import Camera
 from Estados import EstadosControlador
+from GerenciadorImagens import GerenciadorImagens
 
 
 class ControladorJogo:
@@ -54,6 +55,7 @@ class ControladorJogo:
         self.__dificuldade = dificuldade
         '''
         self.__estado_jogo = EstadosControlador(1) #'menus', 'jogando', 'pause'
+        self.__gerenciador_imagens = None
 
     # GETTERS
 
@@ -92,6 +94,8 @@ class ControladorJogo:
         self.cursor_rect = pygame.Rect(
             self.distancia_cursor, self.altura/2, 130, 130)
         #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
+        self.__gerenciador_imagens = GerenciadorImagens()
+
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -229,6 +233,8 @@ class ControladorJogo:
                 self.__estados['principal'] = True
         '''    else:
                 self.inicializar() == False'''
+        
+        #self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) teste de imagem
         pygame.display.flip()
 
     def limpar(self):
