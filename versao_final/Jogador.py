@@ -7,7 +7,7 @@ from PontoEntrega import PontoEntrega
 
 class Jogador(Movel):
     def __init__(self, coord:Coordenada):
-        super().__init__(coord, Tamanho(40,40), 5)
+        super().__init__(coord, Tamanho(40,40), 7)
         self.__item_carregado = None
 
     @property

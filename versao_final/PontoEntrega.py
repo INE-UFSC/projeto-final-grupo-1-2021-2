@@ -5,9 +5,9 @@ import pygame
 
 
 class PontoEntrega(Interativos):
-    def __init__(self, coord: Coordenada, raio_interacao: float = 80):
+    def __init__(self, coord: Coordenada, raio_interacao: float = 120):
         super().__init__(raio_interacao, coord)
-        self.rect = pygame.Rect(self.coord.x, self.coord.y, 80, 80)
+        self.rect = pygame.Rect(self.coord.x, self.coord.y, 120, 120)
 
     def desenhar(self, display, posicao_camera):
         cor = (34, 139, 34)  # verde escuro

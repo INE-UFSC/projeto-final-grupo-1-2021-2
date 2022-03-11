@@ -25,8 +25,10 @@ class ControladorJogo:
         self.__fase = None
         self.__nivel_atual = None
         self.__dificuldade = None
-        self.__teclas_pressionadas = {
-            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False}
+        self.__teclas_pressionadas = { #True enquanto pressionadas
+            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
+        self.__teclas_clicadas = { #True somente por 1 frame quando soltas
+            'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False}
         self.__timer_font = None
         self.__timer_sec = 60
         self.__timer_text = None
@@ -51,7 +53,7 @@ class ControladorJogo:
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
         '''
-        self.__estado_jogo = EstadosControlador(0) #'menus', 'jogando', 'pause'
+        self.__estado_jogo = EstadosControlador(1) #'menus', 'jogando', 'pause'
 
     # GETTERS
 
@@ -105,20 +107,30 @@ class ControladorJogo:
                 self.__teclas_pressionadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = True
+            elif evento.key == pygame.K_ESCAPE:
+                self.__teclas_pressionadas['esc'] = True
 
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_w:
                 self.__teclas_pressionadas['w'] = False
+                self.__teclas_clicadas['w'] = True
             elif evento.key == pygame.K_a:
                 self.__teclas_pressionadas['a'] = False
+                self.__teclas_clicadas['a'] = True
             elif evento.key == pygame.K_s:
                 self.__teclas_pressionadas['s'] = False
+                self.__teclas_clicadas['s'] = True
             elif evento.key == pygame.K_d:
                 self.__teclas_pressionadas['d'] = False
+                self.__teclas_clicadas['d'] = True
             elif evento.key == pygame.K_SPACE:
                 self.__teclas_pressionadas['espaco'] = False
+                self.__teclas_clicadas['espaco'] = True
+            elif evento.key == pygame.K_ESCAPE:
+                self.__teclas_pressionadas['esc'] = False
+                self.__teclas_clicadas['esc'] = True
 
-        elif evento.type == self.__timer:
+        elif evento.type == self.__timer and int(self.__estado_jogo) == 1: # se for do timer e se estiver jogando
             if self.__timer_sec > 0:
                 self.__timer_sec -= 1
                 self.__timer_text = self.__timer_font.render(time.strftime(
@@ -137,6 +149,8 @@ class ControladorJogo:
                 pass            
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
+            if self.__teclas_clicadas['esc']:
+                self.__estado_jogo = EstadosControlador(2)
             #timer do jogo
         
         elif int(self.__estado_jogo) == 0: #menus
@@ -145,7 +159,12 @@ class ControladorJogo:
 
         elif int(self.__estado_jogo) == 2: #pause
             #colocar acoes de pause aqui
-            pass
+            if self.__teclas_clicadas['esc']:
+                self.__estado_jogo = EstadosControlador(1)
+
+        if True in self.__teclas_clicadas.values():
+            for k in self.__teclas_clicadas.keys():
+                self.__teclas_clicadas[k] = False
 
     def renderizar(self):
         if int(self.__estado_jogo) == 1: #jogando
@@ -367,6 +386,7 @@ class ControladorJogo:
             if self.__teclas_pressionadas['d'] == True:
                 if self.opcao == 'Jogar':
                     # self.proxima_fase()
+                    self.__estado_jogo = EstadosControlador(1) #jogando
                     self.__jogando = True
                     self.__estados['jogo'] = True
                     self.__estados['principal'] = False
@@ -388,9 +408,9 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
-        self.__timer_sec = 60
+        self.__timer_sec = 120
         self.__timer_text = self.__timer_font.render(
-            "01:00", True, ((255, 255, 255)))
+            "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
     # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
     # o timer seja reiniciado
