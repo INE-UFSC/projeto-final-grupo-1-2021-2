@@ -235,7 +235,7 @@ class ControladorJogo:
                 self.proxima_fase()
 
         elif self.__fase.vitoria != True and self.__jogando == False:
-            # self.proxima_fase()
+            self.proxima_fase()
             self.__display.fill((0, 0, 0))
             self.__estados['game_over'] = True
             self.desenha_texto("Game Over", 50, self.largura/2,
