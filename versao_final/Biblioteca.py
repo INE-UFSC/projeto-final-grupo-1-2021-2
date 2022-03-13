@@ -45,12 +45,12 @@ class Biblioteca(metaclass=Singleton):
                 ],
                 #obstaculos
                 [
-                    ObstaculoMapa(Coordenada(0, 0), Tamanho(2400, 80), 'balcao_G_vazio'),
-                    ObstaculoMapa(Coordenada(0, 80), Tamanho(80, 1400), 'prateleira_garrafas'),
+                    ObstaculoMapa(Coordenada(0, 0), Tamanho(2400, 80), 'tijolos_vermelhos_cima'),
+                    ObstaculoMapa(Coordenada(0, 80), Tamanho(80, 1400), 'tijolos_vermelhos_esquerda'),
                     ObstaculoMapa(Coordenada(80, 1400), Tamanho(80, 320), 'balcao_P_frutas'),
                     ObstaculoMapa(Coordenada(440, 320), Tamanho(120, 400), 'prateleira_caixas'),
                     ObstaculoMapa(Coordenada(440, 1000), Tamanho(120, 400), 'prateleira_garrafas'),
-                    ObstaculoMapa(Coordenada(280, 1640), Tamanho(2120, 80), 'balcao_G_vazio'),
+                    ObstaculoMapa(Coordenada(280, 1640), Tamanho(2120, 80), 'tijolos_vermelhos_baixo'),
                     ObstaculoMapa(Coordenada(800, 320), Tamanho(120, 400), 'freezer_fechado'),
                     ObstaculoMapa(Coordenada(800, 1000), Tamanho(120, 400), 'balcao_P_verduras'),
                     ObstaculoMapa(Coordenada(1160, 200), Tamanho(120, 240), 'balcao_P_verduras'),
@@ -60,7 +60,7 @@ class Biblioteca(metaclass=Singleton):
                     ObstaculoMapa(Coordenada(1520, 600), Tamanho(560, 120), 'balcao_G_vazio'),
                     ObstaculoMapa(Coordenada(1520, 1000), Tamanho(560, 120), 'prateleira_vazia'),
                     ObstaculoMapa(Coordenada(1520, 1360), Tamanho(560, 120), 'balcao_P_frutas'),
-                    ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560), 'freezer_fechado'),
+                    ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560), 'tijolos_vermelhos_direita'),
                 ], 'mercado'),
             # mapa cozinha
             'cozinha': Mapa(

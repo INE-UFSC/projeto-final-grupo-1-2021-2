@@ -10,7 +10,7 @@ class GerenciadorImagens(metaclass=Singleton):
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
             # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
-                'teste': 'teste.PNG'  # 'parado1':None, 'parado2':None, etc
+                'teste': 'prateleira.png'  # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png'
@@ -25,7 +25,12 @@ class GerenciadorImagens(metaclass=Singleton):
                 'prateleira_vazia': 'Supermercado/Prateleira_G_vazia.png',
                 'prateleira_caixas': 'Supermercado/Prateleira_C_caixas.png',
                 'prateleira_garrafas': 'Supermercado/Prateleira_C_garrafas.png',
-                'prateleira': 'prateleira_cortada.png'
+                'prateleira': 'prateleira_cortada.png',
+                'tijolos_vermelhos_cima': 'Supermercado/tijolos_vermelhos_cima.png',
+                'tijolos_vermelhos_baixo': 'Supermercado/tijolos_vermelhos_baixo.png',
+                'tijolos_vermelhos_esquerda': 'Supermercado/tijolos_vermelhos_esquerda.png',
+                'tijolos_vermelhos_direita': 'Supermercado/tijolos_vermelhos_direita.png'
+
             },
             'inimigo_obstaculo': {
                 'carrinho_direita': 'Supermercado/Carrinho_direita.png',
