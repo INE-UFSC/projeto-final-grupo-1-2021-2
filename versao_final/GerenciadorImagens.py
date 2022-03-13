@@ -24,7 +24,8 @@ class GerenciadorImagens(metaclass=Singleton):
                 'freezer_pacotes': 'Supermercado/Freezer_C_pacotes.png',
                 'prateleira_vazia': 'Supermercado/Prateleira_G_vazia.png',
                 'prateleira_caixas': 'Supermercado/Prateleira_C_caixas.png',
-                'prateleira_garrafas': 'Supermercado/Prateleira_C_garrafas.png'
+                'prateleira_garrafas': 'Supermercado/Prateleira_C_garrafas.png',
+                'prateleira': 'prateleira_cortada.png'
             },
             'inimigo_obstaculo': {
                 'carrinho_direita': 'Supermercado/Carrinho_direita.png',

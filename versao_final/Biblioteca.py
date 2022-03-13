@@ -56,7 +56,7 @@ class Biblioteca(metaclass=Singleton):
                     ObstaculoMapa(Coordenada(1160, 200), Tamanho(120, 240), 'balcao_P_verduras'),
                     ObstaculoMapa(Coordenada(1160, 600), Tamanho(120, 520), 'freezer_pacotes'),
                     ObstaculoMapa(Coordenada(1160, 1280), Tamanho(120, 240), 'prateleira_caixas'),
-                    ObstaculoMapa(Coordenada(1520, 240), Tamanho(560, 120), 'balcao_G_verduras'),
+                    ObstaculoMapa(Coordenada(1520, 240), Tamanho(560, 120), 'prateleira'),
                     ObstaculoMapa(Coordenada(1520, 600), Tamanho(560, 120), 'balcao_G_vazio'),
                     ObstaculoMapa(Coordenada(1520, 1000), Tamanho(560, 120), 'prateleira_vazia'),
                     ObstaculoMapa(Coordenada(1520, 1360), Tamanho(560, 120), 'balcao_P_frutas'),
