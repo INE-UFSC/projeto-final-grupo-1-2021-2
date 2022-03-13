@@ -4,12 +4,13 @@ from random import randrange
 from ObstaculoMapa import ObstaculoMapa
 from PontoEntrega import PontoEntrega
 import pygame
+from GerenciadorImagens import GerenciadorImagens
 
 
 class Mapa:
     def __init__(self, tamanho: Tamanho, spawn_jogador: Coordenada, spawn_inimigos_p: list,
                  caminhos_inimigos_o: list, spawn_itens: list,
-                 pontos_entrega: list, obstaculos: list):
+                 pontos_entrega: list, obstaculos: list, local: str):
         self.__tamanho = tamanho
         self.__spawn_jogador = spawn_jogador
         self.__spawn_inimigos_p = spawn_inimigos_p
@@ -17,33 +18,36 @@ class Mapa:
         self.__spawn_itens = spawn_itens
         self.__pontos_entrega = pontos_entrega
         self.__obstaculos = obstaculos
-        self.__rect = pygame.Rect(
-            0, 0, self.__tamanho.largura, self.__tamanho.altura
-        )
+        self.__imagem = GerenciadorImagens().getSprite(
+            'mapa', local, tamanho.largura, tamanho.altura)
+        # self.__rect = pygame.Rect(
+        # 0, 0, self.__tamanho.largura, self.__tamanho.altura)
+        self.__rect = self.__imagem.get_rect()
+        self.__rect.topleft = (0, 0)
 
     # getters
 
-    @property
+    @ property
     def tamanho(self):
         return self.__tamanho
 
-    @property
+    @ property
     def spawn_jogador(self):
         return self.__spawn_jogador
 
-    @property
+    @ property
     def spawn_inimigos_p(self):
         return [*self.__spawn_inimigos_p]
 
-    @property
+    @ property
     def caminho_inimigos_o(self):
         return [*self.__caminho_inimigos_o]
 
-    @property
+    @ property
     def obstaculos(self):
         return [*self.__obstaculos]
 
-    @property
+    @ property
     def pontos_entrega(self) -> PontoEntrega:
         return [*self.__pontos_entrega]
 
@@ -58,10 +62,13 @@ class Mapa:
         return self.__pontos_entrega[n]
 
     def desenhar(self, display, posicao_camera):
-        cor = (112, 128, 144)  # cinza
-        #self.__rect.x = self.__tamanho.largura - posicao_camera.x
-        #self.__rect.y = self.__tamanho.altura - posicao_camera.y
+        # cor = (112, 128, 144)  # cinza
+        # self.__rect.x = self.__tamanho.largura - posicao_camera.x
+        # self.__rect.y = self.__tamanho.altura - posicao_camera.y
         rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
-        pygame.draw.rect(display, cor, rect_camera)
+        #pygame.draw.rect(display, cor, rect_camera)
+        dados = []
+        dados.append((self.__imagem, rect_camera))
         for obstaculo in self.__obstaculos:
-            obstaculo.desenhar(display, posicao_camera)
+            dados.append(obstaculo.desenhar(display, posicao_camera))
+        return dados

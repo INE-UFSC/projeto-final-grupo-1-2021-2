@@ -26,9 +26,9 @@ class ControladorJogo:
         self.__fase = None
         self.__nivel_atual = None
         self.__dificuldade = None
-        self.__teclas_pressionadas = { #True enquanto pressionadas
+        self.__teclas_pressionadas = {  # True enquanto pressionadas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
-        self.__teclas_clicadas = { #True somente por 1 frame quando soltas
+        self.__teclas_clicadas = {  # True somente por 1 frame quando soltas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
         self.__timer_font = None
         self.__timer_sec = 60
@@ -54,7 +54,8 @@ class ControladorJogo:
         self.__nivel_atual = nivel_atual
         self.__dificuldade = dificuldade
         '''
-        self.__estado_jogo = EstadosControlador(1) #'menus', 'jogando', 'pause'
+        self.__estado_jogo = EstadosControlador(
+            1)  # 'menus', 'jogando', 'pause'
         self.__gerenciador_imagens = None
 
     # GETTERS
@@ -93,7 +94,6 @@ class ControladorJogo:
         self.opcao = 'Jogar'
         #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
         self.__gerenciador_imagens = GerenciadorImagens()
-
 
     def eventos(self, evento):
         if evento.type == pygame.QUIT:
@@ -171,7 +171,6 @@ class ControladorJogo:
         elif int(self.__estado_jogo) == 0:  # menus
             self.move_cursor()
             self.MudaEstados()
-            
 
         elif int(self.__estado_jogo) == 2:  # pause
             # colocar acoes de pause aqui
@@ -188,7 +187,7 @@ class ControladorJogo:
             # renderizar interface
             pass
 
-        elif int(self.__estado_jogo) == 0: #menus
+        elif int(self.__estado_jogo) == 0:  # menus
             if self.__estados['principal'] == True:
                 self.__menu_prin.display_menu()
             elif self.__estados['creditos'] == True:
@@ -200,17 +199,17 @@ class ControladorJogo:
             # rederizar jogo um pouco mais escuro
             # renderizar menu de pause
             pass
-   
+
         if self.__estados['principal'] == True:
-                self.__menu_prin.display_menu()
+            self.__menu_prin.display_menu()
         elif self.__estados['creditos'] == True:
-                self.__menu_crd.display_menu()
+            self.__menu_crd.display_menu()
         elif self.__estados['tutorial'] == True:
-                self.__menu_tut.display_menu()
+            self.__menu_tut.display_menu()
         elif self.__jogando == True and self.__estados['jogo'] == True:
             self.__display.fill((0, 0, 0))
-            self.__fase.mapa.desenhar(
-                self.__display, self.__camera.posicao_int)
+            for x in self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int):
+                self.__display.blit(x[0], x[1])
 
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
                 self.__fase.ponto_entrega_ativo.desenhar(
@@ -246,8 +245,8 @@ class ControladorJogo:
                 self.__estados['principal'] = True
         '''    else:
                 self.inicializar() == False'''
-        
-        #self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
+
+        # self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
         pygame.display.flip()
 
     def limpar(self):
