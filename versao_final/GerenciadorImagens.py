@@ -38,9 +38,9 @@ class GerenciadorImagens(metaclass=Singleton):
 
             },
             'inimigo_obstaculo': {
-                'carrinho_direita': 'Supermercado/Carrinho_direita.png',
-                'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
-                'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
+                #'carrinho_direita': 'Supermercado/Carrinho_direita.png',
+                #'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
+                #'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
             }
             # 'inimigos_pessoa':{}, etc
         }
