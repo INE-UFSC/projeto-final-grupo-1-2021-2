@@ -10,22 +10,27 @@ class GerenciadorImagens(metaclass=Singleton):
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
             # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
-                'teste': 'prateleira.png'  # 'parado1':None, 'parado2':None, etc
+                'teste': 'teste.png'  # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png'
             },
             'obstaculo': {
-                'balcao_G_vazio': 'Supermercado/Balcao_G_vazio.png',
-                'balcao_G_verduras': 'Supermercado/Balcao_G_verduras.png',
-                'balcao_P_frutas': 'Supermercado/Balcao_P_frutas.png',
-                'balcao_P_verduras': 'Supermercado/Balcao_P_verduras.png',
-                'freezer_fechado': 'Supermercado/Freezer_C_fechado.png',
-                'freezer_pacotes': 'Supermercado/Freezer_C_pacotes.png',
-                'prateleira_vazia': 'Supermercado/Prateleira_G_vazia.png',
-                'prateleira_caixas': 'Supermercado/Prateleira_C_caixas.png',
-                'prateleira_garrafas': 'Supermercado/Prateleira_C_garrafas.png',
-                'prateleira': 'prateleira_cortada.png',
+                'balcao_vertical': 'Supermercado/balcao_comprido.png',
+                'balcao_horizontal': 'Supermercado/balcao_deitado.png',
+                'balcao_grande_comida': 'Supermercado/balcao_grande_cheio.png',
+                'caixa': 'Supermercado/caixa_grande.png',
+                'caixas_grandes': 'Supermercado/caixas_grandes.png',
+                'mostruario_vertical_vazio': 'Supermercado/mostruario_comprido_vazio.png',
+                'mostruario_vertical_cheio': 'Supermercado/mostruario_comprido.png',
+                'mostruario_G_cheio': 'Supermercado/mostruario_grande_cheio.png',
+                'mostruario_G_vazio': 'Supermercado/mostruario_grande_vazio.png',
+                'placa_sale': 'Supermercado/placa_sale.png',
+                'prateleira_horizontal': 'Supermercado/prateleira_deitada.png',
+                'prateleira_M_cheia1': 'Supermercado/prateleira_cortada.png',
+                'prateleira_M_vazia': 'Supermercado/prateleira_grande_vazia.png',
+                'prateleira_M_cheia2': 'Supermercado/prateleira_media_cheia1.png',
+                'prateleira_M_cheia3': 'Supermercado/prateleira_media_cheia2.png',
                 'tijolos_vermelhos_cima': 'Supermercado/tijolos_vermelhos_cima.png',
                 'tijolos_vermelhos_baixo': 'Supermercado/tijolos_vermelhos_baixo.png',
                 'tijolos_vermelhos_esquerda': 'Supermercado/tijolos_vermelhos_esquerda.png',

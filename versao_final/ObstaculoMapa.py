@@ -5,7 +5,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 
 class ObstaculoMapa:
-    def __init__(self, coordenada: Coordenada = '', tamanho: Tamanho = '', tipo: str = 'balcao_G_vazio'):
+    def __init__(self, coordenada: Coordenada = '', tamanho: Tamanho = '', tipo: str = 'balcao_vertical'):
         self.__coord = coordenada
         self.__tamanho = tamanho
         self.__imagem = GerenciadorImagens().getSprite(
