@@ -212,8 +212,9 @@ class ControladorJogo:
                 self.__display.blit(x[0], x[1])
 
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-                self.__fase.ponto_entrega_ativo.desenhar(
+                dados = self.__fase.ponto_entrega_ativo.desenhar(
                     self.__display, self.__camera.posicao_int)
+                self.__display.blit(dados[0], dados[1])
 
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
                 inim.desenhar(self.__display, self.__camera.posicao_int)
