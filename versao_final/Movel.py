@@ -2,10 +2,11 @@ import pygame
 from Coordenada import Coordenada
 from Tamanho import Tamanho
 from abc import ABC, abstractmethod
+from GerenciadorImagens import GerenciadorImagens
 
 
 class Movel(ABC):
-    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float):
+    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float, sprites: list = ['teste']):
         self.__coord = coord
         self.__tamanho = tamanho
         self.__velocidade = velocidade
@@ -15,6 +16,7 @@ class Movel(ABC):
         self.__atingido = False
         self.__coord_atingido = None
         self.__angulo = 0
+        self.__imagens = self.salvar_imagens(sprites)
 
     @abstractmethod
     # define self.__direcao_deslocamento com base no estado (comando do jogador ou decisao de IA)
@@ -23,6 +25,10 @@ class Movel(ABC):
 
     # define o que acontece quando o objeto colide com outro objeto (na coordenada coord)
     def colidiu(self, coord: Coordenada):
+        pass
+
+    @abstractmethod
+    def salvar_imagens(self, sprites: list):
         pass
 
     @property
@@ -54,12 +60,20 @@ class Movel(ABC):
         return self.__coord_atingido
 
     @property
-    def angulo(self)->int:
+    def angulo(self) -> int:
         return self.__angulo
+
+    @property
+    def imagens(self):
+        return self.__imagens
 
     @coord.setter
     def coord(self, coord: Coordenada):
         self.__coord = coord
+
+    @imagens.setter
+    def imagens(self, imagens: list):
+        self.__imagens = imagens
 
     @tamanho.setter
     def tamanho(self, tamanho: Tamanho):
@@ -98,7 +112,6 @@ class Movel(ABC):
                     else:
                         self.__angulo = 45
 
-
     @atingido.setter
     def atingido(self, atingido: int):
         self.__atingido = atingido
@@ -107,11 +120,10 @@ class Movel(ABC):
     def coord_atingido(self, coord: Coordenada):
         self.__coord_atingido = Coordenada(coord.x, coord.y)
 
-    def desenhar(self, display, cor, posicao_camera):
-        #self.__rect.centerx = self.__coord.x - posicao_camera.x
-        #self.__rect.centery = self.__coord.y - posicao_camera.y
+    def desenhar(self, display, posicao_camera):
         rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
-        pygame.draw.rect(display, cor, rect_camera)
+        return rect_camera
+        #pygame.draw.rect(display, cor, rect_camera)
 
     def velocidade_real(self) -> float:
         return self.velocidade * 2 if self.atingido > 0 else self.velocidade
@@ -126,7 +138,7 @@ class Movel(ABC):
         if self.angulo >= 315 or self.angulo <= 45 or (self.angulo >= 135 and self.angulo <= 225):
             self.__rect.update(0, 0, self.tamanho.largura, self.tamanho.altura)
         else:
-            self.__rect.update(0, 0, self.tamanho.altura, self.tamanho.largura)            
+            self.__rect.update(0, 0, self.tamanho.altura, self.tamanho.largura)
         self.__rect.center = self.coord.x, self.coord.y
 
 

@@ -208,8 +208,29 @@ class Biblioteca(metaclass=Singleton):
              'restaurante':[Item('Feijoada'), Item('PF')]}
         ]
 
+        self.__sprites = {
+            'mercado': {
+                'jogador': ['teste'],
+                'inimigo_obstaculo': ['carrinho_frente/tras', 'carrinho_esquerda', 'carrinho_direita'],
+                'inimigo_pessoa': ['teste']
+            },
+            'cozinha':{
+                'jogador': [],
+                'inimigo_obstaculo': [],
+                'inimigo_pessoa': []
+            },
+            'restaurante':{
+                'jogador': [],
+                'inimigo_obstaculo': [],
+                'inimigo_pessoa': []
+            }
+        }
+
     def getMapaNivel(self, nivel: str) -> Mapa:
         return self.__mapas[nivel]
 
     def getItensDificuldade(self, dificuldade: int, nivel: str):
         return [*self.__lista_itens[dificuldade][nivel]]
+
+    def getSprites(self, nivel: str):
+        return self.__sprites[nivel]

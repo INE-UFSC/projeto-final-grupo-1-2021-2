@@ -3,15 +3,16 @@ from Coordenada import Coordenada
 from Tamanho import Tamanho
 from Item import Item
 from PontoEntrega import PontoEntrega
+from GerenciadorImagens import GerenciadorImagens
 
 
 class Jogador(Movel):
-    def __init__(self, coord:Coordenada):
-        super().__init__(coord, Tamanho(40,40), 7)
+    def __init__(self, coord: Coordenada, sprites):
+        super().__init__(coord, Tamanho(40, 40), 7, sprites=sprites)
         self.__item_carregado = None
 
     @property
-    def item_carregado(self)->Item:
+    def item_carregado(self) -> Item:
         return self.__item_carregado
 
     @item_carregado.setter
@@ -61,9 +62,16 @@ class Jogador(Movel):
                 Coordenada(0, 0), Coordenada(horizontal, vertical))
 
         else:
-            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(self.coord_atingido, self.coord)
-            
+            self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
+                self.coord_atingido, self.coord)
 
     def desenhar(self, display, posicao_camera):
-        cor = (0, 0, 255)  # azul
-        return super().desenhar(display, cor, posicao_camera)
+        # cor = (0, 0, 255)  # azul
+        return self.imagens[0], super().desenhar(display, posicao_camera)
+
+    def salvar_imagens(self, sprites: list):
+        lista = []
+        for nome in sprites:
+            lista.append(GerenciadorImagens().getSprite(
+                'jogador', nome, self.tamanho.largura, self.tamanho.altura))
+        return lista

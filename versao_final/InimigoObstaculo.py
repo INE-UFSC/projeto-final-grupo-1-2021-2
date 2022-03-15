@@ -2,14 +2,15 @@ from Movel import Movel
 from Coordenada import Coordenada
 from Tamanho import Tamanho
 from copy import deepcopy
+from GerenciadorImagens import GerenciadorImagens
 
 
 class InimigoObstaculo(Movel):
-    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(70, 100), velocidade: float = 8):
+    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(70, 100), velocidade: float = 8, sprites: list = []):
         if(len(caminho) < 2):
             raise ValueError(
                 f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
-        super().__init__(caminho[0], tamanho, velocidade)
+        super().__init__(caminho[0], tamanho, velocidade, sprites)
         self.__caminho = deepcopy(caminho)
         # adicionar isso no diagrama UML
         self.__proximo_ponto_caminho = 1
@@ -32,6 +33,20 @@ class InimigoObstaculo(Movel):
     def colidiu(self, coord: Coordenada):
         pass
 
+    def salvar_imagens(self, sprites):
+        lista = []
+        for nome in sprites:
+            lista.append(GerenciadorImagens().getSprite(
+                'inimigo_obstaculo', nome, self.tamanho.largura, self.tamanho.altura))
+        return lista
+
     def desenhar(self, display, posicao_camera):
-        cor = (255, 110, 0)  # laranja
-        return super().desenhar(display, cor, posicao_camera)
+        # cor = (255, 110, 0)  # laranja
+        # return super().desenhar(display, cor, posicao_camera)
+        imagem = self.imagens[0]
+        if self.angulo == 90:
+            imagem = self.imagens[1]
+        elif self.angulo == 270:
+            imagem = self.imagens[2]
+
+        return imagem, super().desenhar(display, posicao_camera)
