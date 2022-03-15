@@ -223,7 +223,11 @@ class ControladorJogo:
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
                 self.__fase.item_ativo.desenhar(
                     self.__display, self.__camera.posicao_int)
-            self.__display.blit(self.__timer_text, (self.altura-160, 20))
+
+            rect = self.__timer_text.get_rect()
+            rect.topleft = (self.altura-160, 20)
+            pygame.draw.rect(self.__display, (0, 0, 0), rect) #fundo para o timer
+            self.__display.blit(self.__timer_text, (self.altura-160, 20)) #desenha o timer
 
             self.__fase.desenhar_bussola_interativos(
                 self.__display, self.__camera.posicao_int)
