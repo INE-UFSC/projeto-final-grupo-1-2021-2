@@ -38,7 +38,28 @@ class InimigoPessoa(Movel):
 
     def desenhar(self, display, posicao_camera):
         # cor = (255, 0, 0)  # vermelho
-        return self.imagens[0], super().desenhar(display, posicao_camera)
+        if self.atingido:
+            imagem = self.imagens[len(self.imagens)-2]
+            if self.angulo >= 180:
+                imagem = self.imagens[len(self.imagens)-1]
+        elif self.direcao_deslocamento.x == 0 and self.direcao_deslocamento.y == 0:
+            if self.angulo < 180:
+                imagem = self.imagens[0]
+            else:
+                imagem = self.imagens[1]
+        elif self.direcao_deslocamento.x < 0 or (self.direcao_deslocamento.x == 0 and self.direcao_deslocamento.y < 0):
+            if self.__imagem_atual == self.imagens[2]:
+                imagem = self.imagens[3]
+            else:
+                imagem = self.imagens[2]
+        else:
+            if self.__imagem_atual == self.imagens[4]:
+                imagem = self.imagens[5]
+            else:
+                imagem = self.imagens[4]
+
+        self.__imagem_atual = imagem
+        return imagem, super().desenhar(display, posicao_camera)
 
     def salvar_imagens(self, sprites: list):
         lista = []

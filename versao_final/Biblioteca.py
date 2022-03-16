@@ -223,19 +223,25 @@ class Biblioteca(metaclass=Singleton):
 
         self.__sprites = {
             'mercado': {
-                'jogador': ['parado_esquerda'],
+                'jogador': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita'],
                 'inimigo_obstaculo': ['carrinho_frente/tras', 'carrinho_esquerda', 'carrinho_frente/tras', 'carrinho_direita'],
-                'inimigo_pessoa': ['parado_esquerda']
+                'inimigo_pessoa': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita']
             },
             'cozinha':{
-                'jogador': ['parado_esquerda'],
+                'jogador': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita'],
                 'inimigo_obstaculo': ['carrinho_limpeza_tras', 'carrinho_limpeza_esquerda', 'carrinho_limpeza_frente', 'carrinho_limpeza_direita'],
-                'inimigo_pessoa': ['parado_esquerda']
+                'inimigo_pessoa': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita']
             },
             'restaurante':{
-                'jogador': ['parado_esquerda'],
+                'jogador': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita'],
                 'inimigo_obstaculo': [],
-                'inimigo_pessoa': ['parado_esquerda']
+                'inimigo_pessoa': ['parado_esquerda', 'parado_direita', 'andando1_esquerda', 'andando2_esquerda', 
+                            'andando1_direita', 'andando2_direita', 'atingido_esquerda', 'atingido_direita']
             }
         }
 
