@@ -95,7 +95,10 @@ class GerenciadorImagens(metaclass=Singleton):
                 'andando2_direita': 'Inimigo\inimigo_andando2_direita.png',
                 'atingido_esquerda': 'Inimigo\inimigo_atingido_esquerda.png',
                 'atingido_direita': 'Inimigo\inimigo_atingido_direita.png'
-            }
+            },
+              
+            # 'inimigos_pessoa':{}, etc
+            'fundo_menu': {'fundo_menu' : 'fundo_menu.png'}
         }
         self.__imagens_carregadas = None
         self.__carregarImagens()
