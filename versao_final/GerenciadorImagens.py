@@ -10,7 +10,7 @@ class GerenciadorImagens(metaclass=Singleton):
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
             # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
-                'teste': 'teste.png'  # 'parado1':None, 'parado2':None, etc
+                #'teste': 'teste.png'  # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png'
@@ -57,8 +57,9 @@ class GerenciadorImagens(metaclass=Singleton):
                 # 'carrinho_direita': 'Supermercado/Carrinho_direita.png',
                 # 'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
                 # 'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
-            }
+            },
             # 'inimigos_pessoa':{}, etc
+            'fundo_menu': {'fundo_menu' : 'fundo_menu.png'}
         }
         self.__imagens_carregadas = None
         self.__carregarImagens()
