@@ -99,11 +99,11 @@ class Biblioteca(metaclass=Singleton):
                 ],
                 #obstaculos
                 [
-                    ObstaculoMapa(Coordenada(0, 0), Tamanho(2400, 80)),
-                    ObstaculoMapa(Coordenada(0, 80), Tamanho(80, 1560)),
+                    ObstaculoMapa(Coordenada(0, 0), Tamanho(2400, 80), 'tijolos_azuis_cima'),
+                    ObstaculoMapa(Coordenada(0, 80), Tamanho(80, 1560), 'tijolos_azuis_esquerda'),
                     ObstaculoMapa(Coordenada(80, 760), Tamanho(80, 40)),
                     ObstaculoMapa(Coordenada(80, 920), Tamanho(80, 40)),
-                    ObstaculoMapa(Coordenada(0, 1640), Tamanho(2400, 80)),
+                    ObstaculoMapa(Coordenada(0, 1640), Tamanho(2400, 80), 'tijolos_azuis_baixo'),
                     ObstaculoMapa(Coordenada(320, 80), Tamanho(40, 80)),
                     ObstaculoMapa(Coordenada(480, 80), Tamanho(40, 80)),
                     ObstaculoMapa(Coordenada(320, 320), Tamanho(120, 440)),
@@ -122,8 +122,8 @@ class Biblioteca(metaclass=Singleton):
                     ObstaculoMapa(Coordenada(1960, 960), Tamanho(120, 440)),
                     ObstaculoMapa(Coordenada(2240, 760), Tamanho(80, 40)),
                     ObstaculoMapa(Coordenada(2240, 920), Tamanho(80, 40)),
-                    ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560))
-                ], 'mercado'),
+                    ObstaculoMapa(Coordenada(2320, 80), Tamanho(80, 1560), 'tijolos_azuis_direita')
+                ], 'cozinha'),
             # mapa restaurante
             'restaurante': Mapa(
                 #tamanho

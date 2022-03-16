@@ -21,9 +21,11 @@ class GerenciadorImagens(metaclass=Singleton):
                 # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
-                'mercado': 'Supermercado/Mapa_supermercado.png'
+                'mercado': 'Supermercado/Mapa_supermercado.png',
+                'cozinha': 'Cozinha/Mapa_cozinha.jpeg'
             },
             'obstaculo': {
+                # mercado
                 'balcao_vertical': 'Supermercado/balcao_comprido.png',
                 'balcao_horizontal': 'Supermercado/balcao_deitado.png',
                 'balcao_grande_comida': 'Supermercado/balcao_grande_cheio.png',
@@ -42,8 +44,20 @@ class GerenciadorImagens(metaclass=Singleton):
                 'tijolos_vermelhos_cima': 'Supermercado/tijolos_vermelhos_cima.png',
                 'tijolos_vermelhos_baixo': 'Supermercado/tijolos_vermelhos_baixo.png',
                 'tijolos_vermelhos_esquerda': 'Supermercado/tijolos_vermelhos_esquerda.png',
-                'tijolos_vermelhos_direita': 'Supermercado/tijolos_vermelhos_direita.png'
+                'tijolos_vermelhos_direita': 'Supermercado/tijolos_vermelhos_direita.png',
 
+                # cozinha
+                'balcao_vertical2': 'Cozinha\Balcao_comprido_vazio.png',
+                'balcao_horizontal2': 'Cozinha\Balcao_m_vazio.png',
+                'balcao_grande_cozinha': 'Cozinha\Balcao_G_cheio.png',
+                'balcao_p': 'Cozinha\Balcao_p.png',
+                'fogao': 'Cozinha\Fogao.png',
+                'utensilio': 'Cozinha\Balcao_p_utensilio.png',
+                'geladeira': 'Cozinha\Geladeira.png',
+                'tijolos_azuis_baixo': 'Cozinha/tijolinhos_azuis_baixo.png',
+                'tijolos_azuis_direita': 'Cozinha/tijolinhos_azuis_direita.png',
+                'tijolos_azuis_esquerda': 'Cozinha/tijolinhos_azuis_esquerda.png',
+                'tijolos_azuis_cima': 'Cozinha/tijolos_azuis_cima.png',
             },
             'item': {
                 'Ovo': 'Itens/ovo.png',
