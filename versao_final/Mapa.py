@@ -63,8 +63,6 @@ class Mapa:
 
     def desenhar(self, display, posicao_camera):
         # cor = (112, 128, 144)  # cinza
-        # self.__rect.x = self.__tamanho.largura - posicao_camera.x
-        # self.__rect.y = self.__tamanho.altura - posicao_camera.y
         rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
         #pygame.draw.rect(display, cor, rect_camera)
         dados = []

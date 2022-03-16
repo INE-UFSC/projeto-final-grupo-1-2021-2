@@ -37,10 +37,26 @@ class GerenciadorImagens(metaclass=Singleton):
                 'tijolos_vermelhos_direita': 'Supermercado/tijolos_vermelhos_direita.png'
 
             },
+            'item': {
+                'Ovo': 'Itens/ovo.png',
+                'Queijo': 'Itens/queijo.jpeg',
+                'Presunto': 'Itens/presunto.png',
+                'Omelete': 'Itens/omelete.jpg',
+                'Massa': 'Itens/massa.png',
+                'Molho de tomate': 'Itens/tomate.png',
+                'Carne Moida': 'Itens/carne_crua.png',
+                'Macarronada': 'Itens/macarronada.png',
+                'Lasanha': 'Itens/lasanha.png',
+                'Arroz': 'Itens/pacote_arroz.png',
+                'Feijao': 'Itens/feijao.png',
+                'Carne de porco': 'Itens/carne_crua.png',
+                'Feijoada': 'Itens/feijoada.jpg',
+                'PF': 'Itens/feijoada.jpg'
+            },
             'inimigo_obstaculo': {
-                #'carrinho_direita': 'Supermercado/Carrinho_direita.png',
-                #'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
-                #'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
+                # 'carrinho_direita': 'Supermercado/Carrinho_direita.png',
+                # 'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
+                # 'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
             }
             # 'inimigos_pessoa':{}, etc
         }

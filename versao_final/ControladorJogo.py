@@ -212,8 +212,9 @@ class ControladorJogo:
                 self.__display.blit(x[0], x[1])
 
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-                self.__fase.ponto_entrega_ativo.desenhar(
+                dados_pe = self.__fase.ponto_entrega_ativo.desenhar(
                     self.__display, self.__camera.posicao_int)
+                self.__display.blit(dados_pe[0], dados_pe[1])
 
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo):
                 inim.desenhar(self.__display, self.__camera.posicao_int)
@@ -221,13 +222,16 @@ class ControladorJogo:
                 self.__display, self.__camera.posicao_int)
 
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-                self.__fase.item_ativo.desenhar(
+                dados_item = self.__fase.item_ativo.desenhar(
                     self.__display, self.__camera.posicao_int)
+                self.__display.blit(dados_item[0], dados_item[1])
 
             rect = self.__timer_text.get_rect()
             rect.topleft = (self.altura-160, 20)
-            pygame.draw.rect(self.__display, (0, 0, 0), rect) #fundo para o timer
-            self.__display.blit(self.__timer_text, (self.altura-160, 20)) #desenha o timer
+            pygame.draw.rect(self.__display, (0, 0, 0),
+                             rect)  # fundo para o timer
+            self.__display.blit(self.__timer_text,
+                                (self.altura-160, 20))  # desenha o timer
 
             self.__fase.desenhar_bussola_interativos(
                 self.__display, self.__camera.posicao_int)
