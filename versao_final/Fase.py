@@ -164,10 +164,10 @@ class Fase:
         if self.ponto_entrega_ativo != None or self.item_ativo != None:
             if (self.item_ativo != None and self.item_ativo.ativo == True):
                 destino = self.item_ativo.coord
-                cor = (215, 189, 226)
+                cor = (128,0,0)
             elif self.ponto_entrega_ativo != None:
                 destino = self.ponto_entrega_ativo.coord
-                cor = (142, 68, 173)
+                cor = (255,140,0)
             vetor = Coordenada.versorEntreCoordenadas(
                 self.__jogador.coord, destino)
 
