@@ -210,19 +210,19 @@ class Biblioteca(metaclass=Singleton):
 
         self.__sprites = {
             'mercado': {
-                'jogador': ['teste'],
-                'inimigo_obstaculo': ['carrinho_frente/tras', 'carrinho_esquerda', 'carrinho_direita'],
-                'inimigo_pessoa': ['teste']
+                'jogador': ['parado_esquerda'],
+                'inimigo_obstaculo': ['carrinho_frente/tras', 'carrinho_esquerda', 'carrinho_frente/tras', 'carrinho_direita'],
+                'inimigo_pessoa': ['parado_esquerda']
             },
             'cozinha':{
-                'jogador': [],
-                'inimigo_obstaculo': [],
-                'inimigo_pessoa': []
+                'jogador': ['parado_esquerda'],
+                'inimigo_obstaculo': ['carrinho_limpeza_tras', 'carrinho_limpeza_esquerda', 'carrinho_limpeza_frente', 'carrinho_limpeza_direita'],
+                'inimigo_pessoa': ['parado_esquerda']
             },
             'restaurante':{
-                'jogador': [],
+                'jogador': ['parado_esquerda'],
                 'inimigo_obstaculo': [],
-                'inimigo_pessoa': []
+                'inimigo_pessoa': ['parado_esquerda']
             }
         }
 

@@ -46,7 +46,9 @@ class InimigoObstaculo(Movel):
         imagem = self.imagens[0]
         if self.angulo == 90:
             imagem = self.imagens[1]
-        elif self.angulo == 270:
+        elif self.angulo == 180:
             imagem = self.imagens[2]
+        elif self.angulo == 270:
+            imagem = self.imagens[3]
 
         return imagem, super().desenhar(display, posicao_camera)

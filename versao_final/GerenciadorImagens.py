@@ -10,7 +10,15 @@ class GerenciadorImagens(metaclass=Singleton):
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
             # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
-                'teste': 'teste.png'  # 'parado1':None, 'parado2':None, etc
+                'parado_esquerda': 'Jogador\jogador_parado_esquerda.png',
+                'parado_direita': 'Jogador\jogador_parado.png',
+                'andando1_esquerda': 'Jogador\jogador_andando1_esquerda.png',
+                'andando2_esquerda': 'Jogador\jogador_andando2_esquerda.png',
+                'andando1_direita': 'Jogador\jogador_andando1_direita.png',
+                'andando2_direita': 'Jogador\jogador_andando2_direita.png',
+                'atingido_esquerda': 'Jogador\jogador_atingido_esquerda.png',
+                'atingido_direita': 'Jogador\jogador_atingido_direita.png'
+                # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png'
@@ -54,12 +62,25 @@ class GerenciadorImagens(metaclass=Singleton):
                 'PF': 'Itens/feijoada.jpg'
             },
             'inimigo_obstaculo': {
+                # mercado
                 'carrinho_direita': 'Supermercado/Carrinho_direita.png',
                 'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
-                'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png'
+                'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png',
+                # cozinha
+                'carrinho_limpeza_frente': 'Cozinha\Carrinho_limpeza_frente.png',
+                'carrinho_limpeza_tras': 'Cozinha\Carrinho_limpeza_tras.png',
+                'carrinho_limpeza_direita': 'Cozinha\Carrinho_limpeza_direita.png',
+                'carrinho_limpeza_esquerda': 'Cozinha\Carrinho_limpeza_esquerda.png',
             },
             'inimigo_pessoa': {
-                'teste': 'teste.png'
+                'parado_esquerda': 'Inimigo\inimigo_parado_esquerda.png',
+                'parado_direita': 'Inimigo\inimigo_parado_direita.png',
+                'andando1_esquerda': 'Inimigo\inimigo_andando1_esquerda.png',
+                'andando2_esquerda': 'Inimigo\inimigo_andando2_esquerda.png',
+                'andando1_direita': 'Inimigo\inimigo_andando1_direita.png',
+                'andando2_direita': 'Inimigo\inimigo_andando2_direita.png',
+                'atingido_esquerda': 'Inimigo\inimigo_atingido_esquerda.png',
+                'atingido_direita': 'Inimigo\inimigo_atingido_direita.png'
             }
         }
         self.__imagens_carregadas = None
