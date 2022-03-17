@@ -6,7 +6,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 
 class InimigoObstaculo(Movel):
-    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(70, 100), velocidade: float = 8, sprites: list = []):
+    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(100, 80), velocidade: float = 8, sprites: list = []):
         if(len(caminho) < 2):
             raise ValueError(
                 f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')

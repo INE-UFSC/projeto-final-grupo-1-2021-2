@@ -280,8 +280,13 @@ class ControladorJogo:
     def decide_fase(self):
         self.__dificuldade = 2
         if self.__fase == None:
+<<<<<<< Updated upstream
             #self.__nivel_atual = 'cozinha'
             self.__nivel_atual = 'mercado'
+=======
+            self.__nivel_atual = 'restaurante'
+            #self.__nivel_atual = 'mercado'
+>>>>>>> Stashed changes
         elif self.__fase.vitoria == True:
             if self.__nivel_atual == 'mercado':
                 self.__nivel_atual = 'cozinha'
@@ -368,7 +373,11 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
+<<<<<<< Updated upstream
         self.__timer_sec = 120
+=======
+        self.__timer_sec = 1200
+>>>>>>> Stashed changes
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)

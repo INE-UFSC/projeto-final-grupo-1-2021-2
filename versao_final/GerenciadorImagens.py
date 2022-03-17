@@ -22,7 +22,8 @@ class GerenciadorImagens(metaclass=Singleton):
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png',
-                'cozinha': 'Cozinha/Mapa_cozinha.jpeg'
+                'cozinha': 'Cozinha/Mapa_cozinha.jpeg',
+                'restaurante': 'Restaurante/mapa_piso.png'
             },
             'obstaculo': {
                 # mercado
@@ -58,6 +59,26 @@ class GerenciadorImagens(metaclass=Singleton):
                 'tijolos_azuis_direita': 'Cozinha/tijolinhos_azuis_direita.png',
                 'tijolos_azuis_esquerda': 'Cozinha/tijolinhos_azuis_esquerda.png',
                 'tijolos_azuis_cima': 'Cozinha/tijolos_azuis_cima.png',
+                
+                # restaurante
+                'cadeira_direita': 'Restaurante/cadeira_direita.png',
+                'cadeira_esquerda': 'Restaurante/cadeira_esquerda.png',
+                'cliente_sentado1_direita': 'Restaurante/cliente_sentado1_direita.png',
+                'cliente_sentado1_esquerda': 'Restaurante/cliente_sentado1_esquerda.png',
+                'cliente_sentado2_direita': 'Restaurante/cliente_sentado2_direita.png',
+                'cliente_sentado2_esquerda': 'Restaurante/cliente_sentado2_esquerda.png',
+                'cliente_sentado3_direita': 'Restaurante/cliente_sentado3_direita.png',
+                'cliente_sentado3_esquerda': 'Restaurante/cliente_sentado3_esquerda.png',
+                'cliente_sentado4_direita': 'Restaurante/cliente_sentado4_direita.png',
+                'cliente_sentado4_esquerda': 'Restaurante/cliente_sentado4_esquerda.png',
+                'mapa_laterais_baixo': 'Restaurante/mapa_laterais_baixo.png',
+                'mapa_laterais_direita': 'Restaurante/mapa_laterais_direita.png',
+                'mapa_laterais_divisao': 'Restaurante/mapa_laterais_divisao.png',
+                'mapa_laterais_deitado': 'Restaurante/mapa_laterais_deitado.png',
+                'mapa_laterais_esquerda': 'Restaurante/mapa_laterais_esquerda.png',
+                'mesa': 'Restaurante/mesa.png',
+                'parede_janelas': 'Restaurante/parede_janelas.png',
+                'planta': 'Restaurante/planta.png',
             },
             'item': {
                 'Ovo': 'Itens/ovo.png',
@@ -85,6 +106,11 @@ class GerenciadorImagens(metaclass=Singleton):
                 'carrinho_limpeza_tras': 'Cozinha/Carrinho_limpeza_tras.png',
                 'carrinho_limpeza_direita': 'Cozinha/Carrinho_limpeza_direita.png',
                 'carrinho_limpeza_esquerda': 'Cozinha/Carrinho_limpeza_esquerda.png',
+                # restaurante
+                'carrinho_comida_frente': 'Restaurante/carrinho_comida_frente.png',
+                'carrinho_comida_tras': 'Restaurante/carrinho_comida_tras.png',
+                'carrinho_comida_direita': 'Restaurante/carrinho_comida_direita.png',
+                'carrinho_comida_esquerda': 'Restaurante/carrinho_comida_esquerda.png',
             },
             'inimigo_pessoa': {
                 'parado_esquerda': 'Inimigo/inimigo_parado_esquerda.png',
