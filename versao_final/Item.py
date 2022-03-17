@@ -7,7 +7,7 @@ from GerenciadorImagens import GerenciadorImagens
 class Item(Interativos):
     def __init__(self, nome: str):
         self.__nome = nome
-        self.__tamanho_lado = 25
+        self.__tamanho_lado = 35
         super().__init__(80)
         self.__imagem = GerenciadorImagens().getSprite(
             'item', self.__nome, self.__tamanho_lado, self.__tamanho_lado)

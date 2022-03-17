@@ -10,14 +10,14 @@ class GerenciadorImagens(metaclass=Singleton):
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
             # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
-                'parado_esquerda': 'Jogador\jogador_parado_esquerda.png',
-                'parado_direita': 'Jogador\jogador_parado.png',
-                'andando1_esquerda': 'Jogador\jogador_andando1_esquerda.png',
-                'andando2_esquerda': 'Jogador\jogador_andando2_esquerda.png',
-                'andando1_direita': 'Jogador\jogador_andando1_direita.png',
-                'andando2_direita': 'Jogador\jogador_andando2_direita.png',
-                'atingido_esquerda': 'Jogador\jogador_atingido_esquerda.png',
-                'atingido_direita': 'Jogador\jogador_atingido_direita.png'
+                'parado_esquerda': 'Jogador/jogador_parado_esquerda.png',
+                'parado_direita': 'Jogador/jogador_parado.png',
+                'andando1_esquerda': 'Jogador/jogador_andando1_esquerda.png',
+                'andando2_esquerda': 'Jogador/jogador_andando2_esquerda.png',
+                'andando1_direita': 'Jogador/jogador_andando1_direita.png',
+                'andando2_direita': 'Jogador/jogador_andando2_direita.png',
+                'atingido_esquerda': 'Jogador/jogador_atingido_esquerda.png',
+                'atingido_direita': 'Jogador/jogador_atingido_direita.png'
                 # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
@@ -47,13 +47,13 @@ class GerenciadorImagens(metaclass=Singleton):
                 'tijolos_vermelhos_direita': 'Supermercado/tijolos_vermelhos_direita.png',
 
                 # cozinha
-                'balcao_vertical2': 'Cozinha\Balcao_comprido_vazio.png',
-                'balcao_horizontal2': 'Cozinha\Balcao_m_vazio.png',
-                'balcao_grande_cozinha': 'Cozinha\Balcao_G_cheio.png',
-                'balcao_p': 'Cozinha\Balcao_p.png',
-                'fogao': 'Cozinha\Fogao.png',
-                'utensilio': 'Cozinha\Balcao_p_utensilio.png',
-                'geladeira': 'Cozinha\Geladeira.png',
+                'balcao_vertical2': 'Cozinha/Balcao_comprido_vazio.png',
+                'balcao_horizontal2': 'Cozinha/Balcao_m_vazio.png',
+                'balcao_grande_cozinha': 'Cozinha/Balcao_G_cheio.png',
+                'balcao_p': 'Cozinha/Balcao_p.png',
+                'fogao': 'Cozinha/Fogao.png',
+                'utensilio': 'Cozinha/Balcao_p_utensilio.png',
+                'geladeira': 'Cozinha/Geladeira.png',
                 'tijolos_azuis_baixo': 'Cozinha/tijolinhos_azuis_baixo.png',
                 'tijolos_azuis_direita': 'Cozinha/tijolinhos_azuis_direita.png',
                 'tijolos_azuis_esquerda': 'Cozinha/tijolinhos_azuis_esquerda.png',
@@ -81,20 +81,20 @@ class GerenciadorImagens(metaclass=Singleton):
                 'carrinho_esquerda': 'Supermercado/Carrinho_esquerda.png',
                 'carrinho_frente/tras': 'Supermercado/Carrinho_frente_e_tras.png',
                 # cozinha
-                'carrinho_limpeza_frente': 'Cozinha\Carrinho_limpeza_frente.png',
-                'carrinho_limpeza_tras': 'Cozinha\Carrinho_limpeza_tras.png',
-                'carrinho_limpeza_direita': 'Cozinha\Carrinho_limpeza_direita.png',
-                'carrinho_limpeza_esquerda': 'Cozinha\Carrinho_limpeza_esquerda.png',
+                'carrinho_limpeza_frente': 'Cozinha/Carrinho_limpeza_frente.png',
+                'carrinho_limpeza_tras': 'Cozinha/Carrinho_limpeza_tras.png',
+                'carrinho_limpeza_direita': 'Cozinha/Carrinho_limpeza_direita.png',
+                'carrinho_limpeza_esquerda': 'Cozinha/Carrinho_limpeza_esquerda.png',
             },
             'inimigo_pessoa': {
-                'parado_esquerda': 'Inimigo\inimigo_parado_esquerda.png',
-                'parado_direita': 'Inimigo\inimigo_parado_direita.png',
-                'andando1_esquerda': 'Inimigo\inimigo_andando1_esquerda.png',
-                'andando2_esquerda': 'Inimigo\inimigo_andando2_esquerda.png',
-                'andando1_direita': 'Inimigo\inimigo_andando1_direita.png',
-                'andando2_direita': 'Inimigo\inimigo_andando2_direita.png',
-                'atingido_esquerda': 'Inimigo\inimigo_atingido_esquerda.png',
-                'atingido_direita': 'Inimigo\inimigo_atingido_direita.png'
+                'parado_esquerda': 'Inimigo/inimigo_parado_esquerda.png',
+                'parado_direita': 'Inimigo/inimigo_parado_direita.png',
+                'andando1_esquerda': 'Inimigo/inimigo_andando1_esquerda.png',
+                'andando2_esquerda': 'Inimigo/inimigo_andando2_esquerda.png',
+                'andando1_direita': 'Inimigo/inimigo_andando1_direita.png',
+                'andando2_direita': 'Inimigo/inimigo_andando2_direita.png',
+                'atingido_esquerda': 'Inimigo/inimigo_atingido_esquerda.png',
+                'atingido_direita': 'Inimigo/inimigo_atingido_direita.png'
             },
               
             # 'inimigos_pessoa':{}, etc
