@@ -61,9 +61,9 @@ class GerenciadorImagens(metaclass=Singleton):
             },
             'item': {
                 'Ovo': 'Itens/ovo.png',
-                'Queijo': 'Itens/queijo.jpeg',
+                'Queijo': 'Itens/queijo.png',
                 'Presunto': 'Itens/presunto.png',
-                'Omelete': 'Itens/omelete.jpg',
+                'Omelete': 'Itens/omelete.png',
                 'Massa': 'Itens/massa.png',
                 'Molho de tomate': 'Itens/tomate.png',
                 'Carne Moida': 'Itens/carne_crua.png',
@@ -72,8 +72,8 @@ class GerenciadorImagens(metaclass=Singleton):
                 'Arroz': 'Itens/pacote_arroz.png',
                 'Feijao': 'Itens/feijao.png',
                 'Carne de porco': 'Itens/carne_crua.png',
-                'Feijoada': 'Itens/feijoada.jpg',
-                'PF': 'Itens/feijoada.jpg'
+                'Feijoada': 'Itens/feijoada.png',
+                'PF': 'Itens/feijoada.png'
             },
             'inimigo_obstaculo': {
                 # mercado
