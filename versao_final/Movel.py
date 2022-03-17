@@ -6,7 +6,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 
 class Movel(ABC):
-    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float, sprites: list = ['teste']):
+    def __init__(self, coord: Coordenada, tamanho: Tamanho, velocidade: float, sprites: list = []):
         self.__coord = coord
         self.__tamanho = tamanho
         self.__velocidade = velocidade
