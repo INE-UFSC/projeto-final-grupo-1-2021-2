@@ -13,7 +13,7 @@ from MenuCreditos import MenuCreditos
 from MenuPrincipal import MenuPrincipal
 from MenuTutorial import MenuTutorial
 from Camera import Camera
-from Estados import EstadosControlador
+from Estados import EstadosControlador, EstadosMenus
 from GerenciadorImagens import GerenciadorImagens
 
 
@@ -43,6 +43,7 @@ class ControladorJogo:
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
                           'creditos': False, 'jogo': False, 'game_over': False}
+        self.__estado_menu = EstadosMenus(0) # 'principal', 'tutorial', 'creditos', 'vitoria', 'derrota', 'pausa'
         self.__camera = None
         self.__estado_jogo = EstadosControlador(
             0)  # 'menus', 'jogando', 'pause'
@@ -85,7 +86,7 @@ class ControladorJogo:
         self.proxima_fase()
         #pygame.time.set_timer(self.__timer, 1000)
         # self.novaFase()
-        self.opcao = 'Jogar'
+        #self.opcao = 'Jogar'
         #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
         self.__gerenciador_imagens = GerenciadorImagens()
 
@@ -147,8 +148,10 @@ class ControladorJogo:
                 self.__jogando = False
                 self.__estados['jogo'] = False
                 self.__estado_jogo = EstadosControlador(0)
+                self.__estado_menu = EstadosMenus(0)
                 if self.__fase.vitoria == True:
-                    self.__estados['principal'] = True
+                    #self.__estados['principal'] = True
+                    self.__estado_menu = EstadosMenus(0)
 
     def loop(self):
         if int(self.__estado_jogo) == 1:  # jogando
@@ -180,28 +183,7 @@ class ControladorJogo:
         if int(self.__estado_jogo) == 1:  # jogando
             # renderizar jogo
             # renderizar interface
-            pass
 
-        elif int(self.__estado_jogo) == 0:  # menus
-            if self.__estados['principal'] == True:
-                self.__menu_prin.display_menu()
-            elif self.__estados['creditos'] == True:
-                self.__menu_crd.display_menu()
-            elif self.__estados['tutorial'] == True:
-                self.__menu_tut.display_menu()
-
-        elif int(self.__estado_jogo) == 2:  # pause
-            # rederizar jogo um pouco mais escuro
-            # renderizar menu de pause
-            pass
-
-        if self.__estados['principal'] == True:
-            self.__menu_prin.display_menu()
-        elif self.__estados['creditos'] == True:
-            self.__menu_crd.display_menu()
-        elif self.__estados['tutorial'] == True:
-            self.__menu_tut.display_menu()
-        elif self.__jogando == True and self.__estados['jogo'] == True:
             self.__display.fill((0, 0, 0))
             for x in self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int):
                 self.__display.blit(x[0], x[1])
@@ -214,8 +196,6 @@ class ControladorJogo:
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo, self.__fase.jogador):
                 dado_mov = inim.desenhar(self.__display, self.__camera.posicao_int)
                 self.__display.blit(dado_mov[0], dado_mov[1])
-            #self.__fase.jogador.desenhar(
-                #self.__display, self.__camera.posicao_int)
 
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
                 dados_item = self.__fase.item_ativo.desenhar(
@@ -237,21 +217,97 @@ class ControladorJogo:
                                    self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
                 self.proxima_fase()
 
-        elif self.__fase.vitoria != True and self.__jogando == False:
-            self.proxima_fase()
-            self.__display.fill((0, 0, 0))
-            self.__estados['game_over'] = True
-            self.desenha_texto("Game Over", 50, self.largura/2,
-                               self.altura/2, ((138, 47, 47)), self.__fonte)
-            self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
-                               self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
-            if self.__teclas_pressionadas['a'] == True:
-                self.__estados['principal'] = True
-        '''    else:
-                self.inicializar() == False'''
+            elif self.__fase.vitoria != True and self.__jogando == False:
+                self.proxima_fase()
+                self.__display.fill((0, 0, 0))
+                self.__estado_menu = EstadosMenus(4)
+                self.desenha_texto("Game Over", 50, self.largura/2,
+                                self.altura/2, ((138, 47, 47)), self.__fonte)
+                self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
+                                self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+                if self.__teclas_pressionadas['a'] == True:
+                    self.__estado_menu = EstadosMenus(0)
 
-        # self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
-        pygame.display.flip()
+            '''    else:
+                    self.inicializar() == False'''
+
+            # self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
+            pygame.display.flip()
+            
+
+        elif int(self.__estado_jogo) == 0:  # menus
+            #if self.__estados['principal'] == True:
+            if self.__estado_menu.value == 0:
+                self.__menu_prin.display_menu()
+            #elif self.__estados['creditos'] == True:
+            elif self.__estado_menu.value == 2:
+                self.__menu_crd.display_menu()
+            #elif self.__estados['tutorial'] == True:
+            elif self.__estado_menu.value == 1:
+                self.__menu_tut.display_menu()
+
+        elif int(self.__estado_jogo) == 2:  # pause
+            # rederizar jogo um pouco mais escuro
+            # renderizar menu de pause
+            pass
+
+        # if self.__estados['principal'] == True:
+        #     self.__menu_prin.display_menu()
+        # elif self.__estados['creditos'] == True:
+        #     self.__menu_crd.display_menu()
+        # elif self.__estados['tutorial'] == True:
+        #     self.__menu_tut.display_menu()
+        # elif self.__jogando == True and self.__estados['jogo'] == True:
+        #     self.__display.fill((0, 0, 0))
+        #     for x in self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int):
+        #         self.__display.blit(x[0], x[1])
+
+        #     if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
+        #         dados_pe = self.__fase.ponto_entrega_ativo.desenhar(
+        #             self.__display, self.__camera.posicao_int)
+        #         self.__display.blit(dados_pe[0], dados_pe[1])
+
+        #     for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo, self.__fase.jogador):
+        #         dado_mov = inim.desenhar(self.__display, self.__camera.posicao_int)
+        #         self.__display.blit(dado_mov[0], dado_mov[1])
+        #     #self.__fase.jogador.desenhar(
+        #         #self.__display, self.__camera.posicao_int)
+
+        #     if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
+        #         dados_item = self.__fase.item_ativo.desenhar(
+        #             self.__display, self.__camera.posicao_int)
+        #         self.__display.blit(dados_item[0], dados_item[1])
+
+        #     rect = self.__timer_text.get_rect()
+        #     rect.topleft = (self.altura-160, 20)
+        #     pygame.draw.rect(self.__display, (0, 0, 0),
+        #                      rect)  # fundo para o timer
+        #     self.__display.blit(self.__timer_text,
+        #                         (self.altura-160, 20))  # desenha o timer
+
+        #     self.__fase.desenhar_bussola_interativos(
+        #         self.__display, self.__camera.posicao_int)
+
+        #     if self.__fase.vitoria == True:
+        #         self.desenha_texto("Vitória!", 50, self.largura/2,
+        #                            self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
+        #         self.proxima_fase()
+
+        # elif self.__fase.vitoria != True and self.__jogando == False:
+        #     self.proxima_fase()
+        #     self.__display.fill((0, 0, 0))
+        #     self.__estados['game_over'] = True
+        #     self.desenha_texto("Game Over", 50, self.largura/2,
+        #                        self.altura/2, ((138, 47, 47)), self.__fonte)
+        #     self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
+        #                        self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+        #     if self.__teclas_pressionadas['a'] == True:
+        #         self.__estados['principal'] = True
+        # '''    else:
+        #         self.inicializar() == False'''
+
+        # # self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
+        # pygame.display.flip()
 
     def limpar(self):
         pygame.quit()
@@ -303,71 +359,127 @@ class ControladorJogo:
         text_rect.center = (x, y)
         self.__display.blit(text_surface, text_rect)
 
+    # def move_cursor(self):  # Movimentação do Cursor (Setinha)
+    #     if self.__teclas_clicadas['s'] == True:
+    #         if self.opcao == 'Jogar':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
+    #             self.opcao = 'Tutorial'
+    #         elif self.opcao == 'Tutorial':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
+    #             self.opcao = 'Créditos'
+    #         elif self.opcao == 'Créditos':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
+    #             self.opcao = 'Sair'
+    #         elif self.opcao == 'Sair':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
+    #             self.opcao = 'Jogar'
+    #     elif self.__teclas_clicadas['w'] == True:
+    #         if self.opcao == 'Jogar':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
+    #             self.opcao = 'Sair'
+    #         elif self.opcao == 'Sair':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
+    #             self.opcao = 'Créditos'
+    #         elif self.opcao == 'Créditos':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
+    #             self.opcao = 'Tutorial'
+    #         elif self.opcao == 'Tutorial':
+    #             self.__menu_prin.cursor_rect.midtop = (
+    #                 self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
+    #             self.opcao = 'Jogar'
+
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
         if self.__teclas_clicadas['s'] == True:
-            if self.opcao == 'Jogar':
+            if self.__menu_prin.opcao == 'Jogar':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
-                self.opcao = 'Tutorial'
-            elif self.opcao == 'Tutorial':
+                self.__menu_prin.opcao = 'Tutorial'
+            elif self.__menu_prin.opcao == 'Tutorial':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
-                self.opcao = 'Créditos'
-            elif self.opcao == 'Créditos':
+                self.__menu_prin.opcao = 'Créditos'
+            elif self.__menu_prin.opcao == 'Créditos':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
-                self.opcao = 'Sair'
-            elif self.opcao == 'Sair':
+                self.__menu_prin.opcao = 'Sair'
+            elif self.__menu_prin.opcao == 'Sair':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
-                self.opcao = 'Jogar'
+                self.__menu_prin.opcao = 'Jogar'
         elif self.__teclas_clicadas['w'] == True:
-            if self.opcao == 'Jogar':
+            if self.__menu_prin.opcao == 'Jogar':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_sair)
-                self.opcao = 'Sair'
-            elif self.opcao == 'Sair':
+                self.__menu_prin.opcao = 'Sair'
+            elif self.__menu_prin.opcao == 'Sair':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_creditos)
-                self.opcao = 'Créditos'
-            elif self.opcao == 'Créditos':
+                self.__menu_prin.opcao = 'Créditos'
+            elif self.__menu_prin.opcao == 'Créditos':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_tutorial)
-                self.opcao = 'Tutorial'
-            elif self.opcao == 'Tutorial':
+                self.__menu_prin.opcao = 'Tutorial'
+            elif self.__menu_prin.opcao == 'Tutorial':
                 self.__menu_prin.cursor_rect.midtop = (
                     self.__menu_prin.distancia_cursor, self.__menu_prin.altura_jogar)
-                self.opcao = 'Jogar'
+                self.__menu_prin.opcao = 'Jogar'
+
+    # def MudaEstados(self):
+    #     if self.__estados['principal'] == True:
+    #         self.__estados['tutorial'] = False
+    #         self.__estados['creditos'] = False
+    #         self.__estados['jogo'] = False
+    #     if self.__estados['jogo'] == False:
+    #         if self.__teclas_clicadas['enter'] == True:
+    #             if self.__menu_prin.opcao == 'Jogar':
+    #                 # self.proxima_fase()
+    #                 self.__estado_jogo = EstadosControlador(1)  # jogando
+    #                 self.__jogando = True
+    #                 self.__estados['jogo'] = True
+    #                 self.__estados['principal'] = False
+    #                 self.reinicia_timer()
+    #             elif self.__menu_prin.opcao == 'Tutorial':
+    #                 self.__estados['principal'] = False
+    #                 self.__estados['tutorial'] = True
+    #             elif self.__menu_prin.opcao == 'Créditos':
+    #                 self.__estados['principal'] = False
+    #                 self.__estados['creditos'] = True
+    #             elif self.__menu_prin.opcao == 'Sair':
+    #                 self.__rodando = False
+    #         elif self.__teclas_clicadas['backspace'] == True:
+    #             if self.__estados['tutorial'] == True:
+    #                 self.__estados['principal'] = True
+    #                 self.__estados['tutorial'] = False
+    #             elif self.__estados['creditos'] == True:
+    #                 self.__estados['principal'] = True
+    #                 self.__estados['creditos'] = False
 
     def MudaEstados(self):
-        if self.__estados['principal'] == True:
-            self.__estados['tutorial'] = False
-            self.__estados['creditos'] = False
-            self.__estados['jogo'] = False
-        if self.__estados['jogo'] == False:
+        if self.__estado_jogo.value == 0:
             if self.__teclas_clicadas['enter'] == True:
-                if self.opcao == 'Jogar':
+                if self.__menu_prin.opcao == 'Jogar':
                     # self.proxima_fase()
                     self.__estado_jogo = EstadosControlador(1)  # jogando
                     self.__jogando = True
-                    self.__estados['jogo'] = True
-                    self.__estados['principal'] = False
                     self.reinicia_timer()
-                elif self.opcao == 'Tutorial':
-                    self.__estados['principal'] = False
-                    self.__estados['tutorial'] = True
-                elif self.opcao == 'Créditos':
-                    self.__estados['principal'] = False
-                    self.__estados['creditos'] = True
-                elif self.opcao == 'Sair':
+                elif self.__menu_prin.opcao == 'Tutorial':
+                    self.__estado_menu = EstadosMenus(1)
+                elif self.__menu_prin.opcao == 'Créditos':
+                    self.__estado_menu = EstadosMenus(2)
+                elif self.__menu_prin.opcao == 'Sair':
                     self.__rodando = False
             elif self.__teclas_clicadas['backspace'] == True:
-                if self.__estados['tutorial'] == True:
-                    self.__estados['principal'] = True
-                    self.__estados['tutorial'] = False
-                elif self.__estados['creditos'] == True:
-                    self.__estados['principal'] = True
-                    self.__estados['creditos'] = False
+                if self.__estado_menu.value == 1 or self.__estado_menu.value == 2:
+                    self.__estado_menu = EstadosMenus(0)
+
+    
 
     def reinicia_timer(self):
         self.__timer_sec = 120

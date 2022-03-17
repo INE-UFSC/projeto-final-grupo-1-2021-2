@@ -20,6 +20,7 @@ class MenuPrincipal(Menu):
         self.__altura_sair = self.altura/2 + 60
         self.__cursor_rect = pygame.Rect(
             self.__distancia_cursor, self.__altura_jogar, 130, 130)
+        self.__opcao = 'Jogar'
         # self.__fundo = GerenciadorImagens().getSprite(
         # 'fundo_menu', 'fundo_menu', self.largura, self.altura)
 
@@ -53,6 +54,14 @@ class MenuPrincipal(Menu):
     @property
     def cursor_rect(self):
         return self.__cursor_rect
+
+    @property
+    def opcao(self):
+        return self.__opcao
+
+    @opcao.setter
+    def opcao(self, op: str):
+        self.__opcao = op
 
     def display_menu(self):
         self.display.fill((0, 0, 0))
