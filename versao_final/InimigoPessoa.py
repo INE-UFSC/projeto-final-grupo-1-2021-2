@@ -11,6 +11,7 @@ class InimigoPessoa(Movel):
         self.__spawn = spawn
         self.__raio_deslocamento = raio_deslocamento
         self.__raio_deteccao = raio_deteccao
+        self.__imagem_atual = None
         # eh para ser atualizado pelo codigo, talvez mudar isso depois
 
     # praticamente um versor da direcao de deslocamento
