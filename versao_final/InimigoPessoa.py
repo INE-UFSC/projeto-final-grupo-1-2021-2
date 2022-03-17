@@ -37,8 +37,7 @@ class InimigoPessoa(Movel):
         self.coord_atingido = coord
         #self.coord = Coordenada(self.__spawn.x, self.__spawn.y)
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (255, 0, 0)  # vermelho
+    def desenhar(self, posicao_camera):
         if self.atingido:
             imagem = self.imagens[len(self.imagens)-2]
             if self.angulo >= 180:
@@ -60,7 +59,7 @@ class InimigoPessoa(Movel):
                 imagem = self.imagens[4]
 
         self.__imagem_atual = imagem
-        return imagem, super().desenhar(display, posicao_camera)
+        return imagem, super().desenhar(posicao_camera)
 
     def salvar_imagens(self, sprites: list):
         lista = []

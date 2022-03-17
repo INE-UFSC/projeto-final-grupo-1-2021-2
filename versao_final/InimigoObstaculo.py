@@ -40,9 +40,7 @@ class InimigoObstaculo(Movel):
                 'inimigo_obstaculo', nome, self.tamanho.largura, self.tamanho.altura))
         return lista
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (255, 110, 0)  # laranja
-        # return super().desenhar(display, cor, posicao_camera)
+    def desenhar(self, posicao_camera):
         imagem = self.imagens[0]
         if self.angulo == 90:
             imagem = self.imagens[1]
@@ -51,4 +49,4 @@ class InimigoObstaculo(Movel):
         elif self.angulo == 270:
             imagem = self.imagens[3]
 
-        return imagem, super().desenhar(display, posicao_camera)
+        return imagem, super().desenhar(posicao_camera)

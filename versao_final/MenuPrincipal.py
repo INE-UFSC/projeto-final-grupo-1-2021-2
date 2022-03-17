@@ -8,27 +8,13 @@ from GerenciadorImagens import GerenciadorImagens
 class MenuPrincipal(Menu):
     def __init__(self, tamanho):
         super().__init__(tamanho)
-        #self.fonte = 'PressStart2P-vaV7.ttf'
-        #self.branco = ((255, 255, 255))
-        #self.tamanho_display = self.largura, self.altura = 720*2, 480*2
         self.__distancia_cursor = self.largura/2 - 150
-        # self.__display = pygame.display.set_mode(
-        # self.tamanho_display, pygame.HWSURFACE)
         self.__altura_jogar = self.altura/2 - 120
         self.__altura_tutorial = self.altura/2 - 60
         self.__altura_creditos = self.altura/2
         self.__altura_sair = self.altura/2 + 60
         self.__cursor_rect = pygame.Rect(
             self.__distancia_cursor, self.__altura_jogar, 130, 130)
-        # self.__fundo = GerenciadorImagens().getSprite(
-        # 'fundo_menu', 'fundo_menu', self.largura, self.altura)
-
-    # def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
-        #font = pygame.font.Font(fonte, tamanho)
-        #text_surface = font.render(texto, True, cor)
-        #text_rect = text_surface.get_rect()
-        #text_rect.center = (x, y)
-        #self.__display.blit(text_surface, text_rect)
 
     @property
     def distancia_cursor(self):

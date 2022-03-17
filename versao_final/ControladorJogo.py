@@ -203,23 +203,21 @@ class ControladorJogo:
             self.__menu_tut.display_menu()
         elif self.__jogando == True and self.__estados['jogo'] == True:
             self.__display.fill((0, 0, 0))
-            for x in self.__fase.mapa.desenhar(self.__display, self.__camera.posicao_int):
+            for x in self.__fase.mapa.desenhar(self.__camera.posicao_int):
                 self.__display.blit(x[0], x[1])
 
             if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
                 dados_pe = self.__fase.ponto_entrega_ativo.desenhar(
-                    self.__display, self.__camera.posicao_int)
+                    self.__camera.posicao_int)
                 self.__display.blit(dados_pe[0], dados_pe[1])
 
             for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo, self.__fase.jogador):
-                dado_mov = inim.desenhar(self.__display, self.__camera.posicao_int)
+                dado_mov = inim.desenhar(self.__camera.posicao_int)
                 self.__display.blit(dado_mov[0], dado_mov[1])
-            #self.__fase.jogador.desenhar(
-                #self.__display, self.__camera.posicao_int)
-
+            
             if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
                 dados_item = self.__fase.item_ativo.desenhar(
-                    self.__display, self.__camera.posicao_int)
+                    self.__camera.posicao_int)
                 self.__display.blit(dados_item[0], dados_item[1])
 
             rect = self.__timer_text.get_rect()
@@ -282,8 +280,8 @@ class ControladorJogo:
     def decide_fase(self):
         self.__dificuldade = 2
         if self.__fase == None:
-            self.__nivel_atual = 'cozinha'
-            #self.__nivel_atual = 'mercado'
+            #self.__nivel_atual = 'cozinha'
+            self.__nivel_atual = 'mercado'
         elif self.__fase.vitoria == True:
             if self.__nivel_atual == 'mercado':
                 self.__nivel_atual = 'cozinha'
@@ -370,7 +368,7 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
-        self.__timer_sec = 10
+        self.__timer_sec = 120
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
