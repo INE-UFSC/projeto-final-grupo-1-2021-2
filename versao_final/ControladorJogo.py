@@ -152,6 +152,7 @@ class ControladorJogo:
                 pygame.time.set_timer(self.__timer, 0)
                 self.__jogando = False
                 self.__estados['jogo'] = False
+                self.__estado_jogo = EstadosControlador(0)
                 if self.__fase.vitoria == True:
                     self.__estados['principal'] = True
 
@@ -162,8 +163,8 @@ class ControladorJogo:
                 pass
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
-            self.move_cursor()
-            self.MudaEstados()
+            #self.move_cursor()
+            #self.MudaEstados()
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(2)
             # timer do jogo
