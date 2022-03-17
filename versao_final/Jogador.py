@@ -66,8 +66,7 @@ class Jogador(Movel):
             self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
                 self.coord_atingido, self.coord)
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (0, 0, 255)  # azul
+    def desenhar(self, posicao_camera):
         if self.atingido:
             imagem = self.imagens[len(self.imagens)-2]
             if self.angulo >= 180:
@@ -89,7 +88,7 @@ class Jogador(Movel):
                 imagem = self.imagens[4]
 
         self.__imagem_atual = imagem
-        return imagem, super().desenhar(display, posicao_camera)
+        return imagem, super().desenhar(posicao_camera)
 
     def salvar_imagens(self, sprites: list):
         lista = []

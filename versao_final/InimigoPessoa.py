@@ -7,7 +7,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 class InimigoPessoa(Movel):
     def __init__(self, spawn: Coordenada, raio_deslocamento: float = 20, raio_deteccao: float = 300, velocidade: float = 3, sprites: list = []):
-        super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(40, 40), velocidade, sprites)
+        super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(55, 55), velocidade, sprites)
         self.__spawn = spawn
         self.__raio_deslocamento = raio_deslocamento
         self.__raio_deteccao = raio_deteccao
@@ -37,8 +37,7 @@ class InimigoPessoa(Movel):
         self.coord_atingido = coord
         #self.coord = Coordenada(self.__spawn.x, self.__spawn.y)
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (255, 0, 0)  # vermelho
+    def desenhar(self, posicao_camera):
         if self.atingido:
             imagem = self.imagens[len(self.imagens)-2]
             if self.angulo >= 180:
@@ -60,7 +59,7 @@ class InimigoPessoa(Movel):
                 imagem = self.imagens[4]
 
         self.__imagem_atual = imagem
-        return imagem, super().desenhar(display, posicao_camera)
+        return imagem, super().desenhar(posicao_camera)
 
     def salvar_imagens(self, sprites: list):
         lista = []

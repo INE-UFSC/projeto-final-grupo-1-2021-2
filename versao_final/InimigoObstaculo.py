@@ -6,7 +6,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 
 class InimigoObstaculo(Movel):
-    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(70, 100), velocidade: float = 8, sprites: list = []):
+    def __init__(self, caminho: list, tamanho: Tamanho = Tamanho(100, 80), velocidade: float = 8, sprites: list = []):
         if(len(caminho) < 2):
             raise ValueError(
                 f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
@@ -40,9 +40,7 @@ class InimigoObstaculo(Movel):
                 'inimigo_obstaculo', nome, self.tamanho.largura, self.tamanho.altura))
         return lista
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (255, 110, 0)  # laranja
-        # return super().desenhar(display, cor, posicao_camera)
+    def desenhar(self, posicao_camera):
         imagem = self.imagens[0]
         if self.angulo == 90:
             imagem = self.imagens[1]
@@ -51,4 +49,4 @@ class InimigoObstaculo(Movel):
         elif self.angulo == 270:
             imagem = self.imagens[3]
 
-        return imagem, super().desenhar(display, posicao_camera)
+        return imagem, super().desenhar(posicao_camera)

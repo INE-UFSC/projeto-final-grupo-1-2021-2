@@ -9,7 +9,7 @@ class PontoEntrega(Interativos):
         super().__init__(raio_interacao, coord)
         self.rect = pygame.Rect(self.coord.x, self.coord.y, 120, 120)
 
-    def desenhar(self, display, posicao_camera):
+    def desenhar(self, posicao_camera):
         cor = (34, 139, 34)  # verde escuro
         self.rect.center = (self.coord.x, self.coord.y)
         rect_camera = self.rect.move(-posicao_camera.x, -posicao_camera.y)
@@ -18,7 +18,6 @@ class PontoEntrega(Interativos):
         surface.fill(cor)
         return surface, rect_camera
 
-        #pygame.draw.rect(display, cor, rect_camera)
 
     def ativar(self):
         self.ativo = True

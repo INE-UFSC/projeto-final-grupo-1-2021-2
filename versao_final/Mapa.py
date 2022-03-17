@@ -20,8 +20,6 @@ class Mapa:
         self.__obstaculos = obstaculos
         self.__imagem = GerenciadorImagens().getSprite(
             'mapa', local, tamanho.largura, tamanho.altura)
-        # self.__rect = pygame.Rect(
-        # 0, 0, self.__tamanho.largura, self.__tamanho.altura)
         self.__rect = self.__imagem.get_rect()
         self.__rect.topleft = (0, 0)
 
@@ -61,12 +59,10 @@ class Mapa:
         n = randrange(len(self.__pontos_entrega))
         return self.__pontos_entrega[n]
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (112, 128, 144)  # cinza
+    def desenhar(self, posicao_camera):
         rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
-        #pygame.draw.rect(display, cor, rect_camera)
         dados = []
         dados.append((self.__imagem, rect_camera))
         for obstaculo in self.__obstaculos:
-            dados.append(obstaculo.desenhar(display, posicao_camera))
+            dados.append(obstaculo.desenhar(posicao_camera))
         return dados
