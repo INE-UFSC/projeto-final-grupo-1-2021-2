@@ -8,7 +8,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 class Jogador(Movel):
     def __init__(self, coord: Coordenada, sprites):
-        super().__init__(coord, Tamanho(40, 40), 7, sprites=sprites)
+        super().__init__(coord, Tamanho(55, 55), 7, sprites=sprites)
         self.__item_carregado = None
         self.__imagem_atual = None
 

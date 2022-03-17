@@ -287,7 +287,8 @@ class ControladorJogo:
     def decide_fase(self):
         self.__dificuldade = 0
         if self.__fase == None:
-            self.__nivel_atual = 'mercado'
+            self.__nivel_atual = 'cozinha'
+            #self.__nivel_atual = 'mercado'
         elif self.__fase.vitoria == True:
             if self.__nivel_atual == 'mercado':
                 self.__nivel_atual = 'cozinha'

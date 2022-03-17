@@ -7,7 +7,7 @@ from GerenciadorImagens import GerenciadorImagens
 
 class InimigoPessoa(Movel):
     def __init__(self, spawn: Coordenada, raio_deslocamento: float = 20, raio_deteccao: float = 300, velocidade: float = 3, sprites: list = ['teste']):
-        super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(40, 40), velocidade, sprites)
+        super().__init__(Coordenada(spawn.x, spawn.y), Tamanho(55, 55), velocidade, sprites)
         self.__spawn = spawn
         self.__raio_deslocamento = raio_deslocamento
         self.__raio_deteccao = raio_deteccao
