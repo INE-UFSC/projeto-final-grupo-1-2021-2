@@ -55,7 +55,7 @@ class ControladorJogo:
         self.__dificuldade = dificuldade
         '''
         self.__estado_jogo = EstadosControlador(
-            1)  # 'menus', 'jogando', 'pause'
+            0)  # 'menus', 'jogando', 'pause'
         self.__gerenciador_imagens = None
 
     # GETTERS
@@ -285,7 +285,7 @@ class ControladorJogo:
         print(self.__nivel_atual)
 
     def decide_fase(self):
-        self.__dificuldade = 0
+        self.__dificuldade = 2
         if self.__fase == None:
             self.__nivel_atual = 'mercado'
         elif self.__fase.vitoria == True:
@@ -374,7 +374,7 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
-        self.__timer_sec = 120
+        self.__timer_sec = 10
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
