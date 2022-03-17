@@ -40,5 +40,5 @@ class Interativos(ABC):
         self.__rect = rect
 
     @abstractmethod
-    def desenhar(self, display):
+    def desenhar(self, posicao_camera):
         pass

@@ -10,8 +10,6 @@ class ObstaculoMapa:
         self.__tamanho = tamanho
         self.__imagem = GerenciadorImagens().getSprite(
             'obstaculo', tipo, tamanho.largura, tamanho.altura)
-        # self.__rect = pygame.Rect((self.coord.x, self.coord.y, int(
-        # self.tamanho.largura), int(self.tamanho.altura)))
         self.__rect = self.__imagem.get_rect()
         self.__rect.topleft = (self.coord.x, self.coord.y)
 
@@ -34,8 +32,6 @@ class ObstaculoMapa:
     def criarDuasCoordenadas(a, b):
         pass
 
-    def desenhar(self, display, posicao_camera):
-        # cor = (47, 79, 79)  # cinza escuro
+    def desenhar(self, posicao_camera):
         rect_camera = self.__rect.move(-posicao_camera.x, -posicao_camera.y)
-        #pygame.draw.rect(display, cor, rect_camera)
         return self.__imagem, rect_camera

@@ -19,26 +19,7 @@ class Item(Interativos):
             self.coord.x, self.coord.y, self.__tamanho_lado, self.__tamanho_lado)
         return self
 
-    def desenhar(self, display, posicao_camera):
-        cor = (0, 255, 0)  # VERDE
+    def desenhar(self, posicao_camera):
         self.rect.center = (self.coord.x, self.coord.y)
         rect_camera = self.rect.move(-posicao_camera.x, -posicao_camera.y)
-        #pygame.draw.rect(display, cor, rect_camera)
         return self.__imagem, rect_camera
-
-
-'''    @ property
-    def raio_interacao(self) -> float:
-        return self.__raio_interacao
-
-    @ property
-    def coord(self) -> Coordenada:
-        return self.__coordenada
-
-    @ property
-    def ativo(self) -> bool:
-        return self.__ativo
-
-    @ ativo.setter
-    def ativo(self, ativo: bool):
-        self.__ativo = ativo'''
