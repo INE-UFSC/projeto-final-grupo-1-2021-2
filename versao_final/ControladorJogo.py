@@ -22,7 +22,7 @@ class ControladorJogo:
     def __init__(self):
         self.__rodando = True
         self.__display = None
-        self.tamanho_display = self.largura, self.altura = 720*2, 400*2
+        self.__tamanho_display = self.largura, self.altura = 720*2, 400*2
         self.__fase = None
         self.__nivel_atual = None
         self.__dificuldade = None
@@ -37,9 +37,9 @@ class ControladorJogo:
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
         #self.__menu = Menu()
-        self.__menu_prin = MenuPrincipal()
-        self.__menu_crd = MenuCreditos()
-        self.__menu_tut = MenuTutorial()
+        self.__menu_prin = MenuPrincipal(self.__tamanho_display)
+        self.__menu_crd = MenuCreditos(self.__tamanho_display)
+        self.__menu_tut = MenuTutorial(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
                           'creditos': False, 'jogo': False, 'game_over': False}
@@ -75,6 +75,10 @@ class ControladorJogo:
     @property
     def dificuldade(self):
         return self.__dificuldade
+
+    @property
+    def tamanho_display(self):
+        return self.__tamanho_display
 
     # LOOP
 
