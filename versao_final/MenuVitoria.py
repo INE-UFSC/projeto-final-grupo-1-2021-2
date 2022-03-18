@@ -18,7 +18,7 @@ class MenuVitoria(Menu):
         self.desenha_texto("Vitória", 60, self.largura/2,
                         self.__altura_vitoria, self.branco, self.fonte)
 
-        self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
-                           self.altura/2 + 190, self.branco, self.fonte)
-        self.desenha_texto("Continuar: Enter", 20, self.largura/2 + 200,
-                           self.altura/2 + 190, self.branco, self.fonte)
+        self.desenha_texto("Voltar: Backspace", 20, self.largura/2,
+                           self.altura/2, self.branco, self.fonte)
+        self.desenha_texto("Continuar: Enter", 20, self.largura/2,
+                           self.altura/2 + 60, self.branco, self.fonte)
