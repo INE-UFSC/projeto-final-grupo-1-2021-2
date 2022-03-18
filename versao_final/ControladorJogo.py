@@ -53,6 +53,7 @@ class ControladorJogo:
         self.__estado = Estados(1)  # menu principal
         self.__camera = None
         self.__som_botao = GerenciadorSons().getSound('sons', 'apertou_botao')
+        self.__som_game_over = GerenciadorSons().getSound('sons', 'game_over')
 
     # GETTERS
 
@@ -192,6 +193,8 @@ class ControladorJogo:
 
         elif self.__estado == 6:  # derrota
             self.__menu_derr.display_menu()
+            self.__som_game_over.set_volume(0.3)
+            self.__som_game_over.play()
 
         elif self.__estado == 7:  # pause
             # rederizar jogo um pouco mais escuro
@@ -294,6 +297,6 @@ class ControladorJogo:
                     self.__estado = Estados(0)
 
     def reiniciaTimer(self):
-        self.__timer_sec = 120
+        self.__timer_sec = 2
         pygame.time.set_timer(self.__timer, 1000)
 
