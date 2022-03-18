@@ -11,7 +11,8 @@ class GerenciadorSons(metaclass=Singleton):
                 'apertou_botao': 'apertou_botao.wav',
                 'colisao': 'colisao.wav',
                 'item': 'item.wav',
-                'mudando_cursor': 'mudando_cursor.wav'
+                'mudando_cursor': 'mudando_cursor.wav',
+                'game_over': 'game_over.wav'
             }
         }
         self.__sons_carregados = None
