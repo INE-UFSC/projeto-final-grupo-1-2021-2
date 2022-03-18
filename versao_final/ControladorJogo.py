@@ -18,6 +18,8 @@ from GerenciadorImagens import GerenciadorImagens
 from MenuDerrota import MenuDerrota
 from RenderizadorJogo import RenderizadorJogo
 from MenuVitoria import MenuVitoria
+from MenuPausa import MenuPausa
+from MenuDificuldade import MenuDificuldade
 
 
 class ControladorJogo:
@@ -46,6 +48,8 @@ class ControladorJogo:
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
         self.__menu_derr = MenuDerrota(self.__tamanho_display)
         self.__menu_vit = MenuVitoria(self.__tamanho_display)
+        self.__menu_pausa = MenuPausa(self.__tamanho_display)
+        self.__menu_dif = MenuDificuldade(self.__tamanho_display)
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
@@ -175,6 +179,7 @@ class ControladorJogo:
 
         elif int(self.__estado_jogo) == 2:  # pause
             # colocar acoes de pause aqui
+            self.__menu_pausa.display_menu() #não funciona
             if self.__teclas_clicadas['esc']:
                 self.__estado_jogo = EstadosControlador(1)
 
@@ -197,6 +202,7 @@ class ControladorJogo:
                 self.__menu_tut.display_menu()
 
         elif int(self.__estado_jogo) == 2:  # pause
+            self.__menu_pausa.display_menu() # não funciona
             # rederizar jogo um pouco mais escuro
             # renderizar menu de pause
             pass
@@ -223,11 +229,6 @@ class ControladorJogo:
         elif self.__fase.vitoria != True and self.__jogando == False:
             self.proxima_fase()
             self.__estados['game_over'] = True
-            # self.__display.fill((0, 0, 0))
-            # self.desenha_texto("Game Over", 50, self.largura/2,
-            #                    self.altura/2, ((138, 47, 47)), self.__fonte)
-            # self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
-            #                    self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
             self.__menu_derr.display_menu()
             if self.__teclas_pressionadas['backspace'] == True:
                 self.__estados['principal'] = True
@@ -351,7 +352,7 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
-        self.__timer_sec = 10
+        self.__timer_sec = 120
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
