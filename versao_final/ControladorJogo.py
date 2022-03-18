@@ -291,6 +291,7 @@ class ControladorJogo:
         
         if self.__estado == 0 or self.__estado == 7:
             if self.__teclas_clicadas['esc']:
+                self.__som_botao.play()
                 if self.__estado == 0:
                     self.__estado = Estados(7)
                 elif self.__estado == 7:
@@ -298,8 +299,5 @@ class ControladorJogo:
 
     def reiniciaTimer(self):
         self.__timer_sec = 1000
-        self.__timer_text = self.__timer_font.render(
-            "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
-    # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
-    # o timer seja reiniciado
+
