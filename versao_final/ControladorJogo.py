@@ -206,7 +206,7 @@ class ControladorJogo:
                 self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                 self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador,
                 self.__fase.item_ativo, self.__timer_text)
-            self.__display.fill((0,0,0,30))
+            self.__menu_pausa.display_menu()
             # renderizar menu de pause
 
         pygame.display.flip()
