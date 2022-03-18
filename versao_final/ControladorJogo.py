@@ -24,7 +24,7 @@ class ControladorJogo:
     def __init__(self):
         self.__rodando = True
         self.__display = None
-        self.__tamanho_display = self.largura, self.altura = 720*2, 400*2
+        self.__tamanho_display = self.__largura, self.__altura = 720*2, 400*2
         self.__fase = None
         self.__nivel_atual = None
         self.__dificuldade = None
@@ -58,9 +58,6 @@ class ControladorJogo:
     def fase(self):
         return self.__fase
 
-    @property
-    def tempo_restante(self):
-        return self.__tempo_restante
 
     @property
     def nivel_atual(self):
@@ -73,6 +70,14 @@ class ControladorJogo:
     @property
     def tamanho_display(self):
         return self.__tamanho_display
+
+    @property
+    def altura(self):
+        return self.__altura
+
+    @property
+    def largura(self):
+        return self.__largura
 
     # LOOP
 
@@ -209,34 +214,6 @@ class ControladorJogo:
             self.__render_jogo.renderizar(self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                                           self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador, self.__fase.item_ativo, self.__timer_text)
 
-            # self.__display.fill((0, 0, 0))
-            # for x in self.__fase.mapa.desenhar(self.__camera.posicao_int):
-            #     self.__display.blit(x[0], x[1])
-
-            # if isinstance(self.__fase.ponto_entrega_ativo, PontoEntrega):
-            #     dados_pe = self.__fase.ponto_entrega_ativo.desenhar(
-            #         self.__camera.posicao_int)
-            #     self.__display.blit(dados_pe[0], dados_pe[1])
-
-            # for inim in (*self.__fase.inimigos_pessoa, *self.__fase.inimigos_obstaculo, self.__fase.jogador):
-            #     dado_mov = inim.desenhar(self.__camera.posicao_int)
-            #     self.__display.blit(dado_mov[0], dado_mov[1])
-
-            # if isinstance(self.__fase.item_ativo, Item) and self.__fase.item_ativo.ativo:
-            #     dados_item = self.__fase.item_ativo.desenhar(
-            #         self.__camera.posicao_int)
-            #     self.__display.blit(dados_item[0], dados_item[1])
-
-            # rect = self.__timer_text.get_rect()
-            # rect.topleft = (self.altura-160, 20)
-            # pygame.draw.rect(self.__display, (0, 0, 0),
-            #                  rect)  # fundo para o timer
-            # self.__display.blit(self.__timer_text,
-            #                     (self.altura-160, 20))  # desenha o timer
-
-            # self.__fase.desenhar_bussola_interativos(
-            #     self.__display, self.__camera.posicao_int)
-
             if self.__fase.vitoria == True:
                 self.desenha_texto("Vitória!", 50, self.largura/2,
                                    self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
@@ -255,7 +232,6 @@ class ControladorJogo:
         '''    else:
                 self.inicializar() == False'''
 
-        # self.__display.blit(self.__gerenciador_imagens.getSprite('jogador', 'teste'), (0,0)) #teste de imagem
         pygame.display.flip()
 
     def limpar(self):
