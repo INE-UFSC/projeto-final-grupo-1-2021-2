@@ -36,9 +36,9 @@ class ControladorJogo:
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
         self.__teclas_clicadas = {  # True somente por 1 frame quando soltas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
-        self.__timer_font = None
+        #self.__timer_font = None
         self.__timer_sec = 60
-        self.__timer_text = None
+        #self.__timer_text = None
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
@@ -53,7 +53,7 @@ class ControladorJogo:
         self.__menu_dif = MenuDificuldade(self.__tamanho_display)
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
-        self.__estado = Estados(1) #menu principal
+        self.__estado = Estados(1)  # menu principal
         self.__camera = None
         self.__gerenciador_imagens = None
         self.__som_botao = GerenciadorSons().getSound('sons', 'apertou_botao')
@@ -91,7 +91,7 @@ class ControladorJogo:
         self.__display = pygame.display.set_mode(
             self.tamanho_display, pygame.HWSURFACE)
         self.__rodando = True
-        self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
+        #self.__timer_font = pygame.font.Font('PressStart2P-vaV7.ttf', 38)
         self.__timer = pygame.USEREVENT + 1
         self.__gerenciador_imagens = GerenciadorImagens()
 
@@ -177,7 +177,7 @@ class ControladorJogo:
             self.__render_jogo.renderizar(
                 self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                 self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador,
-                self.__fase.item_ativo, self.__timer_text)
+                self.__fase.item_ativo, self.__timer_sec)
             # renderizar interface
 
         elif self.__estado == 1:  # principal
@@ -187,16 +187,16 @@ class ControladorJogo:
             #menu dificuldade
             self.__menu_dif.display_menu()
 
-        elif self.__estado == 3: #tutorial
+        elif self.__estado == 3:  # tutorial
             self.__menu_tut.display_menu()
 
-        elif self.__estado == 4: #creditos
+        elif self.__estado == 4:  # creditos
             self.__menu_crd.display_menu()
 
-        elif self.__estado == 5: #vitoria
+        elif self.__estado == 5:  # vitoria
             self.__menu_vit.display_menu()
 
-        elif self.__estado == 6: #derrota
+        elif self.__estado == 6:  # derrota
             self.__menu_derr.display_menu()
 
         elif self.__estado == 7:  # pause
@@ -204,7 +204,7 @@ class ControladorJogo:
             self.__render_jogo.renderizar(
                 self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                 self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador,
-                self.__fase.item_ativo, self.__timer_text)
+                self.__fase.item_ativo, self.__timer_sec)
             self.__menu_pausa.display_menu()
             # renderizar menu de pause
 
@@ -280,7 +280,7 @@ class ControladorJogo:
                     
             elif self.__teclas_clicadas['backspace']:
                 self.__som_botao.play()
-                if (# dificuldade, tutorial, creditos, vitoria, derrota
+                if (  # dificuldade, tutorial, creditos, vitoria, derrota
                     self.__estado == 2 or self.__estado == 3 or self.__estado == 4 or
                     self.__estado == 5 or self.__estado == 6
                     ):
@@ -295,7 +295,6 @@ class ControladorJogo:
                     self.__estado = Estados(7)
                 elif self.__estado == 7:
                     self.__estado = Estados(0)
-            
 
     def reiniciaTimer(self):
         self.__timer_sec = 1000
