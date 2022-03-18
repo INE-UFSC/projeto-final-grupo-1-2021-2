@@ -90,17 +90,16 @@ class Fase:
             self.colisao_mapa(mov)
             mov.mover()
 
-    def proximoItem(self) -> bool:
+    def proximoItem(self):
         if len(self.lista_itens) > 0:
             self.__item_ativo = self.__lista_itens.pop(
                 0).criar(self.mapa.coordItemAleatoria())
             self.__ponto_entrega_ativo = self.pontos_entrega[randrange(
                 len(self.pontos_entrega))]
-            return
+            return None
         self.__item_ativo = None
         self.__ponto_entrega_ativo = None
         self.__vitoria = True
-        return
 
     def gerenciamentoItem(self, comando_interagir_item: bool):
         if self.__item_ativo == None and self.__jogador.item_carregado == None:

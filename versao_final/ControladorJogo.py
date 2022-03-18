@@ -40,7 +40,7 @@ class ControladorJogo:
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
-        self.__ultima_fase = False
+        #self.__menu = Menu()
         self.__menu_prin = MenuPrincipal(self.__tamanho_display)
         self.__menu_crd = MenuCreditos(self.__tamanho_display)
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
@@ -147,8 +147,7 @@ class ControladorJogo:
 
         if self.__estado == 0:  # jogando
             self.__fase.movimento(self.__teclas_pressionadas)
-            if self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco']):
-                pass
+            self.__fase.gerenciamentoItem(self.__teclas_pressionadas['espaco'])
             self.__fase.colisao_moveis()
             self.__camera.moverCamera()
 
