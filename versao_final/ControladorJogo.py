@@ -149,7 +149,6 @@ class ControladorJogo:
                 self.__timer_text = self.__timer_font.render(time.strftime(
                     '%M:%S', time.gmtime(self.__timer_sec)), True, ((255, 255, 255)))
             else:
-                pygame.time.set_timer(self.__timer, 0)
                 self.__estado = Estados(6) #derrota
 
     def loop(self):
