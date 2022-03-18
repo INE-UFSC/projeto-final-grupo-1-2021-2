@@ -41,6 +41,10 @@ class MenuPrincipal(Menu):
     def cursor_rect(self):
         return self.__cursor_rect
 
+    @property
+    def opcao(self):
+        return self.__opcao
+
     def display_menu(self):
         self.display.fill((0, 0, 0))
         self.display.blit(self.fundo, (0, 0))

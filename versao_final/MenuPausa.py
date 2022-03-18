@@ -34,7 +34,7 @@ class MenuPausa(Menu):
                            self.altura/2 + 10, self.branco, self.fonte)
         self.desenha_texto("Entregar Item: Espaço", 20, self.largura/2,
                            self.altura/2 + 60, self.branco, self.fonte)
-        self.desenha_texto("Voltar: Backspace", 24, self.largura/2 - 200,
+        self.desenha_texto("Menu Principal: Backspace", 24, self.largura/2 - 200,
                            self.altura/2 + 250, self.branco, self.fonte)
-        self.desenha_texto("Continuar: Esc", 24, self.largura/2 + 200,
+        self.desenha_texto("Continuar: Esc/Enter", 24, self.largura/2 + 200,
                            self.altura/2 + 250, self.branco, self.fonte)
