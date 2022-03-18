@@ -160,22 +160,22 @@ class Fase:
                         movel_i.colidiu(movel_j.coord)
                         movel_j.colidiu(movel_i.coord)
 
-    def desenhar_bussola_interativos(self, display, posicao_camera):
-        if self.ponto_entrega_ativo != None or self.item_ativo != None:
-            if (self.item_ativo != None and self.item_ativo.ativo == True):
-                destino = self.item_ativo.coord
-                cor = (128,0,0)
-            elif self.ponto_entrega_ativo != None:
-                destino = self.ponto_entrega_ativo.coord
-                cor = (255,140,0)
-            vetor = Coordenada.versorEntreCoordenadas(
-                self.__jogador.coord, destino)
+    # def desenhar_bussola_interativos(self, display, posicao_camera):
+    #     if self.ponto_entrega_ativo != None or self.item_ativo != None:
+    #         if (self.item_ativo != None and self.item_ativo.ativo == True):
+    #             destino = self.item_ativo.coord
+    #             cor = (128,0,0)
+    #         elif self.ponto_entrega_ativo != None:
+    #             destino = self.ponto_entrega_ativo.coord
+    #             cor = (255,140,0)
+    #         vetor = Coordenada.versorEntreCoordenadas(
+    #             self.__jogador.coord, destino)
 
-            ponta_triangulo = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura*1.5 - posicao_camera.x),
-                               (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura*1.5 - posicao_camera.y))
-            base_esquerda = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura - posicao_camera.x + 5),
-                             (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura - posicao_camera.y + 5))
-            base_direita = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura - posicao_camera.x - 5),
-                            (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura - posicao_camera.y - 5))
-            pygame.draw.polygon(display, cor, points=[
-                                ponta_triangulo, base_direita, base_esquerda])
+    #         ponta_triangulo = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura*1.5 - posicao_camera.x),
+    #                            (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura*1.5 - posicao_camera.y))
+    #         base_esquerda = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura - posicao_camera.x + 5),
+    #                          (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura - posicao_camera.y + 5))
+    #         base_direita = ((self.jogador.coord.x+vetor.x*self.jogador.tamanho.largura - posicao_camera.x - 5),
+    #                         (self.jogador.coord.y+vetor.y*self.jogador.tamanho.altura - posicao_camera.y - 5))
+    #         pygame.draw.polygon(display, cor, points=[
+    #                             ponta_triangulo, base_direita, base_esquerda])
