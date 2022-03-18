@@ -6,9 +6,7 @@ import os
 class GerenciadorImagens(metaclass=Singleton):
     def __init__(self):
         self.__local_imagens = {
-            # esses são exemplos, colocar a localização real dos arquivos
             # diretorio de referencia: versao_final/sprites (colocar as imagens/pastas dentro)
-            # vamos seguir uma estrutura que cada um é um dicionario?
             'jogador': {
                 'parado_esquerda': 'Jogador/jogador_parado_esquerda.png',
                 'parado_direita': 'Jogador/jogador_parado.png',
@@ -18,7 +16,6 @@ class GerenciadorImagens(metaclass=Singleton):
                 'andando2_direita': 'Jogador/jogador_andando2_direita.png',
                 'atingido_esquerda': 'Jogador/jogador_atingido_esquerda.png',
                 'atingido_direita': 'Jogador/jogador_atingido_direita.png'
-                # 'parado1':None, 'parado2':None, etc
             },
             'mapa': {
                 'mercado': 'Supermercado/Mapa_supermercado.png',
@@ -122,8 +119,6 @@ class GerenciadorImagens(metaclass=Singleton):
                 'atingido_esquerda': 'Inimigo/inimigo_atingido_esquerda.png',
                 'atingido_direita': 'Inimigo/inimigo_atingido_direita.png'
             },
-              
-            # 'inimigos_pessoa':{}, etc
             'fundo_menu': {'fundo_menu' : 'fundo_menu.png'}
         }
         self.__imagens_carregadas = None

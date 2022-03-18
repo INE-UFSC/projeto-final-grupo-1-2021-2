@@ -13,9 +13,11 @@ from math import floor, ceil
 from Coordenada import Coordenada
 from GerenciadorSons import GerenciadorSons
 
+
 class Fase:
 
-    def __init__(self, jogador: Jogador, inimigos_pessoa: list, inimigos_obstaculo: list, mapa: Mapa, pontos_entrega: list, lista_itens: list):
+    def __init__(self, jogador: Jogador, inimigos_pessoa: list, inimigos_obstaculo: list, mapa: Mapa,
+                 pontos_entrega: list, lista_itens: list):
         self.__jogador = jogador
         self.__inimigos_pessoa = inimigos_pessoa
         self.__inimigos_obstaculo = inimigos_obstaculo
@@ -30,8 +32,6 @@ class Fase:
         self.__vitoria = False
         self.__som_colisao = GerenciadorSons().getSound('sons', 'colisao')
         self.__som_item = GerenciadorSons().getSound('sons', 'item')
-        # self.__num_itens = num_itens
-        # self.__num_inimigos = num_inimigos
 
     # GETTERS
     @property
@@ -103,14 +103,11 @@ class Fase:
 
     def gerenciamentoItem(self, comando_interagir_item: bool):
         if self.__item_ativo == None and self.__jogador.item_carregado == None:
-            #    if self.proximoItem():
-            #        return True
-            # vitoria
             self.proximoItem()
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
                 self.__som_item.play()
-                pass  # acao se pegou
+                # acao se pegou
 
             if self.__jogador.entregarItem(self.ponto_entrega_ativo):
                 self.item_ativo = None  # acao se entregou
@@ -135,7 +132,6 @@ class Fase:
            movel.rect.bottom + (deslocamento_y) >= self.mapa.tamanho.altura):
             movel.direcao_deslocamento.y = 0
 
-        # tem que arrumar isso ainda
         colide_xy = (movel.rect.move(deslocamento_x,
                      deslocamento_y).collidelist(lista_obstaculos) != -1)
         colide_x = movel.rect.move(
@@ -165,4 +161,3 @@ class Fase:
                         self.__som_colisao.play()
                         movel_i.colidiu(movel_j.coord)
                         movel_j.colidiu(movel_i.coord)
-

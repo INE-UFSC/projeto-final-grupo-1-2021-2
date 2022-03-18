@@ -12,7 +12,7 @@ class InimigoPessoa(Movel):
         self.__raio_deslocamento = raio_deslocamento
         self.__raio_deteccao = raio_deteccao
         self.__imagem_atual = None
-        # eh para ser atualizado pelo codigo, talvez mudar isso depois
+        
 
     # praticamente um versor da direcao de deslocamento
     def decideDirecao(self, coord_jogador: Coordenada):
@@ -24,7 +24,6 @@ class InimigoPessoa(Movel):
                 self.direcao_deslocamento = Coordenada.versorEntreCoordenadas(
                     self.coord, self.__spawn)
             else:
-                # talvez implementar alguma caminhada aleatoria depois
                 self.direcao_deslocamento = Coordenada(0, 0)
 
         else:
@@ -35,7 +34,6 @@ class InimigoPessoa(Movel):
         # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
         self.atingido = 30
         self.coord_atingido = coord
-        #self.coord = Coordenada(self.__spawn.x, self.__spawn.y)
 
     def desenhar(self, posicao_camera):
         if self.atingido:

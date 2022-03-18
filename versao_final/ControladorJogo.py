@@ -24,7 +24,7 @@ from GerenciadorSons import GerenciadorSons
 
 
 class ControladorJogo:
-    # , fase : Fase, tempo_restante : int, nivel_atual : int, dificuldade : int):
+
     def __init__(self):
         self.__rodando = True
         self.__display = None
@@ -40,7 +40,6 @@ class ControladorJogo:
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
-        #self.__menu = Menu()
         self.__menu_prin = MenuPrincipal(self.__tamanho_display)
         self.__menu_crd = MenuCreditos(self.__tamanho_display)
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
@@ -158,7 +157,6 @@ class ControladorJogo:
             self.__menu_dif.move_cursor(self.__teclas_clicadas)
 
         elif self.__estado == 7:  # pause
-            # colocar acoes de pause aqui
             pass
 
         if True in self.__teclas_clicadas.values():
@@ -209,7 +207,7 @@ class ControladorJogo:
     def limpar(self):
         pygame.quit()
 
-    def executar(self):  # def que substitui a execucaoFase
+    def executar(self):
         if self.inicializar() == False:
             self.__rodando = False
 
@@ -219,7 +217,6 @@ class ControladorJogo:
             self.loop()
             self.renderizar()
             self.__timer_fps.tick(self.__fps)
-            # NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
 
     # CONTROLADOR
@@ -275,8 +272,8 @@ class ControladorJogo:
                     else:
                         self.novaFase()
                         self.__estado = Estados(0)
-                
-                elif self.__estado == 6: #derrota
+
+                elif self.__estado == 6:  # derrota
                     self.novaFase()
                     self.__estado = Estados(0)
 
@@ -305,4 +302,3 @@ class ControladorJogo:
     def reiniciaTimer(self):
         self.__timer_sec = 120
         pygame.time.set_timer(self.__timer, 1000)
-

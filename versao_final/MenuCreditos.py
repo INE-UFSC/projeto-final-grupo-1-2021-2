@@ -21,5 +21,3 @@ class MenuCreditos(Menu):
                            2, self.altura / 2 - 150, self.branco, self.fonte)
         self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
                            self.altura/2 + 190, self.branco, self.fonte)
-        self.desenha_texto("Avançar: Enter", 20, self.largura/2 + 200,
-                           self.altura/2 + 190, self.branco, self.fonte)

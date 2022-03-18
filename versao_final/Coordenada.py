@@ -1,5 +1,5 @@
 class Coordenada:
-    def __init__(self, x:float, y:float):
+    def __init__(self, x: float, y: float):
         self.__x = x
         self.__y = y
 
@@ -12,7 +12,7 @@ class Coordenada:
         return self.__y
 
     @x.setter
-    def x(self, x:float):
+    def x(self, x: float):
         self.__x = x
 
     @y.setter
@@ -32,6 +32,6 @@ class Coordenada:
         y = coordB.y - coordA.y
         modulo = (x**2 + y**2)**0.5
         if modulo == 0:
-            return Coordenada(0,0)
+            return Coordenada(0, 0)
         else:
             return Coordenada(x/modulo, y/modulo)

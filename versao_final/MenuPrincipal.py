@@ -48,7 +48,7 @@ class MenuPrincipal(Menu):
     def display_menu(self):
         self.display.fill((0, 0, 0))
         self.display.blit(self.fundo, (0, 0))
-        self.desenha_texto('Nome do Jogo', 60, self.largura / 2,
+        self.desenha_texto('Cozinhando em apuros', 60, self.largura / 2,
                            self.altura / 8, self.branco, self.fonte)
         self.desenha_texto("  Menu Principal ", 40, self.largura / 2,
                            self.altura / 4, self.branco, self.fonte)
