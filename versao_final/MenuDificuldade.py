@@ -33,8 +33,10 @@ class MenuDificuldade(Menu):
         
     def move_cursor(self, teclas_clicadas):
         if teclas_clicadas['w']:
+            self.som_cursor.play()
             self.__opcao = (self.__opcao - 1) % len(self.__opcoes)
         elif teclas_clicadas['s']:
+            self.som_cursor.play()
             self.__opcao = (self.__opcao + 1) % len(self.__opcoes)
 
         self.__cursor_rect.midtop = (

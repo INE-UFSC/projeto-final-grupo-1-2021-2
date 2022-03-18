@@ -1,4 +1,3 @@
-from cgitb import text
 from typing import Tuple
 import pygame
 import sys
@@ -12,6 +11,7 @@ from InimigoPessoa import InimigoPessoa
 from Jogador import Jogador
 from Coordenada import Coordenada
 from Tamanho import Tamanho
+import time
 
 
 class RenderizadorJogo():
@@ -20,7 +20,7 @@ class RenderizadorJogo():
         self.__fonte = 'PressStart2P-vaV7.ttf'
 
     def renderizar(self, display: pygame.display, posicao_camera: int, mapa: Mapa,
-                   ponto_entrega: PontoEntrega, inimigos_p, inimigos_o, jogador: Jogador, item: Item, timer_text):
+                   ponto_entrega: PontoEntrega, inimigos_p, inimigos_o, jogador: Jogador, item: Item, timer_sec):
         display.fill((0, 0, 0))
         for x in mapa.desenhar(posicao_camera):
             display.blit(x[0], x[1])
@@ -34,17 +34,40 @@ class RenderizadorJogo():
             dados_item = item.desenhar(posicao_camera)
             display.blit(dados_item[0], dados_item[1])
 
-        rect = timer_text.get_rect()
-        rect.topleft = (self.__altura-160, 20)
-        pygame.draw.rect(display, (0, 0, 0), rect)  # fundo para o timer
-        display.blit(timer_text, (self.__altura-160, 20))  # desenha o timer
+        # fonte_timer = pygame.font.Font(self.__fonte, 38)
+        #fonte_borda = pygame.font.Font(self.__fonte, 42)
+        # text_borda = fonte_timer.render(time.strftime(
+        #              '%M:%S', time.gmtime(timer_sec)), True, ((0,0,0)))
+        # timer_text = fonte_timer.render(time.strftime(
+        #              '%M:%S', time.gmtime(timer_sec)), True, ((255, 255, 255)))
 
-        font = pygame.font.Font(self.__fonte, 20)
-        text_surface = font.render('Pausar: esc', True, (255, 255, 255))
-        text_rect = text_surface.get_rect()
-        text_rect.topleft = (5, 10)
-        pygame.draw.rect(display, (0, 0, 0), text_rect.inflate(4, 4).move(-1, -1))
-        display.blit(text_surface, text_rect) 
+        # display.blit(text_borda, (self.__largura/2-158, 18))
+        # display.blit(text_borda, (self.__largura/2-158, 22))
+        # display.blit(text_borda, (self.__largura/2-162, 18))
+        # display.blit(text_borda, (self.__largura/2-162, 22))
+
+        # display.blit(timer_text, (self.__largura/2-160, 20))
+
+        # rect = timer_text.get_rect()
+        # rect.topleft = (self.__altura-160, 20)
+        # pygame.draw.rect(display, (0, 0, 0), rect)  # fundo para o timer
+        # display.blit(timer_text, (self.__altura-160, 20))  # desenha o timer
+
+        preto = (0, 0, 0)
+        branco = (255, 255, 255)
+
+        texto_timer = (time.strftime('%M:%S', time.gmtime(timer_sec)))
+        self.escreve_com_borda(display, texto_timer, 38, self.__largura/2, 40, branco, preto)
+
+        # font = pygame.font.Font(self.__fonte, 20)
+        # text_surface = font.render('Pausar: esc', True, (255, 255, 255))
+        # text_rect = text_surface.get_rect()
+        # text_rect.topleft = (5, 10)
+        # pygame.draw.rect(display, (0, 0, 0),
+        #                  text_rect.inflate(4, 4).move(-1, -1))
+        # display.blit(text_surface, text_rect)
+
+        self.escreve_com_borda(display, 'Pausar: esc', 25, 150, 30, branco, preto)
 
         self.desenhar_bussola_interativos(
             display, posicao_camera, ponto_entrega, item, jogador)
@@ -67,3 +90,18 @@ class RenderizadorJogo():
                             (jogador.coord.y+vetor.y*jogador.tamanho.altura - posicao_camera.y - 5))
             pygame.draw.polygon(display, cor, points=[
                                 ponta_triangulo, base_direita, base_esquerda])
+
+    def escreve_com_borda(self, display, texto, tamanho, x, y, cor_dentro, cor_fora):
+        font = pygame.font.Font(self.__fonte, tamanho)
+        text_surface = font.render(texto, True, cor_dentro)
+        text_borda = font.render(texto, True, cor_fora)
+
+        text_rect = text_surface.get_rect()
+        text_rect.center = (x, y)
+
+        display.blit(text_borda, text_rect.move(-2, -2))
+        display.blit(text_borda, text_rect.move(-2, +2))
+        display.blit(text_borda, text_rect.move(+2, -2))
+        display.blit(text_borda, text_rect.move(+2, +2))
+
+        display.blit(text_surface, text_rect)

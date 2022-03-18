@@ -1,3 +1,4 @@
+import imp
 import pygame
 from Jogador import Jogador
 from Item import Item
@@ -10,7 +11,7 @@ from Mapa import Mapa
 from random import randrange
 from math import floor, ceil
 from Coordenada import Coordenada
-
+from GerenciadorSons import GerenciadorSons
 
 class Fase:
 
@@ -27,6 +28,8 @@ class Fase:
         self.__item_ativo = None
         self.proximoItem()
         self.__vitoria = False
+        self.__som_colisao = GerenciadorSons().getSound('sons', 'colisao')
+        self.__som_item = GerenciadorSons().getSound('sons', 'item')
         # self.__num_itens = num_itens
         # self.__num_inimigos = num_inimigos
 
@@ -106,10 +109,12 @@ class Fase:
             self.proximoItem()
         elif comando_interagir_item and self.__item_ativo != None:
             if self.__jogador.pegarItem(self.__item_ativo):
+                self.__som_item.play()
                 pass  # acao se pegou
 
             if self.__jogador.entregarItem(self.ponto_entrega_ativo):
                 self.item_ativo = None  # acao se entregou
+                self.__som_item.play()
         return False
 
     def colisao_mapa(self, movel):
@@ -156,6 +161,8 @@ class Fase:
                 for j in range(i+1, num_moveis):
                     movel_j = lista_moveis[j]
                     if movel_i.rect.colliderect(movel_j.rect):
+                        self.__som_colisao.set_volume(0.3)
+                        self.__som_colisao.play()
                         movel_i.colidiu(movel_j.coord)
                         movel_j.colidiu(movel_i.coord)
 

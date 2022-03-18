@@ -69,6 +69,7 @@ class MenuPrincipal(Menu):
 
     def move_cursor(self, teclas_clicadas): 
         if teclas_clicadas['s'] == True:
+            self.som_cursor.play()
             if self.__opcao == 'Jogar':
                 self.__cursor_rect.midtop = (
                     self.__distancia_cursor, self.__altura_tutorial)
@@ -86,6 +87,7 @@ class MenuPrincipal(Menu):
                     self.__distancia_cursor, self.__altura_jogar)
                 self.__opcao = 'Jogar'
         elif teclas_clicadas['w'] == True:
+            self.som_cursor.play()
             if self.__opcao == 'Jogar':
                 self.__cursor_rect.midtop = (
                     self.__distancia_cursor, self.__altura_sair)

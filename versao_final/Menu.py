@@ -14,9 +14,7 @@ class Menu(ABC):
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__fundo = GerenciadorImagens().getSprite(
             'fundo_menu', 'fundo_menu', self.largura, self.altura)
-        self.__som_botao = GerenciadorSons().getSound('sons', 'apertou_botao')
         self.__som_cursor = GerenciadorSons().getSound('sons', 'mudando_cursor')
-        self.__musica_menu = GerenciadorSons().getMusic('musica', 'musica_menu')
 
 
     @property
@@ -24,17 +22,9 @@ class Menu(ABC):
         return self.__tamanho_display
     
     @property
-    def som_botao(self):
-        return self.__som_botao
-    
-    @property
     def som_cursor(self):
         return self.__som_cursor
     
-    @property
-    def musica_menu(self):
-        return self.__musica_menu
-        
     @property
     def display(self):
         return self.__display
