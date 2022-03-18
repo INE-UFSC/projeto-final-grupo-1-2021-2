@@ -296,6 +296,6 @@ class ControladorJogo:
                     self.__estado = Estados(0)
 
     def reiniciaTimer(self):
-        self.__timer_sec = 2
+        self.__timer_sec = 120
         pygame.time.set_timer(self.__timer, 1000)
 
