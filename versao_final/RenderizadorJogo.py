@@ -34,38 +34,11 @@ class RenderizadorJogo():
             dados_item = item.desenhar(posicao_camera)
             display.blit(dados_item[0], dados_item[1])
 
-        # fonte_timer = pygame.font.Font(self.__fonte, 38)
-        #fonte_borda = pygame.font.Font(self.__fonte, 42)
-        # text_borda = fonte_timer.render(time.strftime(
-        #              '%M:%S', time.gmtime(timer_sec)), True, ((0,0,0)))
-        # timer_text = fonte_timer.render(time.strftime(
-        #              '%M:%S', time.gmtime(timer_sec)), True, ((255, 255, 255)))
-
-        # display.blit(text_borda, (self.__largura/2-158, 18))
-        # display.blit(text_borda, (self.__largura/2-158, 22))
-        # display.blit(text_borda, (self.__largura/2-162, 18))
-        # display.blit(text_borda, (self.__largura/2-162, 22))
-
-        # display.blit(timer_text, (self.__largura/2-160, 20))
-
-        # rect = timer_text.get_rect()
-        # rect.topleft = (self.__altura-160, 20)
-        # pygame.draw.rect(display, (0, 0, 0), rect)  # fundo para o timer
-        # display.blit(timer_text, (self.__altura-160, 20))  # desenha o timer
-
         preto = (0, 0, 0)
         branco = (255, 255, 255)
 
         texto_timer = (time.strftime('%M:%S', time.gmtime(timer_sec)))
         self.escreve_com_borda(display, texto_timer, 38, self.__largura/2, 40, branco, preto)
-
-        # font = pygame.font.Font(self.__fonte, 20)
-        # text_surface = font.render('Pausar: esc', True, (255, 255, 255))
-        # text_rect = text_surface.get_rect()
-        # text_rect.topleft = (5, 10)
-        # pygame.draw.rect(display, (0, 0, 0),
-        #                  text_rect.inflate(4, 4).move(-1, -1))
-        # display.blit(text_surface, text_rect)
 
         self.escreve_com_borda(display, 'Pausar: esc', 25, 150, 30, branco, preto)
 
