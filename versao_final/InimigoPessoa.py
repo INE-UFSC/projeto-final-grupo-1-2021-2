@@ -31,7 +31,6 @@ class InimigoPessoa(Movel):
                 self.coord_atingido, self.coord)
 
     def colidiu(self, coord: Coordenada):
-        # decicir o que fazer (voltar para spawn, ser jogado para tras, ...)
         self.atingido = 30
         self.coord_atingido = coord
 

@@ -48,7 +48,6 @@ class ControladorJogo:
         self.__menu_pausa = MenuPausa(self.__tamanho_display)
         self.__menu_dif = MenuDificuldade(self.__tamanho_display)
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
-        self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estado = Estados(1)  # menu principal
         self.__camera = None
         self.__som_botao = GerenciadorSons().getSound('sons', 'apertou_botao')

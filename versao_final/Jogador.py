@@ -44,7 +44,6 @@ class Jogador(Movel):
         self.coord_atingido = coord
         if self.item_carregado != None:
             self.perderItem()
-        # expandir depois
 
     def decideDirecao(self, cima: bool, baixo: bool, direita: bool, esquerda: bool):
         if self.atingido == 0:

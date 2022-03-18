@@ -12,10 +12,9 @@ class InimigoObstaculo(Movel):
                 f'Caminho em InimigoObstaculo: {self} eh muito pequeno (len(caminho) < 2)')
         super().__init__(caminho[0], tamanho, velocidade, sprites)
         self.__caminho = deepcopy(caminho)
-        # adicionar isso no diagrama UML
         self.__proximo_ponto_caminho = 1
 
-    def decideDirecao(self):  # mudar no UML
+    def decideDirecao(self):  
         if(self.coord.calculaDistancia(self.__caminho[self.__proximo_ponto_caminho]) <= 0.05):
             self.__proximo_ponto_caminho = (
                 self.__proximo_ponto_caminho + 1) % len(self.__caminho)
@@ -29,7 +28,6 @@ class InimigoObstaculo(Movel):
             self.direcao_deslocamento = Coordenada(
                 direcao.x*intensidade_velocidade, direcao.y*intensidade_velocidade)
 
-    # a principio nao faz nada, talvez implementar algo depois
     def colidiu(self, coord: Coordenada):
         pass
 
