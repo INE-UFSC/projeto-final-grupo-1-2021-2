@@ -13,6 +13,11 @@ class MenuPausa(Menu):
 
     def display_menu(self):
         self.__rect.center = (self.largura/2, self.altura/2)
+        
+        surface = pygame.Surface((self.largura, self.altura))
+        surface.set_alpha(150)
+        surface.fill((0, 0, 0))
+        self.display.blit(surface, (0, 0))
 
         self.display.blit(self.__fundo_pausa, self.__rect)
         self.desenha_texto('Jogo pausado', 60, self.largura / 2,
