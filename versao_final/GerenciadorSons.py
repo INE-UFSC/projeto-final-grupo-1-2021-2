@@ -6,12 +6,6 @@ import os
 class GerenciadorSons(metaclass=Singleton):
     def __init__(self):
         pygame.mixer.init()
-        self.__local_music = {
-
-            'musica': {
-                'musica_jogo': 'musica_jogo.mp3',
-                'musica_menu': 'musica_menu.mp3' }
-            }
         self.__local_sons = {
             'sons': { 
                 'apertou_botao': 'apertou_botao.wav',
@@ -22,8 +16,6 @@ class GerenciadorSons(metaclass=Singleton):
         }
         self.__sons_carregados = None
         self.__carregarSons()
-        self.__musicas_carregadas = None
-        self.__carregarMusicas()
 
     def __carregarSons(self):
         sons = {}
@@ -36,21 +28,7 @@ class GerenciadorSons(metaclass=Singleton):
 
         self.__sons_carregados = sons
 
-    def __carregarMusicas(self):
-        musicas = {}
-        for componente, musica in self.__local_music.items():
-            musicas[componente] = {}
-            for descricao, musica in musica.items():
-                musicas[componente][descricao] = pygame.mixer.music.load(
-                    os.path.join('versao_final', 'sons', musica))
-
-
-        self.__musicas_carregadas = musicas
-
-    def getSound(self, componente: str, descricao: str):
+    def getSound(self, componente: str, descricao: str) -> pygame.mixer.Sound:
         som = self.__sons_carregados[componente][descricao]
         return som
-    
-    def getMusic(self, componente: str, descricao: str):
-        musica = self.__musicas_carregadas[componente][descricao]
-        return musica
+

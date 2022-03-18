@@ -20,6 +20,7 @@ from RenderizadorJogo import RenderizadorJogo
 from MenuVitoria import MenuVitoria
 from MenuPausa import MenuPausa
 from MenuDificuldade import MenuDificuldade
+from GerenciadorSons import GerenciadorSons
 
 
 class ControladorJogo:
@@ -55,7 +56,8 @@ class ControladorJogo:
         self.__estado = Estados(1) #menu principal
         self.__camera = None
         self.__gerenciador_imagens = None
-
+        self.__som_botao = GerenciadorSons().getSound('sons', 'apertou_botao')
+        
     # GETTERS
 
     @property
@@ -253,6 +255,7 @@ class ControladorJogo:
 
         elif self.__estado != 0: #jogando, pausa
             if self.__teclas_clicadas['enter']:
+                self.__som_botao.play()
                 if self.__estado == 1: #principal
                     if self.__menu_prin.opcao == 'Jogar': #mudar para dificuldade -------------------------------
                         self.__estado = Estados(2) #dificuldade        
@@ -276,6 +279,7 @@ class ControladorJogo:
                     self.__estado = Estados(0)
                     
             elif self.__teclas_clicadas['backspace']:
+                self.__som_botao.play()
                 if (# dificuldade, tutorial, creditos, vitoria, derrota
                     self.__estado == 2 or self.__estado == 3 or self.__estado == 4 or
                     self.__estado == 5 or self.__estado == 6
@@ -294,7 +298,7 @@ class ControladorJogo:
             
 
     def reiniciaTimer(self):
-        self.__timer_sec = 10
+        self.__timer_sec = 1000
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
