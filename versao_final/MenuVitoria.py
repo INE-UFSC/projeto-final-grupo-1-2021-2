@@ -23,13 +23,13 @@ class MenuVitoria(Menu):
         
         if not self.__ultima_fase:
             self.desenha_texto("Próxima fase", 30, self.largura/2,
-                           self.altura_jogar, self.branco, self.fonte)
+                           self.__altura_continuar, self.branco, self.fonte)
         self.desenha_texto("Menu princiapal", 30, self.largura/2,
-                           self.altura_tutorial, self.branco, self.fonte)
+                           self.__altura_menu, self.branco, self.fonte)
 
         self.desenha_texto("Voltar: Backspace", 20, self.largura/2 - 200,
                            self.altura/2 + 190, self.branco, self.fonte)
         self.desenha_texto("Avançar: Enter", 20, self.largura/2 + 200,
                            self.altura/2 + 190, self.branco, self.fonte)
-        self.desenha_texto('▶', 20, self.cursor_rect.x,
-                           self.cursor_rect.y, self.branco, self.fonte)
+        self.desenha_texto('▶', 20, self.__cursor_rect.x,
+                           self.__cursor_rect.y, self.branco, self.fonte)
