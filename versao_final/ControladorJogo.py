@@ -35,9 +35,9 @@ class ControladorJogo:
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
         self.__teclas_clicadas = {  # True somente por 1 frame quando soltas
             'w': False, 'a': False, 's': False, 'd': False, 'espaco': False, 'esc': False, 'backspace': False, 'enter': False}
-        self.__timer_font = None
+        #self.__timer_font = None
         self.__timer_sec = 60
-        self.__timer_text = None
+        #self.__timer_text = None
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
@@ -52,7 +52,7 @@ class ControladorJogo:
         self.__menu_dif = MenuDificuldade(self.__tamanho_display)
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
-        self.__estado = Estados(1) #menu principal
+        self.__estado = Estados(1)  # menu principal
         self.__camera = None
         self.__gerenciador_imagens = None
 
@@ -89,7 +89,7 @@ class ControladorJogo:
         self.__display = pygame.display.set_mode(
             self.tamanho_display, pygame.HWSURFACE)
         self.__rodando = True
-        self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
+        #self.__timer_font = pygame.font.Font('PressStart2P-vaV7.ttf', 38)
         self.__timer = pygame.USEREVENT + 1
         self.proxima_fase()
         self.opcao = 'Jogar'
@@ -146,10 +146,10 @@ class ControladorJogo:
         elif evento.type == self.__timer and int(self.__estado) == 0:
             if self.__timer_sec > 0:
                 self.__timer_sec -= 1
-                self.__timer_text = self.__timer_font.render(time.strftime(
-                    '%M:%S', time.gmtime(self.__timer_sec)), True, ((255, 255, 255)))
+                # self.__timer_text = self.__timer_font.render(time.strftime(
+                #     '%M:%S', time.gmtime(self.__timer_sec)), True, ((255, 255, 255)))
             else:
-                self.__estado = Estados(6) #derrota
+                self.__estado = Estados(6)  # derrota
 
     def loop(self):
         self.MudaEstados()
@@ -162,7 +162,7 @@ class ControladorJogo:
             self.__camera.moverCamera()
 
         elif self.__estado == 1:  # principal
-            self.move_cursor()            
+            self.move_cursor()
 
         elif self.__estado == 7:  # pause
             # colocar acoes de pause aqui
@@ -178,26 +178,26 @@ class ControladorJogo:
             self.__render_jogo.renderizar(
                 self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                 self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador,
-                self.__fase.item_ativo, self.__timer_text)
+                self.__fase.item_ativo, self.__timer_sec)
             # renderizar interface
 
         elif self.__estado == 1:  # principal
             self.__menu_prin.display_menu()
 
         elif self.__estado == 2:  # dificuldade
-            #menu dificuldade
+            # menu dificuldade
             pass
 
-        elif self.__estado == 3: #tutorial
+        elif self.__estado == 3:  # tutorial
             self.__menu_tut.display_menu()
 
-        elif self.__estado == 4: #creditos
+        elif self.__estado == 4:  # creditos
             self.__menu_crd.display_menu()
 
-        elif self.__estado == 5: #vitoria
+        elif self.__estado == 5:  # vitoria
             self.__menu_vit.display_menu()
 
-        elif self.__estado == 6: #derrota
+        elif self.__estado == 6:  # derrota
             self.__menu_derr.display_menu()
 
         elif self.__estado == 7:  # pause
@@ -205,7 +205,7 @@ class ControladorJogo:
             self.__render_jogo.renderizar(
                 self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
                 self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador,
-                self.__fase.item_ativo, self.__timer_text)
+                self.__fase.item_ativo, self.__timer_sec)
             self.__menu_pausa.display_menu()
             # renderizar menu de pause
 
@@ -253,13 +253,6 @@ class ControladorJogo:
     def proxima_fase(self):
         self.novaFase()
 
-    def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
-        font = pygame.font.Font(fonte, tamanho)
-        text_surface = font.render(texto, True, cor)
-        text_rect = text_surface.get_rect()
-        text_rect.center = (x, y)
-        self.__display.blit(text_surface, text_rect)
-
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
         if self.__teclas_clicadas['s'] == True:
             if self.opcao == 'Jogar':
@@ -300,48 +293,48 @@ class ControladorJogo:
         if self.__fase.vitoria == True:
             self.__estado = Estados(5)
 
-        elif self.__estado != 0 and self.__estado != 7: #jogando, pausa
+        elif self.__estado != 0 and self.__estado != 7:  # jogando, pausa
             if self.__teclas_clicadas['enter']:
-                if self.__estado == 1: #principal
-                    if self.opcao == 'Jogar': #mudar para dificuldade -------------------------------
-                        self.__estado = Estados(0) #jogando
+                if self.__estado == 1:  # principal
+                    # mudar para dificuldade -------------------------------
+                    if self.opcao == 'Jogar':
+                        self.__estado = Estados(0)  # jogando
                         self.proxima_fase()
-                        self.reinicia_timer()           
+                        self.reinicia_timer()
                     elif self.opcao == 'Tutorial':
-                        self.__estado = Estados(3) #tutorial                
+                        self.__estado = Estados(3)  # tutorial
                     elif self.opcao == 'Créditos':
-                        self.__estado = Estados(4) #creditos
+                        self.__estado = Estados(4)  # creditos
                     elif self.opcao == 'Sair':
                         self.__rodando = False
-                    
-                if self.__estado == 5: #vitoria
+
+                if self.__estado == 5:  # vitoria
                     pass
 
-                if self.__estado == 6: #derrota
+                if self.__estado == 6:  # derrota
                     pass
 
-                if self.__estado == 7: #pausa
+                if self.__estado == 7:  # pausa
                     pass
-                    
+
             elif self.__teclas_clicadas['backspace']:
-                if (# dificuldade, tutorial, creditos, vitoria, derrota
+                if (  # dificuldade, tutorial, creditos, vitoria, derrota
                     self.__estado == 2 or self.__estado == 3 or self.__estado == 4 or
                     self.__estado == 5 or self.__estado == 6
-                    ):
-                    self.__estado = Estados(1) #principal
-        
+                ):
+                    self.__estado = Estados(1)  # principal
+
         elif self.__estado == 0 or self.__estado == 7:
             if self.__teclas_clicadas['esc'] or self.__teclas_clicadas['backspace']:
                 if self.__estado == 0:
                     self.__estado = Estados(7)
                 elif self.__estado == 7:
                     self.__estado = Estados(0)
-            
 
     def reinicia_timer(self):
-        self.__timer_sec = 10
-        self.__timer_text = self.__timer_font.render(
-            "02:00", True, ((255, 255, 255)))
+        self.__timer_sec = 120
+        # self.__timer_text = self.__timer_font.render(
+        #     "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
     # vou chamar o metodo dentro do mudo estados, para que toda vez que o jogo inicie
     # o timer seja reiniciado
