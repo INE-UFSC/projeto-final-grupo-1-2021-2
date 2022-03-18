@@ -162,6 +162,7 @@ class Fase:
                 for j in range(i+1, num_moveis):
                     movel_j = lista_moveis[j]
                     if movel_i.rect.colliderect(movel_j.rect):
+                        self.__som_colisao.set_volume(0.3)
                         self.__som_colisao.play()
                         movel_i.colidiu(movel_j.coord)
                         movel_j.colidiu(movel_i.coord)
