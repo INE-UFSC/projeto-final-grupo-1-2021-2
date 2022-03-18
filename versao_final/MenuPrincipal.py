@@ -15,6 +15,7 @@ class MenuPrincipal(Menu):
         self.__altura_sair = self.altura/2 + 60
         self.__cursor_rect = pygame.Rect(
             self.__distancia_cursor, self.__altura_jogar, 130, 130)
+        self.__opcao = 'Jogar'
 
     @property
     def distancia_cursor(self):
@@ -61,3 +62,39 @@ class MenuPrincipal(Menu):
                            self.altura/2 + 190, self.branco, self.fonte)
         self.desenha_texto('▶', 20, self.cursor_rect.x,
                            self.cursor_rect.y, self.branco, self.fonte)
+
+    def move_cursor(self, teclas_clicadas): 
+        if teclas_clicadas['s'] == True:
+            if self.__opcao == 'Jogar':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_tutorial)
+                self.__opcao = 'Tutorial'
+            elif self.__opcao == 'Tutorial':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_creditos)
+                self.__opcao = 'Créditos'
+            elif self.__opcao == 'Créditos':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_sair)
+                self.__opcao = 'Sair'
+            elif self.__opcao == 'Sair':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_jogar)
+                self.__opcao = 'Jogar'
+        elif teclas_clicadas['w'] == True:
+            if self.__opcao == 'Jogar':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_sair)
+                self.__opcao = 'Sair'
+            elif self.__opcao == 'Sair':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_creditos)
+                self.__opcao = 'Créditos'
+            elif self.__opcao == 'Créditos':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_tutorial)
+                self.__opcao = 'Tutorial'
+            elif self.__opcao == 'Tutorial':
+                self.__cursor_rect.midtop = (
+                    self.__distancia_cursor, self.__altura_jogar)
+                self.__opcao = 'Jogar'

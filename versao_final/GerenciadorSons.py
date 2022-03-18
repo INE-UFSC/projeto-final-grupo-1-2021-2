@@ -5,6 +5,7 @@ import os
 
 class GerenciadorSons(metaclass=Singleton):
     def __init__(self):
+        pygame.mixer.init()
         self.__local_music = {
 
             'musica': {
