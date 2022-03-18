@@ -18,11 +18,8 @@ from GerenciadorImagens import GerenciadorImagens
 from MenuDerrota import MenuDerrota
 from RenderizadorJogo import RenderizadorJogo
 from MenuVitoria import MenuVitoria
-<<<<<<< HEAD
-=======
 from MenuPausa import MenuPausa
 from MenuDificuldade import MenuDificuldade
->>>>>>> ac2cbe7e0893b23d0a73f837df8c0726d76c43a8
 
 
 class ControladorJogo:
@@ -51,11 +48,8 @@ class ControladorJogo:
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
         self.__menu_derr = MenuDerrota(self.__tamanho_display)
         self.__menu_vit = MenuVitoria(self.__tamanho_display)
-<<<<<<< HEAD
-=======
         self.__menu_pausa = MenuPausa(self.__tamanho_display)
         self.__menu_dif = MenuDificuldade(self.__tamanho_display)
->>>>>>> ac2cbe7e0893b23d0a73f837df8c0726d76c43a8
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estado = Estados(1) #menu principal
@@ -172,13 +166,7 @@ class ControladorJogo:
 
         elif self.__estado == 7:  # pause
             # colocar acoes de pause aqui
-<<<<<<< HEAD
             pass
-=======
-            self.__menu_pausa.display_menu() #não funciona
-            if self.__teclas_clicadas['esc']:
-                self.__estado_jogo = EstadosControlador(1)
->>>>>>> ac2cbe7e0893b23d0a73f837df8c0726d76c43a8
 
         if True in self.__teclas_clicadas.values():
             for k in self.__teclas_clicadas.keys():
@@ -196,20 +184,12 @@ class ControladorJogo:
         elif self.__estado == 1:  # principal
             self.__menu_prin.display_menu()
 
-<<<<<<< HEAD
         elif self.__estado == 2:  # dificuldade
             #menu dificuldade
-=======
-        elif int(self.__estado_jogo) == 2:  # pause
-            self.__menu_pausa.display_menu() # não funciona
-            # rederizar jogo um pouco mais escuro
-            # renderizar menu de pause
->>>>>>> ac2cbe7e0893b23d0a73f837df8c0726d76c43a8
             pass
 
         elif self.__estado == 3: #tutorial
             self.__menu_tut.display_menu()
-<<<<<<< HEAD
 
         elif self.__estado == 4: #creditos
             self.__menu_crd.display_menu()
@@ -228,27 +208,6 @@ class ControladorJogo:
                 self.__fase.item_ativo, self.__timer_text)
             self.__display.fill((0,0,0,30))
             # renderizar menu de pause
-=======
-        elif self.__jogando == True and self.__estados['jogo'] == True:
-            self.__render_jogo.renderizar(self.__display, self.__camera.posicao_int, self.__fase.mapa, self.__fase.ponto_entrega_ativo,
-                                          self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador, self.__fase.item_ativo, self.__timer_text)
-
-            if self.__fase.vitoria == True:
-                # self.desenha_texto("Vitória!", 50, self.largura/2,
-                # self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
-                self.proxima_fase()
-
-                self.__menu_vit.display_menu()
-                if self.__teclas_pressionadas['backspace'] == True:
-                    self.__estados['principal'] = True
-
-        elif self.__fase.vitoria != True and self.__jogando == False:
-            self.proxima_fase()
-            self.__estados['game_over'] = True
-            self.__menu_derr.display_menu()
-            if self.__teclas_pressionadas['backspace'] == True:
-                self.__estados['principal'] = True
->>>>>>> ac2cbe7e0893b23d0a73f837df8c0726d76c43a8
 
         pygame.display.flip()
 
