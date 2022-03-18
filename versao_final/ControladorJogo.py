@@ -91,7 +91,6 @@ class ControladorJogo:
         self.__rodando = True
         self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
         self.__timer = pygame.USEREVENT + 1
-        self.proxima_fase()
         self.opcao = 'Jogar'
         self.__gerenciador_imagens = GerenciadorImagens()
 
@@ -144,12 +143,8 @@ class ControladorJogo:
 
         # se for do timer e se estiver jogando
         elif evento.type == self.__timer and int(self.__estado) == 0:
-            if self.__timer_sec > 0:
+            if self.__timer_sec >= 0:
                 self.__timer_sec -= 1
-                self.__timer_text = self.__timer_font.render(time.strftime(
-                    '%M:%S', time.gmtime(self.__timer_sec)), True, ((255, 255, 255)))
-            else:
-                self.__estado = Estados(6) #derrota
 
     def loop(self):
         self.MudaEstados()
@@ -224,7 +219,6 @@ class ControladorJogo:
             self.loop()
             self.renderizar()
             self.__timer_fps.tick(self.__fps)
-            # self.proxima_fase()
             # NAO COLOQUE CODIGO AQUI, COLOQUE OU NO LOOP() OU NO RENDERIZAR() (DEPENDENDO DO PROPOSITO)!
         self.limpar()
 
@@ -238,27 +232,15 @@ class ControladorJogo:
         print(self.__nivel_atual)
 
     def decide_fase(self):
-        self.__dificuldade = 0
-        if self.__fase == None:
-            self.__nivel_atual = 'mercado'
-        elif self.__fase.vitoria == True:
+        if self.__estado == 6: #derrota
+            pass #continua igual
+        elif self.__estado == 5: #vitoria
             if self.__nivel_atual == 'mercado':
                 self.__nivel_atual = 'cozinha'
             elif self.__nivel_atual == 'cozinha':
                 self.__nivel_atual = 'restaurante'
-                self.__ultima_fase = True
-            else:
-                self.__nivel_atual = 'mercado'
-
-    def proxima_fase(self):
-        self.novaFase()
-
-    def desenha_texto(self, texto, tamanho, x, y, cor, fonte):
-        font = pygame.font.Font(fonte, tamanho)
-        text_surface = font.render(texto, True, cor)
-        text_rect = text_surface.get_rect()
-        text_rect.center = (x, y)
-        self.__display.blit(text_surface, text_rect)
+        elif self.__estado == 2 or self.__estado == 1: #dificuldade principal(temporario)
+            self.__nivel_atual = 'mercado'
 
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
         if self.__teclas_clicadas['s'] == True:
@@ -297,7 +279,10 @@ class ControladorJogo:
                 self.opcao = 'Jogar'
 
     def MudaEstados(self):
-        if self.__fase.vitoria == True:
+        if self.__timer_sec <= -1:
+            self.__estado = Estados(6) #derrota
+
+        elif self.__fase != None and self.__fase.vitoria == True:
             self.__estado = Estados(5)
 
         elif self.__estado != 0 and self.__estado != 7: #jogando, pausa
@@ -305,8 +290,8 @@ class ControladorJogo:
                 if self.__estado == 1: #principal
                     if self.opcao == 'Jogar': #mudar para dificuldade -------------------------------
                         self.__estado = Estados(0) #jogando
-                        self.proxima_fase()
-                        self.reinicia_timer()           
+                        self.novaFase()
+                        self.reiniciaTimer()           
                     elif self.opcao == 'Tutorial':
                         self.__estado = Estados(3) #tutorial                
                     elif self.opcao == 'Créditos':
@@ -338,7 +323,7 @@ class ControladorJogo:
                     self.__estado = Estados(0)
             
 
-    def reinicia_timer(self):
+    def reiniciaTimer(self):
         self.__timer_sec = 10
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
