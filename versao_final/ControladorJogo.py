@@ -15,6 +15,7 @@ from MenuTutorial import MenuTutorial
 from Camera import Camera
 from Estados import EstadosControlador
 from GerenciadorImagens import GerenciadorImagens
+from MenuDerrota import MenuDerrota
 
 
 class ControladorJogo:
@@ -40,6 +41,7 @@ class ControladorJogo:
         self.__menu_prin = MenuPrincipal(self.__tamanho_display)
         self.__menu_crd = MenuCreditos(self.__tamanho_display)
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
+        self.__menu_derr = MenuDerrota(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
                           'creditos': False, 'jogo': False, 'game_over': False}
