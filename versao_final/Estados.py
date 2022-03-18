@@ -9,12 +9,3 @@ class Estados(IntEnum):
     VITORIA = 5
     DERROTA = 6
     PAUSA = 7
-
-
-class EstadosMenus(IntEnum):
-    PRINCIPAL = 0
-    TUTORIAL = 1
-    CREDITOS = 2
-    VITORIA = 3
-    DERROTA = 4
-    PAUSA = 5 #?
