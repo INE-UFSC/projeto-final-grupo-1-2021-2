@@ -39,11 +39,12 @@ class RenderizadorJogo():
         pygame.draw.rect(display, (0, 0, 0), rect)  # fundo para o timer
         display.blit(timer_text, (self.__altura-160, 20))  # desenha o timer
 
-        # font = pygame.font.Font(self.__fonte, 50)
-        # text_surface = font.render(texto, True, cor)
-        # text_rect = text_surface.get_rect()
-        # text_rect.center = (x, y)
-        # self.__display.blit(text_surface, text_rect) 
+        font = pygame.font.Font(self.__fonte, 20)
+        text_surface = font.render('Pausar: esc', True, (255, 255, 255))
+        text_rect = text_surface.get_rect()
+        text_rect.topleft = (5, 10)
+        pygame.draw.rect(display, (0, 0, 0), text_rect.inflate(4, 4).move(-1, -1))
+        display.blit(text_surface, text_rect) 
 
         self.desenhar_bussola_interativos(
             display, posicao_camera, ponto_entrega, item, jogador)
