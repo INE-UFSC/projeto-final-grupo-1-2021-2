@@ -12,7 +12,7 @@ class MenuTutorial(Menu):
         self.display.blit(self.fundo, (0,0))
         self.desenha_texto('Tutorial', 60, self.largura / 2,
                            self.altura / 8, self.branco, self.fonte)
-        self.desenha_texto("Andar para Direira:  D", 25, self.largura/2,
+        self.desenha_texto("Andar para Direita:  D", 25, self.largura/2,
                            self.altura/2 - 190, self.branco, self.fonte)
         self.desenha_texto("Andar para Esquerda: A", 25, self.largura/2,
                            self.altura/2 - 140, self.branco, self.fonte)

@@ -17,6 +17,7 @@ from Estados import EstadosControlador
 from GerenciadorImagens import GerenciadorImagens
 from MenuDerrota import MenuDerrota
 from RenderizadorJogo import RenderizadorJogo
+from MenuVitoria import MenuVitoria
 
 
 class ControladorJogo:
@@ -38,11 +39,13 @@ class ControladorJogo:
         self.__timer = None
         self.__fps = 60
         self.__timer_fps = pygame.time.Clock()
+        self.__ultima_fase = False
         #self.__menu = Menu()
         self.__menu_prin = MenuPrincipal(self.__tamanho_display)
         self.__menu_crd = MenuCreditos(self.__tamanho_display)
         self.__menu_tut = MenuTutorial(self.__tamanho_display)
         self.__menu_derr = MenuDerrota(self.__tamanho_display)
+        self.__menu_vit = MenuVitoria(self.__tamanho_display)
         self.__render_jogo = RenderizadorJogo(self.__tamanho_display)
         self.__fonte = 'PressStart2P-vaV7.ttf'
         self.__estados = {'principal': True, 'tutorial': False,
@@ -57,7 +60,6 @@ class ControladorJogo:
     @property
     def fase(self):
         return self.__fase
-
 
     @property
     def nivel_atual(self):
@@ -88,14 +90,9 @@ class ControladorJogo:
         self.__rodando = True
         self.__jogando = False
         self.__timer_font = pygame.font.Font("freesansbold.ttf", 38)
-        # self.__timer_text = self.__timer_font.render(
-        # "01:00", True, ((255, 255, 255)))
         self.__timer = pygame.USEREVENT + 1
         self.proxima_fase()
-        #pygame.time.set_timer(self.__timer, 1000)
-        # self.novaFase()
         self.opcao = 'Jogar'
-        #self.__camera = Camera(self.fase.jogador.rect, self.tamanho_display)
         self.__gerenciador_imagens = GerenciadorImagens()
 
     def eventos(self, evento):
@@ -215,22 +212,25 @@ class ControladorJogo:
                                           self.__fase.inimigos_obstaculo, self.__fase.inimigos_pessoa, self.__fase.jogador, self.__fase.item_ativo, self.__timer_text)
 
             if self.__fase.vitoria == True:
-                self.desenha_texto("Vitória!", 50, self.largura/2,
-                                   self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
+                # self.desenha_texto("Vitória!", 50, self.largura/2,
+                # self.altura/2 - 50, ((138, 47, 47)), self.__fonte)
                 self.proxima_fase()
+
+                self.__menu_vit.display_menu()
+                if self.__teclas_pressionadas['backspace'] == True:
+                    self.__estados['principal'] = True
 
         elif self.__fase.vitoria != True and self.__jogando == False:
             self.proxima_fase()
-            self.__display.fill((0, 0, 0))
             self.__estados['game_over'] = True
-            self.desenha_texto("Game Over", 50, self.largura/2,
-                               self.altura/2, ((138, 47, 47)), self.__fonte)
-            self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
-                               self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
-            if self.__teclas_pressionadas['a'] == True:
+            # self.__display.fill((0, 0, 0))
+            # self.desenha_texto("Game Over", 50, self.largura/2,
+            #                    self.altura/2, ((138, 47, 47)), self.__fonte)
+            # self.desenha_texto("Aperte A para retornar ao Menu Principal", 12,
+            #                    self.largura/2, self.altura/2 + 80, ((255, 255, 255)), self.__fonte)
+            self.__menu_derr.display_menu()
+            if self.__teclas_pressionadas['backspace'] == True:
                 self.__estados['principal'] = True
-        '''    else:
-                self.inicializar() == False'''
 
         pygame.display.flip()
 
@@ -261,7 +261,7 @@ class ControladorJogo:
         print(self.__nivel_atual)
 
     def decide_fase(self):
-        self.__dificuldade = 2
+        self.__dificuldade = 0
         if self.__fase == None:
             self.__nivel_atual = 'mercado'
         elif self.__fase.vitoria == True:
@@ -269,6 +269,7 @@ class ControladorJogo:
                 self.__nivel_atual = 'cozinha'
             elif self.__nivel_atual == 'cozinha':
                 self.__nivel_atual = 'restaurante'
+                self.__ultima_fase = True
             else:
                 self.__nivel_atual = 'mercado'
 
@@ -350,7 +351,7 @@ class ControladorJogo:
                     self.__estados['creditos'] = False
 
     def reinicia_timer(self):
-        self.__timer_sec = 120
+        self.__timer_sec = 10
         self.__timer_text = self.__timer_font.render(
             "02:00", True, ((255, 255, 255)))
         pygame.time.set_timer(self.__timer, 1000)
