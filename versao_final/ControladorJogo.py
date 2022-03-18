@@ -244,10 +244,10 @@ class ControladorJogo:
         if self.__timer_sec <= -1 and self.__estado == 0:  # jogando
             self.__estado = Estados(6)  # derrota
 
-        elif self.__fase != None and self.__fase.vitoria == True:
+        if self.__fase != None and self.__fase.vitoria == True and self.__estado == 0:
             self.__estado = Estados(5)
 
-        elif self.__estado != 0:  # jogando, pausa
+        if self.__estado != 0:  # jogando, pausa
             if self.__teclas_clicadas['enter']:
                 self.__som_botao.play()
                 if self.__estado == 1:  # principal
@@ -266,7 +266,14 @@ class ControladorJogo:
                     self.novaFase()
                     self.__estado = Estados(0)  # jogando
 
-                elif self.__estado == 5 or self.__estado == 6:  # vitoria derrota
+                elif self.__estado == 5:  # vitoria
+                    if self.__nivel_atual == 'restaurante':
+                        self.__estado = Estados(1)
+                    else:
+                        self.novaFase()
+                        self.__estado = Estados(0)
+                
+                elif self.__estado == 6: #derrota
                     self.novaFase()
                     self.__estado = Estados(0)
 

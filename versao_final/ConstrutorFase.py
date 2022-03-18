@@ -39,7 +39,7 @@ class ConstrutorFase(metaclass=Singleton):
         for pe in mapa.pontos_entrega:
             pontos_entrega.append(PontoEntrega(pe))
 
-        num_itens = 6 + dificuldade * 2
+        num_itens = 1 + dificuldade * 2
         itens_diferentes = len(
             self.__biblioteca.getItensDificuldade(dificuldade, nivel))
         lista_itens = []
